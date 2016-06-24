@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="moment.js"></script>
+		<script src="moment-timezone-with-data.js"></script>
+		<script src="widgets.js"></script>
+		<script src="timers.js"></script>
+	</head>
+	<body>
+		<div>
+			<ul id="x">
+				<li>at=09:00 label=9</li>
+				<li>at=11:00 label=11</li>
+				<li>at=15:00 label=15</li>
+				<li>at=17:00 label=17</li>
+				<li>at=19:00 label=19</li>
+				<li>at=21:00 label=21</li>
+			</ul>
+			<script>
+			var list = [];
+		$('#x').children("li").each(function () {
+			list.push($(this).html().trim());
+		});
+				var g = generators.select_erinn('', list);
+
+				for (var i = 0; i < 10; i++) {
+					document.write('<div>' + g.time().format() + ' ' + g.value() + '</div>');
+					g.next();
+				}
+			</script>
+		</div>
+	</body>
+</html>
