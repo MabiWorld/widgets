@@ -118,31 +118,92 @@ jQuery.fn.style = function(x) {
 	return this;
 }
 
-function Display($elem, args, timer) {
+// Predefined display formats
+displays = {}
+
+displays.list = function($elem, args, timer) {
+	args.show = args.show || [2]; // list defaults to 2 shown
+	args.output = args.output || ['&nbsp;%v'];
+
+	function displayer($elem, idx, formatter) {
+		return $elem.append($("<span>").style(args.timeStyle).text(timer.time(idx).local().format("h:mm a")))
+		.append($("<span>").style(args.valueStyle).html(formatter(args.output[0], idx)));
+	}
+
+	return new Display($elem, args, timer, displayer);
+}
+
+function Display($elem, args, timer, displayer) {
+	var self = this;
+	var show = args.show ? args.show[0] : 1;
 	var skip = args.skip ? args.skip[0] : 0;
-	var show = args.show ? args.show[0] : 2;
 
 	// Create display widget...
-	var $container = $("<div>").addClass("display-time-").style(args.displayStyle).appendTo($elem);
+	var $container = $("<div>").addClass("display-time").style(args.displayStyle).appendTo($elem);
 	if (args.label) {
 		var $head = $("<span>").addClass("timer-label").style(args.labelStyle).html(args.label[0])
 		$head.appendTo($container);
 	}
 	var $display = $("<div>").style(args.listStyle).appendTo($container);
 
+	// formatter function to replace % options
+	this._formatter = function(output, relative) {
+		// We process the following tokens:
+		//   %v[n]     replaced with the value of the event
+		//   %t[n][{f}]  replaced with the time of the event
+		//   %c[n]
+		// Options:
+		//    n: relative index of the event to retrieve. Defaults to 0 if omitted.
+		//    f: format string passed to moment's format() method
+
+
+		var final = '';
+		var last = 0;
+
+		while (last != output.length) {
+			var next = output.indexOf('%', last); // Find next %
+			final += output.substring(last, next < 0 ? undefined : next); // Copy all chars up to it to the output
+			if (next == -1) // Not found? We're done.
+				break;
+			++next; // Skip over %
+
+			var token = output.substring(next); // Cut off everything before this token
+			var m;
+
+			if ((m = token.match(/v(-?\d*)/))) { // Value of the entry
+				final += timer.value(relative + (parseInt(m[1]) || 0));
+			} else if ((m = token.match(/t(-?\d*)((?:{[^}]+})?)/))) { // Time of the entry
+				final += timer.time(relative + (parseInt(m[1]) || 0)).local().format(m[2] || 'h:mm a');
+			} else if ((m = token.match(/c(-?\d*)/))) { // countdown till entry
+				final += '<span class="timer-countdown timer-n' + (relative + (parseInt(m[1]) || 0)) + '"></span>';
+			}
+
+			if (m) {
+				next += m[0].length; // Don't output token
+			}
+			last = next;
+		}
+
+		return final;
+	}
+
 	this.update = function() {
 		// Clear it out
 		$display.empty();
 
 		// Add new items
-		for (var i = skip; i < show+skip; i++) {
-			var label = timer.value(i), time = timer.time(i);
-
-			$display.append($("<div>").addClass("display-entry").style(args.entryStyle)
-				.append($("<span>").addClass("display-time").style(args.timeStyle).text(time.local().format("h:mm:ss a")))
-				.append($("<span>").addClass("display-label").style(args.valueStyle).html(label))
-			);
+		for (var i = 0; i < show; i++) {
+			$entry = $("<div>").addClass("display-entry").style(args.entryStyle);
+			$display.append(displayer($entry, i+skip, self._formatter));
 		}
+
+		// Process any countdowns
+		$display.find('.timer-countdown').each(function() {
+			var $this = $(this);
+			var time = timer.time(parseInt($this.attr('class').match(/timer-n(\d+)/)[1]));
+			$this.style(args.timeStyle);
+			countDown($this, time, undefined, function(x) {x.text("passed")});
+		});
 	}
 
 	this.increase = function () {
