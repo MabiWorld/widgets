@@ -163,7 +163,8 @@
 
 			var g = generators.select_erinn('', list);
 			var timer = new Timer(g);
-			var display = displays.list($('#x'), {'show':[10], 'output':['Event %v will tick at %t which is in %c.']}, timer);
+			//var display = displays.list($('#x'), {'show':[10], 'output':['Event %v will tick at %t which is in %c.']}, timer);
+			var display = displays.countdown($('#x'), {'show':[10], 'output':['%v for %c1']}, timer);
 
 		</script>
 	</body>
