@@ -36,6 +36,29 @@ function argumentError(warning) {
 
 generators = {}
 
+// Query generator takes a timer and searches its future
+// for events. It then generates 'bounding' events, aka
+// one event for the start time and another for the end time
+//
+// Example:
+//   18:00 - Ceo Starts
+//   (next day) 18:00 - Ceo Ends
+generators.query = function(args, list) {
+	var self = this;
+	if (!args.timer && !args.id)
+		return argumentError('ID or timer must be given');
+	var timer = args.timer[0] || $('#' + args.id[0]).data('timer');
+	if (!timer)
+		return argumentError('Timer not found');
+
+	var entries = {}
+	for (var i = 0; i < list.length; i++) {
+		var set = parseSettings(list[i]);
+		var lookFor = set.lookFor;
+		var callIt = set.callIt || lookFor;
+		entries[lookFor] = callIt;
+	}
+}
 
 // Selects based on time of day
 generators.select_erinn = function(args, list) {

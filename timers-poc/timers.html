@@ -74,5 +74,57 @@
 				displays.status($('#display_status'), {}, erinnClockTimer);
 			</script>
 		</div>
+
+		<h3>Display - Show</h3>
+		<div class="test-group">
+			<div class="test">
+				<div class="test-name">List (Default)</div>
+				<div id="display_show_list"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">List (Custom)</div>
+				<div id="display_show_list_c"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Countdown</div>
+				<div id="display_show_countdown"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Status</div>
+				<div id="display_show_status"></div>
+			</div>
+			<script>
+				displays.list($('#display_show_list'), {'show':[5]}, erinnClockTimer);
+				displays.list($('#display_show_list_c'), {'show':[5],'output':['&nbsp;Event %v will tick at %t{h:mm:ss a} which is in %c.']}, erinnClockTimer);
+				displays.countdown($('#display_show_countdown'), {'show':[5]}, erinnClockTimer);
+				displays.status($('#display_show_status'), {'show':[5]}, erinnClockTimer);
+			</script>
+		</div>
+
+		<h3>Display - Skip</h3>
+		<div class="test-group">
+			<div class="test">
+				<div class="test-name">List (Default)</div>
+				<div id="display_skip_list"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">List (Custom)</div>
+				<div id="display_skip_list_c"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Countdown</div>
+				<div id="display_skip_countdown"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Status</div>
+				<div id="display_skip_status"></div>
+			</div>
+			<script>
+				displays.list($('#display_skip_list'), {'show':[5],'skip':[1]}, erinnClockTimer);
+				displays.list($('#display_skip_list_c'), {'show':[5],'skip':[1],'output':['&nbsp;Event %v will tick at %t{h:mm:ss a} which is in %c.']}, erinnClockTimer);
+				displays.countdown($('#display_skip_countdown'), {'show':[5],'skip':[1]}, erinnClockTimer);
+				displays.status($('#display_skip_status'), {'show':[5],'skip':[1]}, erinnClockTimer);
+			</script>
+		</div>
 	</body>
 </html>
