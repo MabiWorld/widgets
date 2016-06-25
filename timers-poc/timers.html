@@ -1,172 +1,78 @@
 <html>
 	<head>
+		<style type="text/css">
+			.test-group {
+				width: 100%;
+				padding-left: 5px;
+				padding-right: 5px;
+				padding-top: -5px;
+				overflow: auto;
+			}
+
+			.test {
+				display: inline-block;
+				margin: 5px;
+				border: 2px solid black;
+				border-radius: 5px;
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.test-name {
+				text-align: center;
+				font-weight: bold;
+				border-bottom: 1px solid black;
+				margin-bottom: 2px;
+			}
+
+			body {
+				font-family: "Courier New", Courier, monospace
+			}
+		</style>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script src="moment.js"></script>
 		<script src="moment-timezone-with-data.js"></script>
 		<script src="widgets.js"></script>
 		<script src="timers.js"></script>
+
+		<script type="text/javascript">
+			var erinnClockList = [];
+			for (var h = 0; h < 24; h++) {
+				for (var m = 0; m < 60; m += 10) {
+					var time = (h == 0 ? '0' : '') + h + ':' + (m == 0 ? '0' : '') + m
+					erinnClockList.push('at=' + time + ' label=' + time);
+				}
+			}
+			var erinnClockGen = generators.select_erinn('', erinnClockList);
+			var erinnClockTimer = new Timer(erinnClockGen);
+		</script>
 	</head>
 	<body>
-		<div id="x">
-			<ul>
-				<li>at=0:00 label=&nbsp;0:00</li>
-				<li>at=0:10 label=&nbsp;0:10</li>
-				<li>at=0:20 label=&nbsp;0:20</li>
-				<li>at=0:30 label=&nbsp;0:30</li>
-				<li>at=0:40 label=&nbsp;0:40</li>
-				<li>at=0:50 label=&nbsp;0:50</li>
-				<li>at=1:00 label=&nbsp;1:00</li>
-				<li>at=1:10 label=&nbsp;1:10</li>
-				<li>at=1:20 label=&nbsp;1:20</li>
-				<li>at=1:30 label=&nbsp;1:30</li>
-				<li>at=1:40 label=&nbsp;1:40</li>
-				<li>at=1:50 label=&nbsp;1:50</li>
-				<li>at=2:00 label=&nbsp;2:00</li>
-				<li>at=2:10 label=&nbsp;2:10</li>
-				<li>at=2:20 label=&nbsp;2:20</li>
-				<li>at=2:30 label=&nbsp;2:30</li>
-				<li>at=2:40 label=&nbsp;2:40</li>
-				<li>at=2:50 label=&nbsp;2:50</li>
-				<li>at=3:00 label=&nbsp;3:00</li>
-				<li>at=3:10 label=&nbsp;3:10</li>
-				<li>at=3:20 label=&nbsp;3:20</li>
-				<li>at=3:30 label=&nbsp;3:30</li>
-				<li>at=3:40 label=&nbsp;3:40</li>
-				<li>at=3:50 label=&nbsp;3:50</li>
-				<li>at=4:00 label=&nbsp;4:00</li>
-				<li>at=4:10 label=&nbsp;4:10</li>
-				<li>at=4:20 label=&nbsp;4:20</li>
-				<li>at=4:30 label=&nbsp;4:30</li>
-				<li>at=4:40 label=&nbsp;4:40</li>
-				<li>at=4:50 label=&nbsp;4:50</li>
-				<li>at=5:00 label=&nbsp;5:00</li>
-				<li>at=5:10 label=&nbsp;5:10</li>
-				<li>at=5:20 label=&nbsp;5:20</li>
-				<li>at=5:30 label=&nbsp;5:30</li>
-				<li>at=5:40 label=&nbsp;5:40</li>
-				<li>at=5:50 label=&nbsp;5:50</li>
-				<li>at=6:00 label=&nbsp;6:00</li>
-				<li>at=6:10 label=&nbsp;6:10</li>
-				<li>at=6:20 label=&nbsp;6:20</li>
-				<li>at=6:30 label=&nbsp;6:30</li>
-				<li>at=6:40 label=&nbsp;6:40</li>
-				<li>at=6:50 label=&nbsp;6:50</li>
-				<li>at=7:00 label=&nbsp;7:00</li>
-				<li>at=7:10 label=&nbsp;7:10</li>
-				<li>at=7:20 label=&nbsp;7:20</li>
-				<li>at=7:30 label=&nbsp;7:30</li>
-				<li>at=7:40 label=&nbsp;7:40</li>
-				<li>at=7:50 label=&nbsp;7:50</li>
-				<li>at=8:00 label=&nbsp;8:00</li>
-				<li>at=8:10 label=&nbsp;8:10</li>
-				<li>at=8:20 label=&nbsp;8:20</li>
-				<li>at=8:30 label=&nbsp;8:30</li>
-				<li>at=8:40 label=&nbsp;8:40</li>
-				<li>at=8:50 label=&nbsp;8:50</li>
-				<li>at=9:00 label=&nbsp;9:00</li>
-				<li>at=9:10 label=&nbsp;9:10</li>
-				<li>at=9:20 label=&nbsp;9:20</li>
-				<li>at=9:30 label=&nbsp;9:30</li>
-				<li>at=9:40 label=&nbsp;9:40</li>
-				<li>at=9:50 label=&nbsp;9:50</li>
-				<li>at=10:00 label=&nbsp;10:00</li>
-				<li>at=10:10 label=&nbsp;10:10</li>
-				<li>at=10:20 label=&nbsp;10:20</li>
-				<li>at=10:30 label=&nbsp;10:30</li>
-				<li>at=10:40 label=&nbsp;10:40</li>
-				<li>at=10:50 label=&nbsp;10:50</li>
-				<li>at=11:00 label=&nbsp;11:00</li>
-				<li>at=11:10 label=&nbsp;11:10</li>
-				<li>at=11:20 label=&nbsp;11:20</li>
-				<li>at=11:30 label=&nbsp;11:30</li>
-				<li>at=11:40 label=&nbsp;11:40</li>
-				<li>at=11:50 label=&nbsp;11:50</li>
-				<li>at=12:00 label=&nbsp;12:00</li>
-				<li>at=12:10 label=&nbsp;12:10</li>
-				<li>at=12:20 label=&nbsp;12:20</li>
-				<li>at=12:30 label=&nbsp;12:30</li>
-				<li>at=12:40 label=&nbsp;12:40</li>
-				<li>at=12:50 label=&nbsp;12:50</li>
-				<li>at=13:00 label=&nbsp;13:00</li>
-				<li>at=13:10 label=&nbsp;13:10</li>
-				<li>at=13:20 label=&nbsp;13:20</li>
-				<li>at=13:30 label=&nbsp;13:30</li>
-				<li>at=13:40 label=&nbsp;13:40</li>
-				<li>at=13:50 label=&nbsp;13:50</li>
-				<li>at=14:00 label=&nbsp;14:00</li>
-				<li>at=14:10 label=&nbsp;14:10</li>
-				<li>at=14:20 label=&nbsp;14:20</li>
-				<li>at=14:30 label=&nbsp;14:30</li>
-				<li>at=14:40 label=&nbsp;14:40</li>
-				<li>at=14:50 label=&nbsp;14:50</li>
-				<li>at=15:00 label=&nbsp;15:00</li>
-				<li>at=15:10 label=&nbsp;15:10</li>
-				<li>at=15:20 label=&nbsp;15:20</li>
-				<li>at=15:30 label=&nbsp;15:30</li>
-				<li>at=15:40 label=&nbsp;15:40</li>
-				<li>at=15:50 label=&nbsp;15:50</li>
-				<li>at=16:00 label=&nbsp;16:00</li>
-				<li>at=16:10 label=&nbsp;16:10</li>
-				<li>at=16:20 label=&nbsp;16:20</li>
-				<li>at=16:30 label=&nbsp;16:30</li>
-				<li>at=16:40 label=&nbsp;16:40</li>
-				<li>at=16:50 label=&nbsp;16:50</li>
-				<li>at=17:00 label=&nbsp;17:00</li>
-				<li>at=17:10 label=&nbsp;17:10</li>
-				<li>at=17:20 label=&nbsp;17:20</li>
-				<li>at=17:30 label=&nbsp;17:30</li>
-				<li>at=17:40 label=&nbsp;17:40</li>
-				<li>at=17:50 label=&nbsp;17:50</li>
-				<li>at=18:00 label=&nbsp;18:00</li>
-				<li>at=18:10 label=&nbsp;18:10</li>
-				<li>at=18:20 label=&nbsp;18:20</li>
-				<li>at=18:30 label=&nbsp;18:30</li>
-				<li>at=18:40 label=&nbsp;18:40</li>
-				<li>at=18:50 label=&nbsp;18:50</li>
-				<li>at=19:00 label=&nbsp;19:00</li>
-				<li>at=19:10 label=&nbsp;19:10</li>
-				<li>at=19:20 label=&nbsp;19:20</li>
-				<li>at=19:30 label=&nbsp;19:30</li>
-				<li>at=19:40 label=&nbsp;19:40</li>
-				<li>at=19:50 label=&nbsp;19:50</li>
-				<li>at=20:00 label=&nbsp;20:00</li>
-				<li>at=20:10 label=&nbsp;20:10</li>
-				<li>at=20:20 label=&nbsp;20:20</li>
-				<li>at=20:30 label=&nbsp;20:30</li>
-				<li>at=20:40 label=&nbsp;20:40</li>
-				<li>at=20:50 label=&nbsp;20:50</li>
-				<li>at=21:00 label=&nbsp;21:00</li>
-				<li>at=21:10 label=&nbsp;21:10</li>
-				<li>at=21:20 label=&nbsp;21:20</li>
-				<li>at=21:30 label=&nbsp;21:30</li>
-				<li>at=21:40 label=&nbsp;21:40</li>
-				<li>at=21:50 label=&nbsp;21:50</li>
-				<li>at=22:00 label=&nbsp;22:00</li>
-				<li>at=22:10 label=&nbsp;22:10</li>
-				<li>at=22:20 label=&nbsp;22:20</li>
-				<li>at=22:30 label=&nbsp;22:30</li>
-				<li>at=22:40 label=&nbsp;22:40</li>
-				<li>at=22:50 label=&nbsp;22:50</li>
-				<li>at=23:00 label=&nbsp;23:00</li>
-				<li>at=23:10 label=&nbsp;23:10</li>
-				<li>at=23:20 label=&nbsp;23:20</li>
-				<li>at=23:30 label=&nbsp;23:30</li>
-				<li>at=23:40 label=&nbsp;23:40</li>
-				<li>at=23:50 label=&nbsp;23:50</li>
-			</ul>
+		<h3>Display Formats</h3>
+		<div class="test-group">
+			<div class="test">
+				<div class="test-name">List (Default)</div>
+				<div id="display_list"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">List (Custom)</div>
+				<div id="display_list_c"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Countdown</div>
+				<div id="display_countdown"></div>
+			</div>
+			<div class="test">
+				<div class="test-name">Status</div>
+				<div id="display_status"></div>
+			</div>
+			<script>
+				displays.list($('#display_list'), {}, erinnClockTimer);
+				displays.list($('#display_list_c'), {'output':['&nbsp;Event %v will tick at %t{h:mm:ss a} which is in %c.']}, erinnClockTimer);
+				displays.countdown($('#display_countdown'), {}, erinnClockTimer);
+				displays.status($('#display_status'), {}, erinnClockTimer);
+			</script>
 		</div>
-		<script>
-			var list = [];
-			$('#x').children('ul').children("li").each(function () {
-				list.push($(this).html().trim());
-			});
-
-			var g = generators.select_erinn('', list);
-			var timer = new Timer(g);
-			//var display = displays.list($('#x'), {'show':[10], 'output':['&nbsp;Event %v will tick at %t which is in %c.']}, timer);
-			//var display = displays.countdown($('#x'), {'show':[10], 'output':['%v for %c1']}, timer);
-			var display = displays.status($('#x'), {'show':[10] }, timer);
-
-		</script>
 	</body>
 </html>

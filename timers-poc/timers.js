@@ -193,7 +193,9 @@ function Display($elem, args, timer, displayer) {
 			if ((m = token.match(/v(-?\d*)/))) { // Value of the entry
 				final += timer.value(relative + (parseInt(m[1]) || 0));
 			} else if ((m = token.match(/t(-?\d*)((?:{[^}]+})?)/))) { // Time of the entry
-				final += timer.time(relative + (parseInt(m[1]) || 0)).local().format(m[2] || 'h:mm a');
+				var format = m[2] || '{h:mm a}';
+				format = format.substring(1, format.length-1).trim(); // cut braces
+				final += timer.time(relative + (parseInt(m[1]) || 0)).local().format(format);
 			} else if ((m = token.match(/c(-?\d*)/))) { // countdown till entry
 				final += '<span class="timer-countdown timer-n' + (relative + (parseInt(m[1]) || 0)) + '"></span>';
 			}
