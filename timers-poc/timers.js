@@ -143,6 +143,16 @@ displays.countdown = function($elem, args, timer) {
 	return new Display($elem, args, timer, displayer);
 }
 
+displays.status = function($elem, args, timer) {
+	args.output = args.output || ['%v'];
+
+	function displayer($elem, idx, formatter) {
+		return $elem.html(formatter(args.output[0], idx));
+	}
+
+	return new Display($elem, args, timer, displayer);
+}
+
 function Display($elem, args, timer, displayer) {
 	var self = this;
 	var show = args.show ? args.show[0] : 1;
