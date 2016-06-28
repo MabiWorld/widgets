@@ -64,6 +64,32 @@
 					})();
 				</script>
 			</div>
+			<div class="test">
+				<div class="test-name">Rua</div>
+				<div id="rua1"></div>
+				<script type="text/javascript">
+					(function () {
+						var status = ["Resting","Resting","Resting","Working","Resting","Resting","Resting","Resting","Working","Resting","Resting","Working","Resting","Working","Working","Resting","Working","Working","Working","Resting","Resting","Resting","Resting","Resting","Resting","Resting","Working","Resting","Working","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Working"];
+
+						var gen = generators.rotate_at_erinn({'epoch':['2008-03-23T22:21:00S'], 'changeAt': ['18:00']}, status);
+						var timer = new Timer(gen);
+						displays.list($('#rua1'), {'show':[9]}, timer);
+					})();
+				</script>
+			</div>
+			<div class="test">
+				<div class="test-name">Rua</div>
+				<div id="rua2"></div>
+				<script type="text/javascript">
+					(function () {
+						var status = ["Resting","Resting","Resting","Working","Resting","Resting","Resting","Resting","Working","Resting","Resting","Working","Resting","Working","Working","Resting","Working","Working","Working","Resting","Resting","Resting","Resting","Resting","Resting","Resting","Working","Resting","Working","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Working"];
+
+						var gen = generators.rotate_at_erinn({'epoch':['2008-03-23T22:21:00S'], 'changeAt': ['18:00']}, status);
+						var timer = new Timer(new Compressor(gen));
+						displays.countdown($('#rua2'), {'output': ['%v for %c1']}, timer);
+					})();
+				</script>
+			</div>
 		</div>
 
 		<h3>Display Formats</h3>

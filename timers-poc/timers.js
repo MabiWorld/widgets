@@ -275,7 +275,7 @@ function Display($elem, args, timer, displayer) {
 		// We process the following tokens:
 		//   %v[n]     replaced with the value of the event
 		//   %t[n][{f}]  replaced with the time of the event
-		//   %c[n]
+		//   %c[n]     replaced with a countdown to the event
 		// Options:
 		//    n: relative index of the event to retrieve. Defaults to 0 if omitted.
 		//    f: format string passed to moment's format() method
