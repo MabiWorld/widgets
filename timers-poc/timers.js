@@ -36,7 +36,7 @@ function argumentError(warning) {
 
 generators = {}
 
-generators.rotate_at_erinn = function(args, list) {
+generators.rotate = function(args, list) {
 	if (!args.epoch)
 		return argumentError("Rotate must have an epoch");
 	var epoch = args.epoch[0];
@@ -45,6 +45,17 @@ generators.rotate_at_erinn = function(args, list) {
 	else
 		epoch = moment(epoch);
 
+	if (args.changeAt) {
+		// Change-at type timer
+		if ((args.mode && args.mode=='erinn') || args.changeAt.some(function (x) { return x[x.length -1] == 'E'; }))
+		{
+			// Erinn mode
+			return rotate_at_erinn(args, list, epoch);
+		}
+	}
+}
+
+function rotate_at_erinn(args, list, epoch) {
 	var times = [];
 
 	for (var i = 0; i < args.changeAt.length; ++i) {
@@ -53,6 +64,8 @@ generators.rotate_at_erinn = function(args, list) {
 			times.push('06:00');
 			times.push('18:00');
 		} else {
+			if (time[time.length - 1] == 'E') // Legacy times
+				time = time.substring(0, time.length - 1);
 			times.push(parseHHMM(time));
 		}
 	}
@@ -146,55 +159,66 @@ generators.query = function(args, list) {
 	}
 }
 
-// Selects based on time of day
-generators.select_erinn = function(args, list) {
-	var self = {};
-
-	self.entries = [];
-
+generators.select = function(args, list) {
+	var parsed = [];
+	var erinn = args.mode && args.mode[0] == 'erinn';
 	for (var i = 0; i < list.length; i++) {
 		var set = parseSettings(list[i]);
-		set.at = parseHHMM(set.at);
-		self.entries.push(set);
+		if (set.at[set.at.length - 1] == 'E') {
+			set.at = set.at.substring(0, set.at.length - 1);
+			erinn = true;
+		}
+
+		parsed.push(set);
+	}
+
+	if (erinn)
+		return new Select_Erinn(args, parsed);
+}
+
+// Selects based on time of day
+function Select_Erinn(args, entries) {
+	for (var i = 0; i < entries.length; i++) {
+		entries[i].at = parseHHMM(entries[i].at);
 	}
 
 	// sort times
-	self.entries.sort(function(a, b) { return diffHHMM(a.at, b.at);});
+	entries.sort(function(a, b) { return diffHHMM(a.at, b.at);});
 
-	// Sets initial generator state
-	self.seed = function(seed) {
-		erinnSeed = realToErinn(seed);
+	var current, date
 
-		self._current = -1; 
-		self._date = erinnSeed.day;
-		for (var i = 0; i < self.entries.length; i++) {
-			if (self.entries[i].at.hour <= erinnSeed.hour && self.entries[i].at.minute <= erinnSeed.minute) {
-				self._current = i;
-			}
-		}
+	this.time = function() { var at = entries[current].at; return erinnToReal(date, at.hour, at.minute); }
+	this.value = function() { return entries[current].label; }
 
-		// If we didn't find one for today, we're still running under yesterday's last
-		if (self._current == -1) {
-			self._current = self.entries.length - 1;
-			self._date -= 1;
-		}
-	}
-
-	self.seed(getServerTime());
-
-	self.time = function() { var at = self.entries[self._current].at; return erinnToReal(self._date, at.hour, at.minute); }
-	self.value = function() { return self.entries[self._current].label; }
-
-	self.next = function() {
-		if (++self._current == self.entries.length) {
-			self._current = 0;
-			self._date += 1;
+	this.next = function() {
+		if (++current == entries.length) {
+			current = 0;
+			date += 1;
 		}
 
 		return true;
 	}
 
-	return self;
+	// Sets initial generator state
+	this.seed = function(seed) {
+		erinnSeed = realToErinn(seed);
+
+		current = -1; 
+		date = erinnSeed.day;
+		for (var i = 0; i < entries.length; i++) {
+			if (entries[i].at.hour <= erinnSeed.hour && entries[i].at.minute <= erinnSeed.minute) {
+				current = i;
+			}
+		}
+
+		// If we didn't find one for today, we're still running under yesterday's last
+		if (current == -1) {
+			current = entries.length - 1;
+			date -= 1;
+		}
+	}
+
+	this.seed(getServerTime());
 }
 
 // Wraps a generator in a compressing function
@@ -382,17 +406,17 @@ function Timer(generator) {
 	function registerNextChange() {
 		var next = self.time(1); // Next time change
 		if (next) {
-			setTimeout(self._tocker, next.diff(moment()));
+			setTimeout(tocker, next.diff(moment()));
 		}		
 	}
 
-	this._tocker = function() {
+	function tocker() {
 		// TODO: Maybe check that the time actually *has* passed?
 		// Pop 'current (expired)' off, makes index 1 new current.
 		ticks.shift();
 		// Trigger update
 		for (var i = 0; i < listeners.length; i++) {
-			listeners[i](this);
+			listeners[i](self);
 		}
 
 		registerNextChange();
@@ -403,3 +427,44 @@ function Timer(generator) {
 
 	registerNextChange();
 }
+
+//// ONLOAD ////
+
+$(function() {
+	// Connect updaters for regular clocks
+	onTickSecond(function() {
+		// Update all server time clocks
+		$(".time-server-current").text(getServerTime().format("h:mm a"));
+	});
+
+	onErinnMinute(function(e, minutes) {
+		// Update all Erinn time clocks
+		$(".time-erinn-current").text(moment("00:00", "HH:mm").minutes(minutes).format("h:mm a"));
+	});
+
+	// Create timers
+	$(".make-timer").each(function () {
+		var $this = $(this),
+		    args = parseSettings($this.children(".settings").html(), ["csv", "hyphen2camel"]);
+
+		// Extract list
+		var list = [];
+		$this.children("ul, ol").children("li").each(function () {
+			list.push($(this).html().trim());
+		});
+
+		// Empty the list and change the class.
+		$this.empty().removeClass("make-timer").addClass("timer");
+
+		var generator = generators[args.type[0]](args, list);
+
+		if (args.compress && args.compress[0][0] == 't')
+			generator = new Compressor(generator);
+
+		var timer = new Timer(generator);
+		var display = displays[args.display ? args.display[0] : "list"]($this, args, timer);
+
+		// Create timer object
+		$this.data("timer", timer).data("display", display);
+	})
+});

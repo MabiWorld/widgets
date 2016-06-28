@@ -44,7 +44,7 @@
 					erinnClockList.push('at=' + time + ' label=' + time);
 				}
 			}
-			var erinnClockGen = generators.select_erinn('', erinnClockList);
+			var erinnClockGen = generators.select({'mode': ['erinn']}, erinnClockList);
 			var erinnClockTimer = new Timer(erinnClockGen);
 		</script>
 	</head>
@@ -53,42 +53,128 @@
 		<div class="test-group">
 			<div class="test">
 				<div class="test-name">Price</div>
-				<div id="price"></div>
-				<script type="text/javascript">
-					(function () {
-						var places = [ "Outside Tir Chonaill Inn", "Dugald Aisle Logging Camp Hut", "Dunbarton East Potato Field", "Dragon Ruins - House at 5 o'clock", "Bangor Bar", "Sen Mag 5th house from West", "Emain Macha - Alley Behind Weapon Shop", "Ceo Island", "Emain Macha - Island in South Pathway", "Sen Mag 5th house from West", "Dragon Ruins - House at 5 o'clock", "Outside Barri Dungeon", "Dunbarton School Stairway", "Dugald Aisle Logging Camp Hut" ];
-
-						var gen = generators.rotate_at_erinn({'epoch':['2008-03-24T00:00:00S'], 'changeAt': ['00:00']}, places);
-						var timer = new Timer(gen);
-						displays.list($('#price'), {'show':[9]}, timer);
-					})();
-				</script>
+				<div class="make-timer extra-wide-timer">
+					<span class="settings">type=rotate epoch=2008-03-24T00:00:00S change-at=00:00E show=9</span>
+					<ul>
+					<li>Outside Tir Chonaill Inn</li>
+					<li>Dugald Aisle Logging Camp Hut</li>
+					<li>Dunbarton East Potato Field</li>
+					<li>Dragon Ruins - House at 5 o'clock</li>
+					<li>Bangor Bar</li>
+					<li>Sen Mag 5th house from West</li>
+					<li>Emain Macha - Alley Behind Weapon Shop</li>
+					<li>Ceo Island</li>
+					<li>Emain Macha - Island in South Pathway</li>
+					<li>Sen Mag 5th house from West</li>
+					<li>Dragon Ruins - House at 5 o'clock</li>
+					<li>Outside Barri Dungeon</li>
+					<li>Dunbarton School Stairway</li>
+					<li>Dugald Aisle Logging Camp Hut</li>
+					</ul>
+				</div>
 			</div>
 			<div class="test">
 				<div class="test-name">Rua</div>
-				<div id="rua1"></div>
-				<script type="text/javascript">
-					(function () {
-						var status = ["Resting","Resting","Resting","Working","Resting","Resting","Resting","Resting","Working","Resting","Resting","Working","Resting","Working","Working","Resting","Working","Working","Working","Resting","Resting","Resting","Resting","Resting","Resting","Resting","Working","Resting","Working","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Working"];
-
-						var gen = generators.rotate_at_erinn({'epoch':['2008-03-23T22:21:00S'], 'changeAt': ['18:00']}, status);
-						var timer = new Timer(gen);
-						displays.list($('#rua1'), {'show':[9]}, timer);
-					})();
-				</script>
+				<div class="make-timer">
+					<span class="settings">type=rotate epoch=2008-03-23T22:21:00S change-at=18:00E show=9</span>
+					<ul>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					</ul>
+				</div>
 			</div>
 			<div class="test">
 				<div class="test-name">Rua</div>
-				<div id="rua2"></div>
-				<script type="text/javascript">
-					(function () {
-						var status = ["Resting","Resting","Resting","Working","Resting","Resting","Resting","Resting","Working","Resting","Resting","Working","Resting","Working","Working","Resting","Working","Working","Working","Resting","Resting","Resting","Resting","Resting","Resting","Resting","Working","Resting","Working","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Resting","Working","Resting","Resting","Working"];
-
-						var gen = generators.rotate_at_erinn({'epoch':['2008-03-23T22:21:00S'], 'changeAt': ['18:00']}, status);
-						var timer = new Timer(new Compressor(gen));
-						displays.countdown($('#rua2'), {'output': ['%v for %c1']}, timer);
-					})();
-				</script>
+				<div class="make-timer">
+					<span class="settings">type=rotate epoch=2008-03-23T22:21:00S change-at=18:00E compress=true display=countdown output={%v for %c1}</span>
+					<ul>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					<li>Resting</li>
+					<li>Resting</li>
+					<li>Working</li>
+					</ul>
+				</div>
+			</div>
 			</div>
 		</div>
 
