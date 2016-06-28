@@ -36,6 +36,92 @@ function argumentError(warning) {
 
 generators = {}
 
+generators.rotate_at_erinn = function(args, list) {
+	if (!args.epoch)
+		return argumentError("Rotate must have an epoch");
+	var epoch = args.epoch[0];
+	if (epoch[epoch.length-1] == 'S')
+		epoch = moment.tz(epoch.substring(0, epoch.length-1), SERVER_TIMEZONE);
+	else
+		epoch = moment(epoch);
+
+	var times = [];
+
+	for (var i = 0; i < args.changeAt.length; ++i) {
+		var time = args.changeAt[i];
+		if (time == "sunshift") {
+			times.push('06:00');
+			times.push('18:00');
+		} else {
+			times.push(parseHHMM(time));
+		}
+	}
+
+	times.sort(diffHHMM);
+
+	var entries = [];
+
+	// Join each entry with its duration
+	var timeIdx = 0;
+	for (var i = 0; i < list.length; i++) {
+		var diff = diffHHMM(times[(timeIdx + 1) % times.length], times[timeIdx % times.length]); // In minutes
+		if (diff <= 0)
+			diff += 24 * 60; // [6:00 - 18:00] + 24 == 12 hours
+		entries.push([list[i], erinnToRealDuration(moment.duration(diff, 'minutes'))]);
+	}
+
+	// The Erinn time at the epoch may not match
+	// the first change-at time, so change the
+	// epoch to align with the first time entry
+	var erinnAtEpoch = realToErinn(epoch);
+	var addHours = times[0].hour - erinnAtEpoch.hour;
+	var addMinutes = times[0].minute - erinnAtEpoch.minute;
+	epoch = erinnToReal(erinnAtEpoch.day, erinnAtEpoch.hour + addHours, erinnAtEpoch.minute + addMinutes);
+
+	return new Rotate(args, epoch, entries);
+}
+
+// Generic rotate generator
+// Takes an epoch and a list of [entry, duration-in-realtime]
+//  
+function Rotate(args, epoch, entries) {
+	// Calculate total cycle duration by summing all durations
+	var totalDuration = 0;
+	for (var i = 0; i < entries.length; i++)
+		totalDuration += entries[i][1].asMilliseconds();
+
+	var currentIdx, currentTime;
+
+	this.time = function() { return currentTime.clone();}
+	this.value = function() { return entries[currentIdx][0]; }
+
+	this.next = function() {
+		currentTime.add(entries[currentIdx][1]);
+		currentIdx = (currentIdx + 1) % entries.length;
+
+		return true;
+	}
+
+	// Seed with time
+	this.seed = function(seed) {
+		currentTime = epoch.clone().add(
+			Math.floor(seed.diff(epoch) / totalDuration) * totalDuration,
+			'Milliseconds');
+
+		// Calculate progress through most recent cycle
+		var cycleProgress = seed.diff(epoch) % totalDuration;
+		// find corresponding entry
+		currentIdx = 0;
+		while (cycleProgress > entries[currentIdx][1].asMilliseconds()) {
+			currentTime.add(entries[currentIdx][1]);
+			cycleProgress -= entries[currentIdx][1].asMilliseconds();
+			++currentIdx;
+		}
+	}
+
+	this.seed(getServerTime());
+}
+
 // Query generator takes a timer and searches its future
 // for events. It then generates 'bounding' events, aka
 // one event for the start time and another for the end time
@@ -63,22 +149,17 @@ generators.query = function(args, list) {
 // Selects based on time of day
 generators.select_erinn = function(args, list) {
 	var self = {};
-	// Parses a datetime into an hour/minute
-	function parse(time) {
-		var hhmm = time.split(":");
-		return {'hour' : parseInt(hhmm[0]), 'minute': parseInt(hhmm[1])};
-	}
 
 	self.entries = [];
 
 	for (var i = 0; i < list.length; i++) {
 		var set = parseSettings(list[i]);
-		set.at = parse(set.at);
+		set.at = parseHHMM(set.at);
 		self.entries.push(set);
 	}
 
 	// sort times
-	self.entries.sort(function (a, b) { return (a.at.hour*60 + a.at.minute) - (b.at.hour*60 + b.at.minute); });
+	self.entries.sort(function(a, b) { return diffHHMM(a.at, b.at);});
 
 	// Sets initial generator state
 	self.seed = function(seed) {

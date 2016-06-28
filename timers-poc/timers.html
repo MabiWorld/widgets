@@ -49,6 +49,23 @@
 		</script>
 	</head>
 	<body>
+		<h3>Standard Timers</h3>
+		<div class="test-group">
+			<div class="test">
+				<div class="test-name">Price</div>
+				<div id="price"></div>
+				<script type="text/javascript">
+					(function () {
+						var places = [ "Outside Tir Chonaill Inn", "Dugald Aisle Logging Camp Hut", "Dunbarton East Potato Field", "Dragon Ruins - House at 5 o'clock", "Bangor Bar", "Sen Mag 5th house from West", "Emain Macha - Alley Behind Weapon Shop", "Ceo Island", "Emain Macha - Island in South Pathway", "Sen Mag 5th house from West", "Dragon Ruins - House at 5 o'clock", "Outside Barri Dungeon", "Dunbarton School Stairway", "Dugald Aisle Logging Camp Hut" ];
+
+						var gen = generators.rotate_at_erinn({'epoch':['2008-03-24T00:00:00S'], 'changeAt': ['00:00']}, places);
+						var timer = new Timer(gen);
+						displays.list($('#price'), {'show':[9]}, timer);
+					})();
+				</script>
+			</div>
+		</div>
+
 		<h3>Display Formats</h3>
 		<div class="test-group">
 			<div class="test">
