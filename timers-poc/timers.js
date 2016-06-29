@@ -52,6 +52,8 @@ generators.rotate = function(args, list) {
 			// Erinn mode
 			return rotate_at_erinn(args, list, epoch);
 		}
+	} else {
+		// Rotate every needs to use UTC to avoid DST issues.
 	}
 }
 
@@ -174,6 +176,8 @@ generators.select = function(args, list) {
 
 	if (erinn)
 		return new Select_Erinn(args, parsed);
+	else
+		return new Select_Real(args, parsed);
 }
 
 // Selects based on time of day
@@ -215,6 +219,57 @@ function Select_Erinn(args, entries) {
 		if (current == -1) {
 			current = entries.length - 1;
 			date -= 1;
+		}
+	}
+
+	this.seed(getServerTime());
+}
+
+function Select_Real(args, entries) {
+	function parse(at) {
+		if (at[at.length - 1] == 'S')
+			return parseHHMM(at.substring(0, at.length-1));
+		else {
+			var m = moment(at, "HH:mmZZ").tz(SERVER_TIMEZONE);
+			return {'hour' : m.hour(), 'minute' : m.minute()};
+		}
+	}
+
+	for (var i = 0; i < entries.length; i++) {
+		entries[i].at = parse(entries[i].at);
+	}
+
+	// sort times
+	entries.sort(function(a, b) { return diffHHMM(a.at, b.at);});
+
+	var current, date;
+
+	this.time = function() { var at = entries[current].at; return date.clone().hour(at.hour).minute(at.minute); }
+	this.value = function() { return entries[current].label; }
+
+	this.next = function() {
+		if (++current == entries.length) {
+			current = 0;
+			date.add(1, 'days');
+		}
+
+		return true;
+	}
+
+	this.seed = function(seed) {
+		date = seed.clone().startOf('day');
+		current = -1;
+
+		for (var i = 0; i < entries.length; i++) {
+			if (entries[i].at.hour <= seed.hour() && entries[i].at.minute <= seed.minute()) {
+				current = i;
+			}
+		}
+
+		// If we didn't find one for today, we're still running under yesterday's last
+		if (current == -1) {
+			current = entries.length - 1;
+			date.subtract(1, 'days');
 		}
 	}
 
