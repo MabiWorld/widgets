@@ -1,0 +1,366 @@
+.mss_server {
+	width: 58px;
+	display: inline-block;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+	margin: 2px;
+	text-align: center;
+}
+
+.mss_serverIcon-mabius1 {
+	background: url('servericon-mabius1.png');
+}
+
+.mss_serverIcon-mabius2 {
+	background: url('servericon-mabius2.png');
+}
+
+.mss_serverIcon-mabius3 {
+	background: url('servericon-mabius3.png');
+}
+
+.mss_serverIcon-mabius4 {
+	background: url('servericon-mabius4.png');
+}
+
+.mss_iconBox {
+	width: 40px;
+	height: 40px;
+	display: block;
+	margin: 9px;
+	position: relative;
+	border: none;
+	border-radius: 20px;
+	background-color: #F0F0F0;
+	z-index: 2;
+}
+
+#mss_box {
+	width: 256px;
+	background: #EEEEFF;
+	border: 1px solid #AAAAEE;
+	overflow: hidden;
+	padding: 5px;
+	text-align: center;
+	font-family: Tahoma;
+	font-size: 12px;
+}
+
+#mss_updatedOn {
+	font-size: 80%;
+}
+
+#mss_gameBarBg {
+	width: 250px;
+	height: 18px;
+	display: block;
+	margin-left: 2px;
+	position: relative;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+#mss_gameBar {
+	height: 18px;
+	display: block;
+	width: 0px;
+	position: absolute;
+}
+
+#mss_gameStatusText {
+	height: 20px;
+	width: 250px;
+	line-height: 16px;
+	text-align: center;
+	display: block;
+	font-weight: bold;
+}
+
+.mss_arc_q, .mss_arc_cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: -4px;
+	margin-top: -4px;
+}
+
+.mss_arc_q {
+	border-radius: 50%;
+	border: 4px solid;
+	z-index: 1;
+}
+
+.mss_arc_q_server {
+	width: 40px;
+	height: 40px;
+}
+
+.mss_arc_q_channel {
+	width: 24px;
+	height: 24px;
+}
+
+.mss_arc_cover {
+	z-index: 5;
+	background-color: #FAFAFF;
+}
+
+.mss_arc_cover_server {
+	width: 24px;
+	height: 24px;
+}
+
+.mss_arc_cover_channel {
+	width: 16px;
+	height: 16px;
+}
+
+.mss_arc_cover2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 4px;
+	margin-top: 4px;
+	width: 20px;
+	height: 20px;
+	background-color: #FAFAFF;
+	z-index: 4;
+	background-repeat: no-repeat;
+	border-top-left-radius: 20px;
+}
+
+.mss_serverIconWarning {
+	width: 54px;
+	height: 54px;
+	line-height: 48px;
+	display: block;
+	position: absolute;
+	background-image: url('warning.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	text-align: center;
+	z-index: 5;
+}
+
+.mss_channel {
+	width: 58px;
+	height: 32px;
+	margin-bottom: 4px;
+	display: block;
+}
+
+.mss_channelCircle {
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+	display: block;
+	position: relative;
+	border-radius: 24px;
+	text-align: center;
+}
+
+.mss_channelName {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	border-radius: 24px;
+	background-color: #DDEEDD;
+	z-index: 5;
+	font-size: 10px;
+	display: block;
+	text-align: center;
+	line-height: 22px;
+	font-weight: bold;
+}
+
+.mss_channelIcon {
+	width: 16px;
+	height: 16px;
+	margin-top: 1px;
+	margin-right: 2px;
+	float: right;
+	background-image: url('icons.png');
+}
+.mss_pingIcon {
+	width: 13px;
+	height: 8px;
+	position: absolute;
+	display: block;
+	margin-top: 16px;
+	background: url('pingicons.png') no-repeat;
+}
+.mss_ping_icon_offline {
+ 	background-position: 0px 0px;
+}
+.mss_ping_icon_good {
+ 	background-position: 0px -8px;
+}
+.mss_ping_icon_moderate {
+ 	background-position: 0px -16px;
+}
+.mss_ping_icon_bad {
+ 	background-position: 0px -24px;
+}
+.mss_housingChannel {
+	background: url('hch.png') center center no-repeat #DDEEDD;
+}
+
+.mss_serverBox {
+	display: inline-block;
+	width: 77px;
+	margin: 3px;
+	height: 40px;
+	text-align: center;
+	font-size: 11px;
+	line-height: 20px;
+	display: inline-block;
+	float: left;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+.mss_grayscale {
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.mss_serverBoxName {
+	font-weight: bold;
+}
+
+.mss_serverBoxStatusText {
+	padding: 1px 3px;
+}
+
+/* icon */
+.mss_icon_event {
+	background-position: -16px 0px;
+}
+
+.mss_icon_offline {
+	background-position: -32px 0px;
+}
+
+.mss_icon_maintenance {
+	background-position: -48px 0px;
+}
+
+.mss_icon_booting {
+	background-position: -80px 0px;
+}
+
+.mss_icon_error {
+	background-position: -64px 0px;
+}
+
+/* ring*/
+.mss_ring_offline {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss_ring_maintenance {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss_ring_online {
+	border-color: transparent green transparent transparent;
+}
+
+.mss_ring_busy {
+	border-color: transparent #FFBB00 transparent transparent;
+}
+
+.mss_ring_full {
+	border-color: transparent #FF9900 transparent transparent;
+}
+
+.mss_ring_bursting {
+	border-color: transparent #CC0000 transparent transparent;
+}
+
+.mss_ring_booting {
+	border-color: transparent #BBBBBB transparent transparent;
+}
+
+.mss_ring_error {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss_ring_ping {
+	border-color: transparent #6699FF transparent transparent;
+}
+
+
+/* Text */
+.mss_text_offline {
+	color: #999999;
+}
+
+.mss_text_maintenance {
+	color: #999999;
+}
+
+.mss_text_online {
+	color: green;
+}
+
+.mss_text_busy {
+	color: #FFBB00;
+}
+
+.mss_text_full {
+	color: #FF9900;
+}
+
+.mss_text_bursting {
+	color: #CC0000;
+}
+
+.mss_text_booting {
+	color: #BBBBBB;
+}
+
+.mss_text_error {
+	color: #999999;
+}
+
+/* Backgrounds */
+.mss_background_offline {
+	background-color: #999999;
+}
+
+.mss_background_maintenance {
+	background-color: #999999;
+}
+
+.mss_background_online {
+	background-color: green;
+}
+
+.mss_background_busy {
+	background-color: #FFBB00;
+}
+
+.mss_background_full {
+	background-color: #FF9900;
+}
+
+.mss_background_bursting {
+	background-color: #CC0000;
+}
+
+.mss_background_booting {
+	background-color: #BBBBBB;
+}
+
+.mss_background_error {
+	background-color: #999999;
+}
+
+.mss_background_ping {
+	background-color: #6699FF;
+}

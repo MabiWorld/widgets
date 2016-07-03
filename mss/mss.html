@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mabinogi Server Status</title>
+	<link rel="stylesheet" type="text/css" href="mss.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="mss.js"></script>
+	<script type="text/javascript">
+		var timer = function () {
+			refreshStatus();
+			setTimeout(timer, 30000);
+		};
+
+		$(document).ready(function () {
+			timer();
+		});
+	</script>
+</head>
+<body>
+	<div id="mss_box">
+		<p id="mss_loading" style="font-weight: bold; text-align: center;">Loading, please wait . . .</p>
+		<div id="mss_data" style="display: none;">
+			<div id="mss_gameStatus">
+				<div id="mss_gameStatusText"></div>
+				<div id="mss_gameBarBg">
+					<div id="mss_gameBar"></div>
+				</div>
+			</div>
+			<div id="mss_gameServers">
+
+			</div>
+			<div id="mss_otherServers">
+				<div class="mss_serverBox" id="mss_siteStatus">
+					<div class="mss_serverBoxName">Website</div>
+					<div id="mss_siteStatusText" class="mss_serverBoxStatusText"></div>
+				</div>
+				<div class="mss_serverBox" id="mss_loginStatus">
+					<div class="mss_serverBoxName">Login</div>
+					<div id="mss_loginStatusText" class="mss_serverBoxStatusText"></div>
+				</div>
+				<div class="mss_serverBox" id="mss_chatStatus">
+					<div class="mss_serverBoxName">Chat</div>
+					<div id="mss_chatStatusText" class="mss_serverBoxStatusText"></div>
+				</div>
+			</div>
+			<div id="mss_updatedOn"></div>
+			<br/>
+			<div>
+				<small>Created by <a href="http://wiki.mabinogiworld.com/view/User:Xcelled194">Xcelled</a> and <a href="http://wiki.mabinogiworld.com/view/User:Kadalyn">Kadalyn</a></small>
+			</div>
+			<div>
+				<small>Design by <a href="http://wiki.mabinogiworld.com/view/User:Yai">Yai</a></small>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
