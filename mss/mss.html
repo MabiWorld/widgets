@@ -3,57 +3,48 @@
 <html>
 <head>
 	<title>Mabinogi Server Status</title>
-	<link rel="stylesheet" type="text/css" href="mss.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="mss.js"></script>
-	<script type="text/javascript">
-		var timer = function () {
-			refreshStatus();
-			setTimeout(timer, 30000);
-		};
-
-		$(document).ready(function () {
-			timer();
-		});
-	</script>
+	<style type="text/css">
+		div {border: 1px solid black;}
+	</style>
 </head>
 <body>
-	<div id="mss_box">
-		<p id="mss_loading" style="font-weight: bold; text-align: center;">Loading, please wait . . .</p>
-		<div id="mss_data" style="display: none;">
-			<div id="mss_gameStatus">
-				<div id="mss_gameStatusText"></div>
-				<div id="mss_gameBarBg">
-					<div id="mss_gameBar"></div>
-				</div>
-			</div>
-			<div id="mss_gameServers">
+	<div class="make-mss">
+		<div class="mss_loading" style="font-weight: bold; text-align: center;">Loading, please wait . . .</div>
 
-			</div>
-			<div id="mss_otherServers">
-				<div class="mss_serverBox" id="mss_siteStatus">
-					<div class="mss_serverBoxName">Website</div>
-					<div id="mss_siteStatusText" class="mss_serverBoxStatusText"></div>
-				</div>
-				<div class="mss_serverBox" id="mss_loginStatus">
-					<div class="mss_serverBoxName">Login</div>
-					<div id="mss_loginStatusText" class="mss_serverBoxStatusText"></div>
-				</div>
-				<div class="mss_serverBox" id="mss_chatStatus">
-					<div class="mss_serverBoxName">Chat</div>
-					<div id="mss_chatStatusText" class="mss_serverBoxStatusText"></div>
-				</div>
-			</div>
-			<div id="mss_updatedOn"></div>
-			<br/>
-			<div>
-				<small>Created by <a href="http://wiki.mabinogiworld.com/view/User:Xcelled194">Xcelled</a> and <a href="http://wiki.mabinogiworld.com/view/User:Kadalyn">Kadalyn</a></small>
-			</div>
-			<div>
-				<small>Design by <a href="http://wiki.mabinogiworld.com/view/User:Yai">Yai</a></small>
-			</div>
-
+		<div class="mss_gameStatus">
+			<div>Mabinogi is <span class="text">type=status</span>.</div>
+			<div class="bar"></div>
 		</div>
+		<div class="mss_gameServers">
+			<div class="make-gameservers">
+				<div class="make-server"></div>
+				<div class="make-channel">
+					<div class="select">
+						<span class="settings">type=status</span>
+						<ul>
+						<li>case=online value={<img src="online.png" />}</li>
+						<li>case=offline value={<img src="offline.png" />}</li>
+						</ul>
+					</div>
+					<div class="select">
+						<span class="settings">type=ping</span>
+						<ul>
+						<li>case=50 value={<img src="good.png" />}</li>
+						<li>case=250 value={<img src="med.png" />}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="mss_siteStatus">
+				<div>Website</div>
+				<div><span class="text">type=status</span></div>
+			</div>
+		</div>
+		<div class="mss_updatedOn"></div>
 	</div>
 </body>
 </html>
