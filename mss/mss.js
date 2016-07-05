@@ -37,23 +37,73 @@ translations = {
 		5: 'booting',
 		6: 'error',
 	},
-
-	channelPingClasses: {
-		'off': 'offline',
-		'low': 'good',
-		'med': 'moderate',
-		'hi' : 'bad'
-	}
 }
 
 function Mss($container) {
-	
+
+}
+
+function StatusSelector(cases) {
+	var entries = {};
+	for (var i = cases.length - 1; i >= 0; --i) {
+		entries[cases[i].case] = cases[i].value;
+	}
+
+	this.select = function(data) {
+		var status = translations.stateNames[data.state];
+		if (status) {
+			return entries[status] || entries['else'];
+		} else {
+			console.warn('Unexpected state: ' + data.state);
+		}
+	}
+}
+
+function PingSelector(cases) {
+	cases.sort(function(a, b) {
+		if (a.case == 'else') return -1;
+		if (b.case == 'else') return 1;
+		return parseInt(a.case) - parseInt(b.case);
+	});
+
+	this.select = function(data) {
+		var ping = data.ping;
+		for (var i = cases.length-1; i >= 0; --i) {
+			var _case = cases[i];
+			if (_case.case == 'else' || ping >= _case.case)
+				return _case.value;
+		}
+	}
+}
+
+function makeSelects($container) {
+	$container.find('.make-select').each(function() {
+		var $select = $(this);
+		var args = parseSettings($select.children('.settings').html());
+		var cases = [];
+		$select.children('ul, ol').children().each(function() {
+			cases.push(parseSettings($(this).html().trim()));
+		});
+
+		$select.empty().removeClass('make-select').addClass('mss-select');
+
+		var selector;
+		if (args.type == 'ping') {
+			selector = new PingSelector(cases);
+		} else if (args.type == 'status') {
+			selector = new StatusSelector(cases);
+		} else {
+			console.warn('Unknown select type: ' + args.type);
+		}
+		$select.data('selector', selector);
+	});
 }
 
 // Onload
 $(function() {
 	$('.make-mss').each(function() {
-		$this = $(this);
+		var $this = $(this);
+		makeSelects($this);
 		$this.removeClass('make-mss').addClass('mss');
 		$this.data('mss', new Mss($this));
 	});

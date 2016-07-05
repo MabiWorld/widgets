@@ -4,6 +4,8 @@
 <head>
 	<title>Mabinogi Server Status</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../moment.js"></script>
+	<script src="../widgets.js"></script>
 	<script src="mss.js"></script>
 	<style type="text/css">
 		div {border: 1px solid black;}
@@ -14,25 +16,26 @@
 		<div class="mss_loading" style="font-weight: bold; text-align: center;">Loading, please wait . . .</div>
 
 		<div class="mss_gameStatus">
-			<div>Mabinogi is <span class="text">type=status</span>.</div>
+			<div>Mabinogi is <span class="make-text">type=status</span>.</div>
 			<div class="bar"></div>
 		</div>
 		<div class="mss_gameServers">
 			<div class="make-gameservers">
 				<div class="make-server"></div>
 				<div class="make-channel">
-					<div class="select">
+					<div class="make-select">
 						<span class="settings">type=status</span>
 						<ul>
 						<li>case=online value={<img src="online.png" />}</li>
 						<li>case=offline value={<img src="offline.png" />}</li>
 						</ul>
 					</div>
-					<div class="select">
+					<div class="make-select">
 						<span class="settings">type=ping</span>
 						<ul>
 						<li>case=50 value={<img src="good.png" />}</li>
 						<li>case=250 value={<img src="med.png" />}</li>
+						<li>case=else value={oops}</li>
 						</ul>
 					</div>
 				</div>
