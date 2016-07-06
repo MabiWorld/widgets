@@ -108,6 +108,76 @@ function parseSettings(settings, opts) {
 	else return currentObject;
 }
 
+// Second-generation settings parser
+// Uses HTML-tree for parsing instead of string
+function parseSettingsDom($settings, globalOpts, opts) {
+	var set = {}, cases = [];
+
+	globalOpts = globalOpts || [];
+	var supportsCases = globalOpts.indexOf("cases") != -1,
+	    csv = globalOpts.indexOf("csv") != -1,
+	    h2c = globalOpts.indexOf("hyphen2camel") != -1;
+
+	function parseWarning(warning) {
+		console.warn("parseSettingsDom: " + warning + " (settings: '" + $settings + "')");
+	}
+
+	function h2cf(all, c) {
+		return c.toUpperCase();
+	}
+
+	function isSet(key, option) {
+		return (key in opts) && (opts[key].indexOf(option) != -1); 
+	}
+
+	$settings.children().each(function() {
+		var $this = $(this);
+		var cls = $this.attr('class');
+		if (!cls) {
+			parseWarning("Missing class: " + $this);
+			return;
+		}
+
+		var args = cls.split(' ');
+		var key = args.shift(); // Pop first off
+
+		if (supportsCases && key.toLowerCase() == 'else') {
+			cases.push(set);
+			set = {};
+		}
+
+		if (h2c) {
+			key = currentString.replace(/-(.)/g, h2cf).replace(/-$/, "_");
+		}
+		
+		if (key in set) {
+			parseWarning('Duplicate setting value for "' + key + '". Overwriting.');
+		}
+
+		// Does the actual parsing. This is here to simplify csv vs not
+		function parseValue($ele) {
+			return $ele.html().trim();
+		}
+
+		if (csv || isSet(key, 'csv')) {
+			var list = [];
+			$this.children('ul, ol').children('li').each(function() {
+				list.push(parseValue($(this)));
+			});
+			set[key] = list;
+		} else {
+			set[key] = parseValue($this);
+		}
+	});
+
+	if (supportsCases) {
+		cases.push(set);
+		return cases;
+	}
+	
+	return cases;
+}
+
 // Query time
 var SERVER_TIMEZONE = "America/Los_Angeles";
 function getServerTime() {
