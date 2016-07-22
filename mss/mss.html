@@ -16,7 +16,7 @@
 		<div class="mss_loading" style="font-weight: bold; text-align: center;">Loading, please wait . . .</div>
 
 		<div class="mss_gameStatus">
-			<div>Mabinogi is <span class="make-text">type=status</span>.</div>
+			<div>Mabinogi is <span class="make-text"><span class="type">status</span></span>.</div>
 			<div class="bar"></div>
 		</div>
 		<div class="mss_gameServers">
@@ -24,18 +24,18 @@
 				<div class="make-server"></div>
 				<div class="make-channel">
 					<div class="make-select">
-						<span class="settings">type=status</span>
+						<span class="settings"><span class="type">status</span></span>
 						<ul>
-						<li>case=online value={<img src="online.png" />}</li>
-						<li>case=offline value={<img src="offline.png" />}</li>
+						<li><span class="case">online</span><span class="value"><img src="online.png" /></span></li>
+						<li><span class="case">offline</span><span class="value"><img src="offline.png" /></span></li>
 						</ul>
 					</div>
 					<div class="make-select">
-						<span class="settings">type=ping</span>
+						<span class="settings"><span class="type">ping</span></span>
 						<ul>
-						<li>case=50 value={<img src="good.png" />}</li>
-						<li>case=250 value={<img src="med.png" />}</li>
-						<li>case=else value={oops}</li>
+						<li><span class="case">50</span><span class="value"><img src="good.png" /></span></li>
+						<li><span class="case">250</span><span class="value"><img src="bad.png" /></span></li>
+						<li><span class="case">else</span><span class="value">oops</span></li>
 						</ul>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 		<div>
 			<div class="mss_siteStatus">
 				<div>Website</div>
-				<div><span class="text">type=status</span></div>
+				<div><span class="make-text"><span class="type">status</span></span></div>
 			</div>
 		</div>
 		<div class="mss_updatedOn"></div>

@@ -113,6 +113,7 @@ function parseSettings(settings, opts) {
 function parseSettingsDom($settings, globalOpts, opts) {
 	var set = {}, cases = [];
 
+	opts = opts || {};
 	globalOpts = globalOpts || [];
 	var supportsCases = globalOpts.indexOf("cases") != -1,
 	    csv = globalOpts.indexOf("csv") != -1,
@@ -149,7 +150,7 @@ function parseSettingsDom($settings, globalOpts, opts) {
 		if (h2c) {
 			key = currentString.replace(/-(.)/g, h2cf).replace(/-$/, "_");
 		}
-		
+
 		if (key in set) {
 			parseWarning('Duplicate setting value for "' + key + '". Overwriting.');
 		}
@@ -161,7 +162,7 @@ function parseSettingsDom($settings, globalOpts, opts) {
 
 		if (csv || isSet(key, 'csv')) {
 			var list = [];
-			$this.children('ul, ol').children('li').each(function() {
+			$this.children('ul, ol').children().each(function() {
 				list.push(parseValue($(this)));
 			});
 			set[key] = list;
@@ -174,8 +175,8 @@ function parseSettingsDom($settings, globalOpts, opts) {
 		cases.push(set);
 		return cases;
 	}
-	
-	return cases;
+
+	return set;
 }
 
 // Query time

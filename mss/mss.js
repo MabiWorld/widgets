@@ -43,6 +43,32 @@ function Mss($container) {
 
 }
 
+function TextOutput(type) {
+	this.query = function (data) {
+		if (type == 'ping') {
+			return data.ping;
+		} else if (type == 'status') {
+			var status = translations.stateNames[data.state];
+			if (!status) {
+				console.warn('Unexpected state: ' + data.state);
+			}
+			return status;
+		} else if (type == 'name') {
+
+		}
+	}
+}
+
+function makeTexts($container) {
+	$container.find('.make-text').each(function() {
+		var $ele = $(this);
+		var args = parseSettingsDom($ele);
+
+		var text;
+		if (args.type == 'ping')
+	});
+}
+
 function StatusSelector(cases) {
 	var entries = {};
 	for (var i = cases.length - 1; i >= 0; --i) {
@@ -79,10 +105,10 @@ function PingSelector(cases) {
 function makeSelects($container) {
 	$container.find('.make-select').each(function() {
 		var $select = $(this);
-		var args = parseSettings($select.children('.settings').html());
+		var args = parseSettingsDom($select.children('.settings'));
 		var cases = [];
 		$select.children('ul, ol').children().each(function() {
-			cases.push(parseSettings($(this).html().trim()));
+			cases.push(parseSettingsDom($(this)));
 		});
 
 		$select.empty().removeClass('make-select').addClass('mss-select');
