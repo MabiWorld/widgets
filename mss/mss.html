@@ -5,6 +5,7 @@
 	<title>Mabinogi Server Status</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../moment.js"></script>
+	<script src="../moment-timezone-with-data.js"></script>
 	<script src="../widgets.js"></script>
 	<script src="mss.js"></script>
 	<style type="text/css">
@@ -19,25 +20,23 @@
 			<div>Mabinogi is <span class="make-text"><span class="type">status</span></span>.</div>
 			<div class="bar"></div>
 		</div>
-		<div class="mss_gameServers">
-			<div class="make-gameservers">
-				<div class="make-server"></div>
-				<div class="make-channel">
-					<div class="make-select">
-						<span class="settings"><span class="type">status</span></span>
-						<ul>
-						<li><span class="case">online</span><span class="value"><img src="online.png" /></span></li>
-						<li><span class="case">offline</span><span class="value"><img src="offline.png" /></span></li>
-						</ul>
-					</div>
-					<div class="make-select">
-						<span class="settings"><span class="type">ping</span></span>
-						<ul>
-						<li><span class="case">50</span><span class="value"><img src="good.png" /></span></li>
-						<li><span class="case">250</span><span class="value"><img src="bad.png" /></span></li>
-						<li><span class="case">else</span><span class="value">oops</span></li>
-						</ul>
-					</div>
+		<div class="make-gameservers">
+			<div class="make-server"></div>
+			<div class="make-channels">
+				<div class="make-select">
+					<span class="settings"><span class="type">status</span></span>
+					<ul>
+					<li><span class="case">online</span><span class="value"><img src="online.png" /></span></li>
+					<li><span class="case">offline</span><span class="value"><img src="offline.png" /></span></li>
+					</ul>
+				</div>
+				<div class="make-select">
+					<span class="settings"><span class="type">ping</span></span>
+					<ul>
+					<li><span class="case">50</span><span class="value"><img src="good.png" /></span></li>
+					<li><span class="case">250</span><span class="value"><img src="bad.png" /></span></li>
+					<li><span class="case">else</span><span class="value">oops</span></li>
+					</ul>
 				</div>
 			</div>
 		</div>

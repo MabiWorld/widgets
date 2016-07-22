@@ -43,6 +43,8 @@ function Mss($container) {
 
 }
 
+// Text
+
 function TextOutput(type) {
 	this.query = function (data) {
 		if (type == 'ping') {
@@ -54,20 +56,14 @@ function TextOutput(type) {
 			}
 			return status;
 		} else if (type == 'name') {
-
+			return data.name;
+		} else {
+			console.warn('Unknown text type: ' + type);
 		}
 	}
 }
 
-function makeTexts($container) {
-	$container.find('.make-text').each(function() {
-		var $ele = $(this);
-		var args = parseSettingsDom($ele);
-
-		var text;
-		if (args.type == 'ping')
-	});
-}
+// Selector
 
 function StatusSelector(cases) {
 	var entries = {};
@@ -102,34 +98,79 @@ function PingSelector(cases) {
 	}
 }
 
-function makeSelects($container) {
-	$container.find('.make-select').each(function() {
-		var $select = $(this);
-		var args = parseSettingsDom($select.children('.settings'));
-		var cases = [];
-		$select.children('ul, ol').children().each(function() {
-			cases.push(parseSettingsDom($(this)));
-		});
+// Makers
 
-		$select.empty().removeClass('make-select').addClass('mss-select');
+function makeText($ele) {
+	var args = parseSettingsDom($ele);
 
-		var selector;
-		if (args.type == 'ping') {
-			selector = new PingSelector(cases);
-		} else if (args.type == 'status') {
-			selector = new StatusSelector(cases);
-		} else {
-			console.warn('Unknown select type: ' + args.type);
+	$ele.empty().removeClass('make-text').addClass('mss-text');
+	$ele.data('text', new TextOutput(args.type));
+}
+
+function makeSelect($select) {
+	var args = parseSettingsDom($select.children('.settings'));
+	var cases = [];
+	$select.children('ul, ol').children().each(function() {
+		cases.push(parseSettingsDom($(this)));
+	});
+
+	$select.empty().removeClass('make-select').addClass('mss-select');
+
+	var selector;
+	if (args.type == 'ping') {
+		selector = new PingSelector(cases);
+	} else if (args.type == 'status') {
+		selector = new StatusSelector(cases);
+	} else {
+		console.warn('Unknown select type: ' + args.type);
+	}
+	$select.data('selector', selector);
+}
+
+function makeChannel($ele) {
+	$ele.removeClass('make-channels');
+	$ele.data('template', $ele.clone().addClass('mss-channel'));
+	$ele.empty().addClass('mss-channels');
+}
+
+function makeServer($ele) {
+	$ele.empty().removeClass('make-server').addClass('mss-server');
+}
+
+function makeGameservers($ele) {
+	$ele.removeClass('make-gameservers');
+	$ele.data('template', $ele.clone().addClass('mss-gameserver'));
+	$ele.empty().addClass('mss-gameservers');
+}
+
+// This function makes all the dynamic display stuff
+// and does it via a depth-first search, so that
+// any parent dynamic elements are created with dynamic
+// elements as kids, not the templates.
+function make($container) {
+	var toMake = $container.find('.make-select, .make-text, .make-channels, .make-server, .make-gameservers').sortByDepth();
+
+	toMake.each(function() {
+		$ele = $(this);
+		if ($ele.hasClass('make-select')) {
+			makeSelect($ele);
+		} else if ($ele.hasClass('make-text')) {
+			makeText($ele);
+		} else if ($ele.hasClass('make-channels')) {
+			makeChannel($ele);
+		} else if ($ele.hasClass('make-server')) {
+			makeServer($ele);
+		} else if ($ele.hasClass('make-gameservers')) {
+			makeGameservers($ele);
 		}
-		$select.data('selector', selector);
 	});
 }
 
 // Onload
 $(function() {
-	$('.make-mss').each(function() {
+	$('.make-mss').sortByDepth().each(function() {
 		var $this = $(this);
-		makeSelects($this);
+		make($this);
 		$this.removeClass('make-mss').addClass('mss');
 		$this.data('mss', new Mss($this));
 	});

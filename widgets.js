@@ -5,6 +5,24 @@ function split(x, at, limit) {
 	return x;
 }
 
+$.fn.sortByDepth = function() {
+    var ar = this.map(function() {
+            return {length: $(this).parents().length, elt: this}
+        }).get(),
+        result = [],
+        i = ar.length;
+
+
+    ar.sort(function(a, b) {
+        return a.length - b.length;
+    });
+
+    while (i--) {
+        result.push(ar[i].elt);
+    }
+    return $(result);
+};
+
 // Convenience parsing function
 function parseSettings(settings, opts) {
 	var text = (settings + " ").match(/ +|[=,]|\{[^}]*\}|[^ ,=]+/g), cases = [];
