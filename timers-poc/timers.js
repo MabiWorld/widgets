@@ -350,7 +350,7 @@ function Display($elem, args, timer, displayer) {
 	var $display = $("<div>").style(args.listStyle).appendTo($container);
 
 	// formatter function to replace % options
-	this._formatter = function(output, relative) {
+	function formatter(output, relative) {
 		// We process the following tokens:
 		//   %v[n]     replaced with the value of the event
 		//   %t[n][{f}]  replaced with the time of the event
@@ -358,8 +358,6 @@ function Display($elem, args, timer, displayer) {
 		// Options:
 		//    n: relative index of the event to retrieve. Defaults to 0 if omitted.
 		//    f: format string passed to moment's format() method
-
-
 		var final = '';
 		var last = 0;
 
@@ -399,7 +397,7 @@ function Display($elem, args, timer, displayer) {
 		// Add new items
 		for (var i = 0; i < show; i++) {
 			$entry = $("<div>").addClass("display-entry").style(args.entryStyle);
-			$display.append(displayer($entry, i+skip, self._formatter));
+			$display.append(displayer($entry, i+skip, formatter));
 		}
 
 		// Process any countdowns
