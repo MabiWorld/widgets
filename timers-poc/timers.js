@@ -47,13 +47,19 @@ generators.rotate = function(args, list) {
 
 	if (args.changeAt) {
 		// Change-at type timer
-		if ((args.mode && args.mode=='erinn') || args.changeAt.some(function (x) { return x[x.length -1] == 'E'; }))
-		{
+		if ((args.mode && args.mode=='erinn') || args.changeAt.some(function (x) { return x[x.length -1] == 'E'; })) {
 			// Erinn mode
 			return rotate_at_erinn(args, list, epoch);
+		} else {
+			return rotate_at_real(args, list, epoch)
 		}
 	} else {
-		// Rotate every needs to use UTC to avoid DST issues.
+		if ((args.mode && args.mode=='erinn') || args.changeEvery[args.changeEvery.length -1] == 'E') {
+			// Erinn mode
+			return rotate_every_erinn(args, list, epoch);
+		} else {
+			return rotate_every_real(args, list, epoch)
+		}
 	}
 }
 
@@ -94,6 +100,21 @@ function rotate_at_erinn(args, list, epoch) {
 	epoch = erinnToReal(erinnAtEpoch.day, erinnAtEpoch.hour + addHours, erinnAtEpoch.minute + addMinutes);
 
 	return new Rotate(args, epoch, entries);
+}
+
+function rotate_at_real(args, list, epoch) {
+	console.warn("Not implemented");
+	return null;
+}
+
+function rotate_every_erinn(args, list, epoch) {
+	console.warn("Not implemented");
+	return null;
+}
+
+function rotate_every_real(args, list, epoch) {
+	console.warn("Not implemented");
+	return null;
 }
 
 // Generic rotate generator
