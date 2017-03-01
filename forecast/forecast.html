@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="/moment.js"></script>
+		<script src="/moment-timezone-with-data.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+		<script src="forecast.js"></script>
+		<link rel="stylesheet" type="text/css" href="forecast.css">
+		<title>Forecast Demo Page</title>
+	</head>
+	<body>
+		<div ng-app="forecast" ng-controller="forecastCtrl as forecast">
+			<span ng-repeat="(id, area) in forecast.areas" class="area-hour">
+				<div class="area-title">{{ area.name }}</div>
+				<div class="area-today">
+					<img class="area-today-body" src="http://mabi.world/gfx/eweca.png"/>
+					<span class="area-today-coverage">{{ area.now.desc }}</span>
+				</div>
+				<div class="area-forecast">
+					<table>
+						<tr>
+							<td ng-repeat="next in area.next">{{next.desc}}</td>
+						</tr>
+						<tr>
+							<td ng-repeat="next in area.next">{{next.time}}</td>
+						</tr>
+					</table>
+				</div>
+			</span>
+		</div>
+	</body>
+</html>
