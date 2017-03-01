@@ -17,8 +17,12 @@
 // Unchecked: Doki Doki, Beginner zones, AW, Falias
 
 angular.module('forecast', ['time', 'angularMoment'])
-	.factory('forecastSvc', ['$http', 'moment', function ($http, moment) {
-		// TODO: Make i18n a service?
+	.factory('forecastl10n', function () {
+		var service = {
+			get: get,
+			intensity: intensity
+		};
+
 		var l18n = {
 			"type1": "Northern Uladh",
 			"type2": "Dunbarton area",
@@ -58,12 +62,77 @@ angular.module('forecast', ['time', 'angularMoment'])
 			l18n.intensity.custom.physis[i] = "Snowing, " + iio;
 		}
 
+		/**
+		 * @function get
+		 * @description Looks up the given key in the localization
+		 */
+		function get(id) {
+			if (id in l18n) {
+				return l18n[id];
+			}
+
+			console.warn("id not found in localization!", id);
+			return id;
+		}
+
+		/**
+		 * @function intensity
+		 * @description Returns the localized description for this region
+		 */
 		function intensity(v, id) {
 			var ww = l18n.intensity, lic = l18n.intensity.custom;
 			if (id in lic && v in lic[id]) {
 				ww = lic[id];
 			}
 			return ww[v];
+		}
+
+		return service;
+	})
+	.factory('forecastService', ['$http', 'moment', 'forecastl10n', function ($http, moment, l10n) {
+		var service = {
+			get: get
+		};
+
+		/**
+		 * @name get
+		 * @description Returns a promise of the number of specified next forecast datapoints. Includes "now".
+		 */
+		function get(number) {
+			return $http.get('http://mabi.world/forecast.php', { params: { duration: number } }).then(function (response) {
+				var data = response.data;
+				var areas = {}
+				// TODO: data.errors
+
+				// Separate Physis and Zardine
+				data.forecast.physis = data.forecast.type10;
+				data.forecast.zardine = data.forecast.type10;
+
+				var from = moment(data.from);
+
+				for (var id in data.forecast) {
+					var forecast = data.forecast[id]
+					var now = data.forecast[id][0];
+					var area = {
+						id: id,
+						name: l10n.get(id),
+						now: undefined,
+						next: []
+					}
+
+					var time = boundDown(moment(from));
+					for (var i = 0; i < forecast.length; ++i) {
+						area.next.push({ time: time.clone(), intensity: forecast[i], desc: l10n.intensity(forecast[i], id) });
+						time.add(20, 'minutes');
+					}
+
+					area.now = area.next.shift();
+
+					areas[id] = area;
+				}
+
+				return areas;
+			});
 		}
 
 		function boundUp(date) {
@@ -84,50 +153,107 @@ angular.module('forecast', ['time', 'angularMoment'])
 			return date;
 		}
 
-		return {
-			/**
-			 * @name get
-			 * @description Returns a promise of the number of specified next forecast datapoints. Includes "now".
-			 */
-			get: function (number) {
-				return $http.get('http://mabi.world/forecast.php', { params: { duration: number } }).then(function (response) {
-					var data = response.data;
-					var ret = {}
-					// TODO: data.errors
+		return service;
+	}])
+	.factory('gfxService', function () {
+		var service = {
+			getGfxUrlLarge: getGfxUrlLarge,
+			getGfxUrlSmallDay: getGfxUrlSmallDay,
+			getGfxUrlSmallNight: getGfxUrlSmallNight
+		};
 
-					// Separate Physis and Zardine
-					data.forecast.physis = data.forecast.type10;
-					data.forecast.zardine = data.forecast.type10;
+		var weather2gfx = {
+			//      Large,           Day small,          Night small 
+			"-9": ["unknown.png", "unknown-sm.png", "unknown-sm.png"],
+			"-8": ["none.png", "palala-sm.png", "eweca-sm.png"],
+			"-7": ["cloudy1.png", "palala-sm.png", "eweca-sm.png"],
+			"-6": ["cloudy2.png", "cloudy1-sm.png", "cloudy1-sm-n.png"],
+			"-5": ["cloudy2.png", "cloudy1-sm.png", "cloudy1-sm-n.png"],
+			"-4": ["cloudy3.png", "cloudy2-sm.png", "cloudy1-sm-n.png"],
+			"-3": ["cloudy3.png", "cloudy2-sm.png", "cloudy2-sm-n.png"],
+			"-2": ["cloudy4.png", "cloudy3-sm.png", "cloudy2-sm-n.png"],
+			"-1": ["cloudy4.png", "cloudy3-sm.png", "cloudy3-sm.png"],
+			0: ["cloudy5.png", "cloudy4-sm.png", "cloudy4-sm.png"],
+			1: ["rain1-5.png", "rain1-5-sm.png", "rain1-5-sm.png"],
+			2: ["rain1-5.png", "rain1-5-sm.png", "rain1-5-sm.png"],
+			3: ["rain1-5.png", "rain1-5-sm.png", "rain1-5-sm.png"],
+			4: ["rain1-5.png", "rain1-5-sm.png", "rain1-5-sm.png"],
+			5: ["rain1-5.png", "rain1-5-sm.png", "rain1-5-sm.png"],
+			6: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			7: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			8: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			9: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			10: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			11: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			12: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			13: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			14: ["rain6-14.png", "rain6-14-sm.png", "rain6-14-sm.png"],
+			15: ["rain15-19.png", "rain15-19-sm.png", "rain15-19-sm.png"],
+			16: ["rain15-19.png", "rain15-19-sm.png", "rain15-19-sm.png"],
+			17: ["rain15-19.png", "rain15-19-sm.png", "rain15-19-sm.png"],
+			18: ["rain15-19.png", "rain15-19-sm.png", "rain15-19-sm.png"],
+			19: ["rain15-19.png", "rain15-19-sm.png", "rain15-19-sm.png"],
+			20: ["rain20.png", "rain20-sm.png", "rain20-sm.png"],
+			"body": ["palala.png", "eweca.png"]
+		};
 
-					var from = moment(data.from);
-
-					for (var id in data.forecast) {
-						var forecast = data.forecast[id]
-						var now = data.forecast[id][0]; 
-						var area = {
-							id: id,
-							name: l18n[id],
-							now: { time: from, intensity: forecast[0], desc: intensity(forecast[0], id) },
-							next: []
-						}
-
-						var time = boundDown(moment(from).add(20, 'minutes'));
-						for (var i = 1; i < forecast.length; ++i) {
-							area.next.push({ time: time, intensity: forecast[i], desc: intensity(forecast[i], id) });
-							time.add(20, 'minutes');
-						}
-
-						ret[id] = area;
-					}
-
-					return ret;
-				});
+		var customgfx = {
+			"physis": {
+				1: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				2: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				3: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				4: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				5: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				6: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				7: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				8: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				9: ["snow1-9.png", "snow1-9-sm.png", "snow1-9-sm.png"],
+				10: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				11: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				12: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				13: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				14: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				15: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				16: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				17: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				18: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
+				19: ["snow10-19.png", "snow10-19-sm.png", "snow10-19-sm.png"],
 			}
+		};
+
+		function getGfxUrlLarge(intensity, id) {
+			return getGfxUrl(intensity, 0, id);
 		}
-	}])	
-	.controller('forecastCtrl', ['forecastSvc', function (forecastSvc) {
+
+		function getGfxUrlSmallDay(intensity, id) {
+			return getGfxUrl(intensity, 1, id);
+		}
+
+		function getGfxUrlSmallNight(intensity, id) {
+			return getGfxUrl(intensity, 2, id);
+		}
+
+		function getGfxUrl(intensity, idx, id) {
+			var gfx = weather2gfx[intensity][idx];
+			if (id in customgfx) {
+				var cgi = customgfx[id];
+				if (intensity in cgi) gfx = cgi[intensity][idx];
+			}
+
+			if (gfx.substr(0, 4) == "http" || gfx.charAt(0) == "/") return gfx;
+			return "http://mabi.world/gfx/" + gfx;
+		}
+
+		return service;
+	})
+	.controller('forecastCtrl', ['forecastService', 'gfxService', function (forecastService, gfxService) {
+		var self = this;
+		self.getGfxUrlLarge = gfxService.getGfxUrlLarge;
+		self.getGfxUrlSmallDay = gfxService.getGfxUrlSmallDay;
+		self.getGfxUrlSmallNight = gfxService.getGfxUrlSmallNight;
+
 		self.updateAreas = function () {
-			forecastSvc.get(4).then(function (areas) {
+			forecastService.get(4).then(function (areas) {
 				console.log(areas);
 				self.areas = areas;
 			});
