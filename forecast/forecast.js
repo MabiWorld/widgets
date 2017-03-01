@@ -16,6 +16,24 @@
 //     Abb Neagh Residential, Sliab Cuilin Residential + Castle
 // Unchecked: Doki Doki, Beginner zones, AW, Falias
 
+function boundUp(date) {
+	date = moment(date);
+	var mn = date.minutes();
+	if (mn < 20) date.minutes(20);
+	else if (mn < 40) date.minutes(40);
+	else date.add(1, "hour").minutes(0);
+	return date.seconds(0);
+}
+
+function boundDown(date) {
+	date = moment(date);
+	var mn = date.minutes();
+	if (mn < 20) date.minutes(0);
+	else if (mn < 40) date.minutes(20);
+	else date.minutes(40);
+	return date.seconds(0);
+}
+
 angular.module('forecast', ['time', 'angularMoment'])
 	.factory('forecastl10n', function () {
 		var service = {
@@ -135,24 +153,6 @@ angular.module('forecast', ['time', 'angularMoment'])
 			});
 		}
 
-		function boundUp(date) {
-			date = moment(date);
-			var mn = date.minutes();
-			if (mn < 20) date.minutes(20);
-			else if (mn < 40) date.minutes(40);
-			else date.add(1, "hour").minutes(0);
-			return date;
-		}
-
-		function boundDown(date) {
-			date = moment(date);
-			var mn = date.minutes();
-			if (mn < 20) date.minutes(0);
-			else if (mn < 40) date.minutes(20);
-			else date.minutes(40);
-			return date;
-		}
-
 		return service;
 	}])
 	.factory('gfxService', function () {
@@ -246,20 +246,48 @@ angular.module('forecast', ['time', 'angularMoment'])
 
 		return service;
 	})
-	.controller('forecastCtrl', ['forecastService', 'gfxService', function (forecastService, gfxService) {
+	.controller('forecastCtrl', ['forecastService', 'gfxService', 'clockService', '$timeout', function (forecastService, gfxService, clockService, $timeout) {
 		var self = this;
+		self.now = clockService.now;
 		self.getGfxUrlLarge = gfxService.getGfxUrlLarge;
 		self.getGfxUrlSmallDay = gfxService.getGfxUrlSmallDay;
 		self.getGfxUrlSmallNight = gfxService.getGfxUrlSmallNight;
 
+		areaOrder = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9', 'zardine', 'physis', 'type11', 'type12', 'type13'];
+		areaIndex = 0;
+
+		self.nextArea = function () {
+			areaIndex = (areaIndex + 1) % areaOrder.length;
+			self.displayedArea = areaOrder[areaIndex];
+		};
+
+		self.prevArea = function () {
+			if (areaIndex == 0) {
+				areaIndex = areaOrder.length;
+			}
+			areaIndex -= 1;
+			self.displayedArea = areaOrder[areaIndex];
+		};
+
 		self.updateAreas = function () {
-			forecastService.get(4).then(function (areas) {
+			return forecastService.get(4).then(function (areas) {
 				console.log(areas);
 				self.areas = areas;
+				return areas;
 			});
 		};
 
-		self.updateAreas();
+		self.updateAreas().then(function () {
+			self.displayedArea = areaOrder[areaIndex];
+		});
+
+		function refreshData() {
+			next = boundUp(moment()) - moment();
+			$timeout(refreshData, next);
+			self.updateAreas();
+		}
+
+		refreshData();
 
 		return self;
 	}]);

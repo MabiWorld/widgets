@@ -14,20 +14,21 @@
 
 <body ng-app="forecast">
 	<div ng-controller="forecastCtrl as forecast">
-		<span class="area-left"><img src="http://mabi.world/gfx/left.png"/></span>
-		<span class="area-right"><img src="http://mabi.world/gfx/right.png"/></span>
-		<span ng-repeat="(id, area) in forecast.areas" class="area-hour">
+		<span class="area-left" ng-click="forecast.prevArea()" ng-hide="forecast.areas.length == 0"><img src="http://mabi.world/gfx/left.png"/></span>
+		<span class="area-right" ng-click="forecast.nextArea()" ng-hide="forecast.areas.length == 0"><img src="http://mabi.world/gfx/right.png"/></span>
+		<span ng-repeat="(id, area) in forecast.areas" class="area-hour" ng-show="forecast.displayedArea == id">
 			<div class="area-title">{{ area.name }}</div>
-			<div class="area-today">
-				<img class="area-today-body" src="http://mabi.world/gfx/eweca.png" />
+			<div class="area-today" title="{{ area.now.desc }}">
+				<img ng-if="!forecast.now().erinn.isNight()" class="area-today-body" src="http://mabi.world/gfx/eweca.png" />
+				<img ng-if="forecast.now().erinn.isNight()" class="area-today-body" src="http://mabi.world/gfx/palala.png" />
 				<img class="area-today-coverage" ng-src="{{ forecast.getGfxUrlLarge(area.now.intensity, area.id) }}"></span>
 			</div>
 			<div class="area-forecast">
 				<table>
 					<tr>
-						<td ng-repeat="next in area.next">
-							<img ng-if="next.time.isDay" ng-src="{{ forecast.getGfxUrlSmallDay(next.intensity, area.id) }}">
-							<img ng-if="next.time.isNight" ng-src="{{ forecast.getGfxUrlSmallNight(next.intensity, area.id) }}">
+						<td ng-repeat="next in area.next" title="{{next.desc}}">
+							<img ng-if="!next.time.toErinn().isNight()" ng-src="{{ forecast.getGfxUrlSmallDay(next.intensity, area.id) }}">
+							<img ng-if="next.time.toErinn().isNight()" ng-src="{{ forecast.getGfxUrlSmallNight(next.intensity, area.id) }}">
 						</td>
 					</tr>
 					<tr>
