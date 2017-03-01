@@ -16,8 +16,8 @@
 //     Abb Neagh Residential, Sliab Cuilin Residential + Castle
 // Unchecked: Doki Doki, Beginner zones, AW, Falias
 
-angular.module('forecast', ['time'])
-	.factory('forecastSvc', ['$http', 'timeSvc', function ($http, timeSvc) {
+angular.module('forecast', ['time', 'angularMoment'])
+	.factory('forecastSvc', ['$http', 'moment', function ($http, moment) {
 		// TODO: Make i18n a service?
 		var l18n = {
 			"type1": "Northern Uladh",
@@ -111,7 +111,7 @@ angular.module('forecast', ['time'])
 							next: []
 						}
 
-						var time = timeSvc.boundDown(moment(from).add(20, 'minutes'));
+						var time = boundDown(moment(from).add(20, 'minutes'));
 						for (var i = 1; i < forecast.length; ++i) {
 							area.next.push({ time: time, intensity: forecast[i], desc: intensity(forecast[i], id) });
 							time.add(20, 'minutes');

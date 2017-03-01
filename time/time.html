@@ -4,12 +4,23 @@
 		<script src="/moment.js"></script>
 		<script src="/moment-timezone-with-data.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
-		<script src="time.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.1/angular-moment.min.js"></script>
+        <script src="time.js"></script>
 		<title>Time Demo Page</title>
 	</head>
-	<body>
-		<div ng-app="time" ng-controller="timeCtrl as time">
-            {{time.now()}}
+	<body ng-app="time">
+		<div ng-controller="clockCtrl as clock">
+            <p>Server: {{ clock.now().real | amDateFormat:'h:mm a' }}</p>
+            <p>Erinn:  {{ clock.now().erinn | amDateFormat:'HH:mm' }}</p>
+            <p>Night:  {{ clock.now().erinn | isNight }}</p>
+            <p>Day:    {{ clock.now().erinn | isDay }}</p>
+		</div>
+        <hr>
+        <div ng-controller="clockCtrl as clock">
+            <p>Server: <server-clock></server-clock></p>
+            <p>Erinn:  <span erinn-clock></span></p>
+            <p>Night:  <span class="is-night"></span></p>
+            <p>Day:    <is-day></p>
 		</div>
 	</body>
 </html>
