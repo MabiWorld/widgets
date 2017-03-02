@@ -1,0 +1,365 @@
+.mss-server {
+	width: 58px;
+	display: inline-block;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+	margin: 2px;
+	text-align: center;
+}
+
+.mss-server-icon-mabius1 {
+	background: url('servericon-mabius1.png');
+}
+
+.mss-server-icon-mabius2 {
+	background: url('servericon-mabius2.png');
+}
+
+.mss-server-icon-mabius3 {
+	background: url('servericon-mabius3.png');
+}
+
+.mss-server-icon-mabius4 {
+	background: url('servericon-mabius4.png');
+}
+
+.mss-icon-box {
+	width: 40px;
+	height: 40px;
+	display: block;
+	margin: 9px;
+	position: relative;
+	border: none;
+	border-radius: 20px;
+	background-color: #F0F0F0;
+	z-index: 2;
+}
+
+.mss-box {
+	width: 256px;
+	background: #EEEEFF;
+	border: 1px solid #AAAAEE;
+	overflow: hidden;
+	padding: 5px;
+	text-align: center;
+	font-family: Tahoma;
+	font-size: 12px;
+}
+
+.mss-updated-on {
+	font-size: 80%;
+}
+
+.mss-game-bar-bg {
+	width: 250px;
+	height: 18px;
+	display: block;
+	margin-left: 2px;
+	position: relative;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+.mss-game-bar {
+	height: 18px;
+	display: block;
+	width: 0px;
+	position: absolute;
+}
+
+.mss-game-status-text {
+	height: 20px;
+	width: 250px;
+	line-height: 16px;
+	text-align: center;
+	display: block;
+	font-weight: bold;
+}
+
+.mss-arc-q, .mss-arc-cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: -4px;
+	margin-top: -4px;
+}
+
+.mss-arc-q {
+	border-radius: 50%;
+	border: 4px solid;
+	z-index: 1;
+}
+
+.mss-arc-q-server {
+	width: 40px;
+	height: 40px;
+}
+
+.mss-arc-q-channel {
+	width: 24px;
+	height: 24px;
+}
+
+.mss-arc-cover {
+	z-index: 5;
+	background-color: #FAFAFF;
+}
+
+.mss-arc-cover-server {
+	width: 24px;
+	height: 24px;
+}
+
+.mss-arc-cover-channel {
+	width: 16px;
+	height: 16px;
+}
+
+.mss-arc-cover2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 4px;
+	margin-top: 4px;
+	width: 20px;
+	height: 20px;
+	background-color: #FAFAFF;
+	z-index: 4;
+	background-repeat: no-repeat;
+	border-top-left-radius: 20px;
+}
+
+.mss-server-icon-warning {
+	width: 54px;
+	height: 54px;
+	line-height: 48px;
+	display: block;
+	position: absolute;
+	background-image: url('warning.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	text-align: center;
+	z-index: 5;
+}
+
+.mss-channel {
+	width: 58px;
+	height: 32px;
+	margin-bottom: 4px;
+	display: block;
+}
+
+.mss-channel-circle {
+	width: 24px;
+	height: 24px;
+	margin-left: 8px;
+	display: block;
+	position: relative;
+	border-radius: 24px;
+	text-align: center;
+}
+
+.mss-channel-name {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	border-radius: 24px;
+	background-color: #DDEEDD;
+	z-index: 5;
+	font-size: 10px;
+	display: block;
+	text-align: center;
+	line-height: 22px;
+	font-weight: bold;
+}
+
+.mss-channel-icon {
+	width: 16px;
+	height: 16px;
+	margin-top: 1px;
+	margin-right: 2px;
+	float: right;
+	background-image: url('icons.png');
+}
+.mss-ping-icon {
+	width: 13px;
+	height: 8px;
+	position: absolute;
+	display: block;
+	margin-top: 16px;
+	background: url('pingicons.png') no-repeat;
+}
+.mss-ping-icon-offline {
+ 	background-position: 0px 0px;
+}
+.mss-ping-icon-good {
+ 	background-position: 0px -8px;
+}
+.mss-ping-icon-moderate {
+ 	background-position: 0px -16px;
+}
+.mss-ping-icon-bad {
+ 	background-position: 0px -24px;
+}
+.mss-housing-channel {
+	background: url('hch.png') center center no-repeat #DDEEDD;
+}
+
+.mss-server-box {
+	display: inline-block;
+	width: 77px;
+	margin: 3px;
+	height: 40px;
+	text-align: center;
+	font-size: 11px;
+	line-height: 20px;
+	display: inline-block;
+	float: left;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+.mss-grayscale {
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.mss-server-box-name {
+	font-weight: bold;
+}
+
+.mss-server-box-status-text {
+	padding: 1px 3px;
+}
+
+/* icon */
+.mss-icon-event {
+	background-position: -16px 0px;
+}
+
+.mss-icon-offline {
+	background-position: -32px 0px;
+}
+
+.mss-icon-maintenance {
+	background-position: -48px 0px;
+}
+
+.mss-icon-booting {
+	background-position: -80px 0px;
+}
+
+.mss-icon-error {
+	background-position: -64px 0px;
+}
+
+/* ring*/
+.mss-ring-offline {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss-ring-maintenance {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss-ring-online {
+	border-color: transparent green transparent transparent;
+}
+
+.mss-ring-busy {
+	border-color: transparent #FFBB00 transparent transparent;
+}
+
+.mss-ring-full {
+	border-color: transparent #FF9900 transparent transparent;
+}
+
+.mss-ring-bursting {
+	border-color: transparent #CC0000 transparent transparent;
+}
+
+.mss-ring-booting {
+	border-color: transparent #BBBBBB transparent transparent;
+}
+
+.mss-ring-error {
+	border-color: transparent #999999 transparent transparent;
+}
+
+.mss-ring-ping {
+	border-color: transparent #6699FF transparent transparent;
+}
+
+
+/* Text */
+.mss-text-offline {
+	color: #999999;
+}
+
+.mss-text-maintenance {
+	color: #999999;
+}
+
+.mss-text-online {
+	color: green;
+}
+
+.mss-text-busy {
+	color: #FFBB00;
+}
+
+.mss-text-full {
+	color: #FF9900;
+}
+
+.mss-text-bursting {
+	color: #CC0000;
+}
+
+.mss-text-booting {
+	color: #BBBBBB;
+}
+
+.mss-text-error {
+	color: #999999;
+}
+
+/* Backgrounds */
+.mss-background-offline {
+	background-color: #999999;
+}
+
+.mss-background-maintenance {
+	background-color: #999999;
+}
+
+.mss-background-online {
+	background-color: green;
+}
+
+.mss-background-busy {
+	background-color: #FFBB00;
+}
+
+.mss-background-full {
+	background-color: #FF9900;
+}
+
+.mss-background-bursting {
+	background-color: #CC0000;
+}
+
+.mss-background-booting {
+	background-color: #BBBBBB;
+}
+
+.mss-background-error {
+	background-color: #999999;
+}
+.mss-background-ping {
+	background-color: #6699FF;
+}
