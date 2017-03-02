@@ -34,7 +34,7 @@ function boundDown(date) {
 	return date.seconds(0);
 }
 
-angular.module('forecast', ['time', 'angularMoment'])
+angular.module('forecast', ['time', 'angularMoment', 'ngAnimate'])
 	.factory('forecastl10n', function () {
 		var service = {
 			get: get,

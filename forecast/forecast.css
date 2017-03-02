@@ -126,3 +126,7 @@
 
 	text-align: center;
 }
+
+.area-hour {
+	transition: all 0.4s cubic-bezier(.02, .01, .47, 1);
+}
