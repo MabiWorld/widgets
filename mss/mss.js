@@ -1,4 +1,4 @@
-mss = angular.module('serverStat', []);
+mss = angular.module('serverStat', ['angular-svg-round-progressbar']);
 
 mss.factory('statusService', ['$http', function ($http) {
 	var service = {
@@ -45,17 +45,18 @@ mss.factory('statusService', ['$http', function ($http) {
 						if (channel.ping) {
 							anyOnline = true;
 							server.state = 'online';
+							channel.state = 'ping';
 						}
-						channel.stress = 100;
+						channel.stress = -1;
 					}
-					server.stress = 100;
+					server.stress = -1;
 				}
 				if (status.login.state == 'online' && anyOnline) {
 					status.game.state = 'online';
 				} else {
 					status.game.state = 'offline';
 				}
-				status.game.stress = 100;
+				status.game.stress = -1;
 			}
 
 			return status;
@@ -75,3 +76,30 @@ mss.controller('serverStatCtrl', ['statusService', function (statusService) {
 		vm.status = status;
 	});
 }]);
+
+mss.filter('stateColor', function() {
+	var colors = {
+		online: 'green',
+		busy: '#FFBB00',
+		full: '#FF9900',
+		bursting: '#CC0000',
+		booting: '#BBBBBB',
+		ping: '#6699FF'
+	};
+
+	return function (state) {
+		if (state in colors) {
+			return colors[state];
+		}
+		return '#999999';
+	};
+});
+
+mss.filter('ratePing', function() {
+	return function (ping) {
+		if (ping <= 0) return 'off';
+		if (ping <= 50) return 'low';
+		if (ping <= 500) return 'medium';
+		return 'high';
+	}
+});

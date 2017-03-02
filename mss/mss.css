@@ -183,6 +183,8 @@
 	margin-right: 2px;
 	float: right;
 	background-image: url('icons.png');
+	-webkit-transition: background-position 2s;
+	transition: background-position 2s;
 }
 .mss-ping-icon {
 	width: 13px;
@@ -191,17 +193,19 @@
 	display: block;
 	margin-top: 16px;
 	background: url('pingicons.png') no-repeat;
+	-webkit-transition: background-position 2s;
+	transition: background-position 2s;
 }
-.mss-ping-icon-offline {
+.mss-ping-icon-off {
  	background-position: 0px 0px;
 }
-.mss-ping-icon-good {
+.mss-ping-icon-low {
  	background-position: 0px -8px;
 }
-.mss-ping-icon-moderate {
+.mss-ping-icon-medium {
  	background-position: 0px -16px;
 }
-.mss-ping-icon-bad {
+.mss-ping-icon-high {
  	background-position: 0px -24px;
 }
 .mss-housing-channel {
