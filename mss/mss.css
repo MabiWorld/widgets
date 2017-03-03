@@ -7,6 +7,17 @@
 	text-align: center;
 }
 
+.mss-server-icon {
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: absolute;
+	border: none;
+	border-radius: 20px;
+	background-color: #F0F0F0;
+	z-index: 2;
+}
+
 .mss-server-icon-mabius1 {
 	background: url('servericon-mabius1.png');
 }
@@ -24,15 +35,7 @@
 }
 
 .mss-icon-box {
-	width: 40px;
-	height: 40px;
-	display: block;
-	margin: 9px;
 	position: relative;
-	border: none;
-	border-radius: 20px;
-	background-color: #F0F0F0;
-	z-index: 2;
 }
 
 .mss-box {
@@ -76,62 +79,9 @@
 	font-weight: bold;
 }
 
-.mss-arc-q, .mss-arc-cover {
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin-left: -4px;
-	margin-top: -4px;
-}
-
-.mss-arc-q {
-	border-radius: 50%;
-	border: 4px solid;
-	z-index: 1;
-}
-
-.mss-arc-q-server {
-	width: 40px;
-	height: 40px;
-}
-
-.mss-arc-q-channel {
-	width: 24px;
-	height: 24px;
-}
-
-.mss-arc-cover {
-	z-index: 5;
-	background-color: #FAFAFF;
-}
-
-.mss-arc-cover-server {
-	width: 24px;
-	height: 24px;
-}
-
-.mss-arc-cover-channel {
-	width: 16px;
-	height: 16px;
-}
-
-.mss-arc-cover2 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin-left: 4px;
-	margin-top: 4px;
-	width: 20px;
-	height: 20px;
-	background-color: #FAFAFF;
-	z-index: 4;
-	background-repeat: no-repeat;
-	border-top-left-radius: 20px;
-}
-
 .mss-server-icon-warning {
-	width: 54px;
-	height: 54px;
+	width: 42px;
+	height: 42px;
 	line-height: 48px;
 	display: block;
 	position: absolute;
@@ -155,7 +105,7 @@
 .mss-channel-circle {
 	width: 24px;
 	height: 24px;
-	margin-left: 8px;
+	margin-left: 4px;
 	display: block;
 	position: relative;
 	border-radius: 24px;
@@ -259,111 +209,4 @@
 
 .mss-icon-error {
 	background-position: -64px 0px;
-}
-
-/* ring*/
-.mss-ring-offline {
-	border-color: transparent #999999 transparent transparent;
-}
-
-.mss-ring-maintenance {
-	border-color: transparent #999999 transparent transparent;
-}
-
-.mss-ring-online {
-	border-color: transparent green transparent transparent;
-}
-
-.mss-ring-busy {
-	border-color: transparent #FFBB00 transparent transparent;
-}
-
-.mss-ring-full {
-	border-color: transparent #FF9900 transparent transparent;
-}
-
-.mss-ring-bursting {
-	border-color: transparent #CC0000 transparent transparent;
-}
-
-.mss-ring-booting {
-	border-color: transparent #BBBBBB transparent transparent;
-}
-
-.mss-ring-error {
-	border-color: transparent #999999 transparent transparent;
-}
-
-.mss-ring-ping {
-	border-color: transparent #6699FF transparent transparent;
-}
-
-
-/* Text */
-.mss-text-offline {
-	color: #999999;
-}
-
-.mss-text-maintenance {
-	color: #999999;
-}
-
-.mss-text-online {
-	color: green;
-}
-
-.mss-text-busy {
-	color: #FFBB00;
-}
-
-.mss-text-full {
-	color: #FF9900;
-}
-
-.mss-text-bursting {
-	color: #CC0000;
-}
-
-.mss-text-booting {
-	color: #BBBBBB;
-}
-
-.mss-text-error {
-	color: #999999;
-}
-
-/* Backgrounds */
-.mss-background-offline {
-	background-color: #999999;
-}
-
-.mss-background-maintenance {
-	background-color: #999999;
-}
-
-.mss-background-online {
-	background-color: green;
-}
-
-.mss-background-busy {
-	background-color: #FFBB00;
-}
-
-.mss-background-full {
-	background-color: #FF9900;
-}
-
-.mss-background-bursting {
-	background-color: #CC0000;
-}
-
-.mss-background-booting {
-	background-color: #BBBBBB;
-}
-
-.mss-background-error {
-	background-color: #999999;
-}
-.mss-background-ping {
-	background-color: #6699FF;
 }
