@@ -82,11 +82,13 @@
 }
 
 .mss-server-icon-warning {
-	width: 42px;
-	height: 42px;
+	width: 20px;
+	height: 20px;
 	line-height: 48px;
 	display: block;
 	position: absolute;
+	right: -4px;
+	bottom: -4px;
 	background-image: url('warning.png');
 	background-position: bottom right;
 	background-repeat: no-repeat;
