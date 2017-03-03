@@ -210,3 +210,72 @@
 .mss-icon-error {
 	background-position: -64px 0px;
 }
+
+/* Text */
+.mss-text-offline {
+	color: #999999;
+}
+
+.mss-text-maintenance {
+	color: #999999;
+}
+
+.mss-text-online {
+	color: green;
+}
+
+.mss-text-busy {
+	color: #FFBB00;
+}
+
+.mss-text-full {
+	color: #FF9900;
+}
+
+.mss-text-bursting {
+	color: #CC0000;
+}
+
+.mss-text-booting {
+	color: #BBBBBB;
+}
+
+.mss-text-error {
+	color: #999999;
+}
+
+/* Backgrounds */
+.mss-background-offline {
+	background-color: #999999;
+}
+
+.mss-background-maintenance {
+	background-color: #999999;
+}
+
+.mss-background-online {
+	background-color: green;
+}
+
+.mss-background-busy {
+	background-color: #FFBB00;
+}
+
+.mss-background-full {
+	background-color: #FF9900;
+}
+
+.mss-background-bursting {
+	background-color: #CC0000;
+}
+
+.mss-background-booting {
+	background-color: #BBBBBB;
+}
+
+.mss-background-error {
+	background-color: #999999;
+}
+.mss-background-ping {
+	background-color: #6699FF;
+}

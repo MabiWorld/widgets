@@ -5,6 +5,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-animate.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.8/roundProgress.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.0/angular-translate.min.js"></script>
 	<script src="mss.js"></script>
 	<link rel="stylesheet" type="text/css" href="mss.css">
 	<title>Server Stat Demo Page</title>
@@ -14,9 +15,9 @@
 	<div ng-controller="serverStatCtrl as mss" class="mss-box">
 		<p class="mss-loading" ng-if="!mss.status">Loading, please wait...</p>
 		<div class="mss-data" ng-if="mss.status">
-			<div class="mss-game-status" ng-init="game = mss.status.game">
-				<div class="mss-game-status-text">Mabinogi is {{ game.state }}</div>
-				<div class="mss-game-bar-bg" title="{{ game.stress == -1 ? 'Load not available' : game.stress + '% full'}}'">
+			<div class="mss-game-status" ng-init="game = mss.status.game" translate-attr="{ title: 'game.stress.' + (game.stress == -1 ? 'na' : 'stress') }" translate-value-stress="{{game.stress}}">
+				<div class="mss-game-status-text" translate="game.state.{{ game.state }}"></div>
+				<div class="mss-game-bar-bg">
 					<div class="mss-game-bar mss-background-{{ game.state }}" ng-style="{'width': (game.stress == -1 ? 100 : game.stress) + '%', 'transition': 'width 2s' , '-webkit-transition': 'width 2s'}"></div>
 				</div>
 			</div>
@@ -28,12 +29,13 @@
 						</div>
 						<round-progress max="100" radius="24" stroke="4" duration="2000" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
 					</div>
-					<div ng-repeat="channel in server.channels track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}">
+					<div ng-repeat="channel in server.channels | orderBy:'name':false:channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}">
 						<span class="mss-channel-icon mss-icon-{{channel.status}}">
 							<span class="mss-ping-icon mss-ping-icon-{{channel.ping | ratePing }}"></span>
 						</span>
 						<div class="mss-channel-circle">
-							<div class="mss-channel-name" style="left:4px;top:4px;">{{channel.name}}</div>
+							<div ng-if="channel.name != 'HCh'" class="mss-channel-name" style="left:4px;top:4px;">{{channel.name}}</div>
+							<div ng-if="channel.name == 'HCh'" class="mss-channel-name mss-housing-channel" style="left:4px;top:4px;"></div>
 							<round-progress max="100" radius="16" stroke="4" duration="2000" current="channel.stress == -1 ? 100 : channel.stress" color="{{ channel.state | stateColor }}"></round-progress>
 						</div>
 					</div>
@@ -42,15 +44,15 @@
 			<div class="mss-other-servers">
 				<div class="mss-server-box mss-site-status" ng-init="website = mss.status.website">
 					<div class="mss-server-box-name">Website</div>
-					<div class="mss-site-status-text mss-server-box-status-text mss-text-{{website.state}}">{{website.state}}</div>
+					<div class="mss-site-status-text mss-server-box-status-text mss-text-{{website.state}}" translate="state.{{website.state}}"></div>
 				</div>
 				<div class="mss-server-box mss-login-status" ng-init="login = mss.status.login">
 					<div class="mss-server-box-name">Login</div>
-					<div class="mss-login-status-text mss-server-box-status-text mss-text-{{login.state}}">{{login.state}}</div>
+					<div class="mss-login-status-text mss-server-box-status-text mss-text-{{login.state}}" translate="state.{{login.state}}"></div>
 				</div>
 				<div class="mss-server-box mss-chat-status" ng-init="chat = mss.status.chat">
 					<div class="mss-server-box-name">Chat</div>
-					<div class="mss-chat-status-text mss-server-box-status-text mss-text-{{chat.state}}">{{chat.state}}</div>
+					<div class="mss-chat-status-text mss-server-box-status-text mss-text-{{chat.state}}" translate="state.{{chat.state}}"></div>
 				</div>
 				<div class="mss-updated-on">Updated on {{mss.status.updated}}</div>
 			</div>
