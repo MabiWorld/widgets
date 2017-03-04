@@ -147,11 +147,21 @@ mss.controller('serverStatCtrl', ['statusService', '$translate', function (statu
 	var vm = this;
 
 	vm.status = undefined;
-	statusService.get().then(function (status) {
-		vm.status = status;
-	});
+	vm.updates = 0;
+	vm.updateStatus = updateStatus;
+	vm.channelComparator = channelComparator;
+	vm.serverComparator = serverComparator;
 
-	vm.channelComparator = function (a, b) {
+	updateStatus();
+
+	function updateStatus() {
+		statusService.get().then(function (status) {
+			vm.updates += 1;
+			vm.status = status;
+		});
+	}	
+
+	function channelComparator (a, b) {
 		if (a.value === 'HCh')
 			return 1;
 		else if (b.value === 'HCh')
@@ -160,7 +170,7 @@ mss.controller('serverStatCtrl', ['statusService', '$translate', function (statu
 			return (a.value < b.value) ? -1 : 1;
 	};
 
-	vm.serverComparator = function (a, b) {
+	function serverComparator (a, b) {
 		var aTrans = $translate.instant('server.name.' + a.value);
 		var bTrans = $translate.instant('server.name.' + b.value);
 

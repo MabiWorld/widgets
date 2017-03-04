@@ -27,7 +27,7 @@
 						<div class="mss-server-icon mss-server-icon-{{server.name}}">
 							<span class="mss-server-icon-warning"></span>
 						</div>
-						<round-progress max="100" radius="24" stroke="4" duration="2000" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
+						<round-progress max="100" radius="24" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
 					</div>
 					<div ng-repeat="channel in server.channels | orderBy:'name':false:mss.channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}">
 						<span class="mss-channel-icon mss-icon-{{channel.status}}">
@@ -36,7 +36,7 @@
 						<div class="mss-channel-circle">
 							<div ng-if="channel.name != 'HCh'" class="mss-channel-name">{{channel.name}}</div>
 							<div ng-if="channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
-							<round-progress max="100" radius="16" stroke="4" duration="2000" current="channel.stress == -1 ? 100 : channel.stress" color="{{ channel.state | stateColor }}"></round-progress>
+							<round-progress max="100" radius="16" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="channel.stress == -1 ? 100 : channel.stress" color="{{ channel.state | stateColor }}"></round-progress>
 						</div>
 					</div>
 				</div>
