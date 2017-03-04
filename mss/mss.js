@@ -165,7 +165,7 @@ mss.factory('statusService', ['$http', function ($http) {
 	}
 }]);
 
-mss.controller('serverStatCtrl', ['statusService', '$translate', function (statusService, $translate) {
+mss.controller('serverStatCtrl', ['statusService', '$translate', '$interval', function (statusService, $translate, $interval) {
 	var vm = this;
 
 	vm.status = undefined;
@@ -175,11 +175,15 @@ mss.controller('serverStatCtrl', ['statusService', '$translate', function (statu
 	vm.serverComparator = serverComparator;
 
 	updateStatus();
+	$interval(updateStatus, 30 * 1000);
 
 	function updateStatus() {
 		statusService.get().then(function (status) {
 			vm.updates += 1;
 			vm.status = status;
+		}).catch(function (err) {
+			console.error("Failed to load status", err);
+			vm.status = undefined;
 		});
 	}
 

@@ -24,7 +24,7 @@
 			<div class="mss-game-servers">
 				<div ng-repeat="server in mss.status.game.servers | orderBy:'name':false:mss.serverComparator track by server.name" class="mss-server mss-server-{{server.name}}">
 					<div class="mss-icon-box" translate-attr="{ title: 'server.desc.' + mss.status.type }" translate-values="{name: server.name, stress:server.stress, state:server.state}">
-						<div class="mss-server-icon mss-server-icon-{{server.name}}" ng-class="{'mss-grayscale': server.state | isBadState}">
+						<div class="mss-server-icon mss-server-icon-{{server.name}} {{(server.state | isBadState) ? 'mss-grayscale' : ''}}">
 							<span class="mss-server-icon-warning" ng-if="server.state | isBadState"></span>
 						</div>
 						<round-progress max="100" radius="24" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
