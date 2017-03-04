@@ -226,3 +226,10 @@ mss.filter('ratePing', function () {
 		return 'high';
 	}
 });
+
+mss.filter('isBadState', function () {
+	var goodStates = ['online', 'busy', 'full', 'bursting']
+	return function (state) {
+		return goodStates.indexOf(state) == -1;
+	}
+});
