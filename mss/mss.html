@@ -22,14 +22,14 @@
 				</div>
 			</div>
 			<div class="mss-game-servers">
-				<div ng-repeat="server in mss.status.game.servers track by server.name" class="mss-server mss-server-{{server.name}}">
+				<div ng-repeat="server in mss.status.game.servers | orderBy:'name':false:mss.serverComparator track by server.name" class="mss-server mss-server-{{server.name}}">
 					<div class="mss-icon-box">
 						<div class="mss-server-icon mss-server-icon-{{server.name}}">
 							<span class="mss-server-icon-warning"></span>
 						</div>
 						<round-progress max="100" radius="24" stroke="4" duration="2000" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
 					</div>
-					<div ng-repeat="channel in server.channels | orderBy:'name':false:channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}">
+					<div ng-repeat="channel in server.channels | orderBy:'name':false:mss.channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}">
 						<span class="mss-channel-icon mss-icon-{{channel.status}}">
 							<span class="mss-ping-icon mss-ping-icon-{{channel.ping | ratePing }}"></span>
 						</span>

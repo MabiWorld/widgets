@@ -39,7 +39,7 @@ mss.config(function ($translateProvider) {
 				booting: 'This server is currently starting, please wait a little',
 				error: 'This server currently has an error'
 			},
-			names: {
+			name: {
 				mabius1: 'Mari',
 				mabius2: 'Ruairi',
 				mabius3: 'Tarlach',
@@ -101,7 +101,7 @@ mss.factory('statusService', ['$http', function ($http) {
 	 * @returns promise
 	 */
 	function get() {
-		return $http.get('status.json').then(function (response) {
+		return $http.get('http://mabi.world/mss/status.json').then(function (response) {
 			var status = response.data;
 
 			var isPing = status.type == 'ping';
@@ -143,7 +143,7 @@ mss.factory('statusService', ['$http', function ($http) {
 	}
 }]);
 
-mss.controller('serverStatCtrl', ['statusService', function (statusService) {
+mss.controller('serverStatCtrl', ['statusService', '$translate', function (statusService, $translate) {
 	var vm = this;
 
 	vm.status = undefined;
@@ -158,6 +158,13 @@ mss.controller('serverStatCtrl', ['statusService', function (statusService) {
 			return -1;
 		else
 			return (a.value < b.value) ? -1 : 1;
+	};
+
+	vm.serverComparator = function (a, b) {
+		var aTrans = $translate.instant('server.name.' + a.value);
+		var bTrans = $translate.instant('server.name.' + b.value);
+
+		return (aTrans < bTrans) ? -1 : 1;
 	}
 }]);
 
