@@ -24,7 +24,7 @@
 			<div class="mss-game-servers">
 				<div ng-repeat="server in mss.status.game.servers track by server.name" class="mss-server mss-server-{{server.name}}">
 					<div class="mss-icon-box">
-						<div class="mss-server-icon mss-server-icon-{{server.name}}" style="left:4px;top:4px;">
+						<div class="mss-server-icon mss-server-icon-{{server.name}}">
 							<span class="mss-server-icon-warning"></span>
 						</div>
 						<round-progress max="100" radius="24" stroke="4" duration="2000" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
@@ -34,8 +34,8 @@
 							<span class="mss-ping-icon mss-ping-icon-{{channel.ping | ratePing }}"></span>
 						</span>
 						<div class="mss-channel-circle">
-							<div ng-if="channel.name != 'HCh'" class="mss-channel-name" style="left:4px;top:4px;">{{channel.name}}</div>
-							<div ng-if="channel.name == 'HCh'" class="mss-channel-name mss-housing-channel" style="left:4px;top:4px;"></div>
+							<div ng-if="channel.name != 'HCh'" class="mss-channel-name">{{channel.name}}</div>
+							<div ng-if="channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
 							<round-progress max="100" radius="16" stroke="4" duration="2000" current="channel.stress == -1 ? 100 : channel.stress" color="{{ channel.state | stateColor }}"></round-progress>
 						</div>
 					</div>
