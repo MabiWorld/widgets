@@ -21,19 +21,19 @@
 }
 
 .mss-server-icon-mabius1 {
-	background: url('servericon-mabius1.png');
+	background: url('../img/servericon-mabius1.png');
 }
 
 .mss-server-icon-mabius2 {
-	background: url('servericon-mabius2.png');
+	background: url('../img/servericon-mabius2.png');
 }
 
 .mss-server-icon-mabius3 {
-	background: url('servericon-mabius3.png');
+	background: url('../img/servericon-mabius3.png');
 }
 
 .mss-server-icon-mabius4 {
-	background: url('servericon-mabius4.png');
+	background: url('../img/servericon-mabius4.png');
 }
 
 .mss-icon-box {
@@ -90,7 +90,7 @@
 	position: absolute;
 	right: -4px;
 	bottom: -4px;
-	background-image: url('warning.png');
+	background-image: url('../img/warning.png');
 	background-position: bottom right;
 	background-repeat: no-repeat;
 	color: #FFFFFF;
@@ -140,7 +140,7 @@
 	margin-top: 2px;
 	margin-right: 2px;
 	float: right;
-	background-image: url('icons.png');
+	background-image: url('../img/icons.png');
 	-webkit-transition: background-position 2s;
 	transition: background-position 2s;
 }
@@ -150,7 +150,7 @@
 	position: absolute;
 	display: block;
 	margin-top: 16px;
-	background: url('pingicons.png') no-repeat;
+	background: url('../img/pingicons.png') no-repeat;
 	-webkit-transition: background-position 2s;
 	transition: background-position 2s;
 }
@@ -167,7 +167,7 @@
  	background-position: 0px -24px;
 }
 .mss-housing-channel {
-	background: url('hch.png') center center no-repeat #DDEEDD;
+	background: url('../img/hch.png') center center no-repeat #DDEEDD;
 }
 
 .mss-server-box {
