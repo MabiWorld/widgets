@@ -15,10 +15,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/angular/angular.js',
-      'node_modules/angular-translate/dist/angular-translate.js',
-      'node_modules/angular-svg-round-progressbar/build/roundProgress.js',
-      'node_modules/angular-mocks/angular-mocks.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-translate/angular-translate.js',
+      'bower_components/angular-svg-round-progressbar/build/roundProgress.js',
+      'bower_components/angular-mocks/angular-mocks.js',
       'app/**/*.module.js',
       'app/**/*.js',
       'test/**/*.spec.js'
