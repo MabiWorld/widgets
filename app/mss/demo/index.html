@@ -29,8 +29,8 @@
 						<round-progress max="100" radius="24" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
 					</div>
 					<div ng-repeat="channel in server.channels | orderBy:'name':false:mss.channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}"
-						translate-attr="{title: 'channel.desc.' + mss.status.type}", translate-values="{name: channel.name, stress:channel.stress, state:channel.state, ping:channel.ping}">
-						<span class="mss-channel-icon mss-icon-{{channel.state}}">
+						translate-attr="{title: 'channel.desc.' + mss.status.type}", translate-values="{name: channel.name, stress:channel.stress, state:channel.state, ping:channel.ping, event: mss.status.game.event}">
+						<span class="mss-channel-icon {{mss.status.game.event ? 'mss-icon-event' : ''}} mss-icon-{{channel.state}}">
 							<span class="mss-ping-icon mss-ping-icon-{{channel.ping | ratePing }}"></span>
 						</span>
 						<div class="mss-channel-circle">

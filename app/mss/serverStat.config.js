@@ -53,7 +53,7 @@ function configure($translateProvider) {
 		},
 		channel: {
 			desc: {
-				state: "{{ ('channel.name.' + name) | translate }} - {{ stress }}% full\r\nPing: {{ ping | number:0 }}ms\r\n{{ ('channel.state.' + state) | translate }}",
+				state: "{{ ('channel.name.' + name) | translate }} - {{ stress }}% full\r\nPing: {{ ping | number:0 }}ms\r\n{{ ('channel.state.' + state) | translate }} {{ event ? '| Event' : '' }}",
 				ping: "{{ ('channel.name.' + name) | translate }}\r\nPing: {{ ping | number:0 }}ms\r\nOnline (load not available)"
 			},
 			state: {
