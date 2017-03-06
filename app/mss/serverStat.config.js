@@ -31,7 +31,7 @@ function configure($translateProvider) {
 		},
 		server: {
 			desc: {
-				full: "{{ ('server.name.' + name) | translate }} - {{ stress }}% full\r\n{{ ('server.state.' + state) | translate }}",
+				state: "{{ ('server.name.' + name) | translate }} - {{ stress }}% full\r\n{{ ('server.state.' + state) | translate }}",
 				ping: "{{ ('server.name.' + name) | translate }}\r\n{{ ('server.state.' + state) | translate }} (load not available)"
 			},
 			state: {
@@ -53,7 +53,7 @@ function configure($translateProvider) {
 		},
 		channel: {
 			desc: {
-				full: "{{ ('channel.name.' + name) | translate }} - {{ stress }}% full\r\nPing: {{ ping | number:0 }}ms\r\n{{ ('channel.state' + state) | translate }}",
+				state: "{{ ('channel.name.' + name) | translate }} - {{ stress }}% full\r\nPing: {{ ping | number:0 }}ms\r\n{{ ('channel.state.' + state) | translate }}",
 				ping: "{{ ('channel.name.' + name) | translate }}\r\nPing: {{ ping | number:0 }}ms\r\nOnline (load not available)"
 			},
 			state: {

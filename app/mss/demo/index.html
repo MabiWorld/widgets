@@ -3,10 +3,15 @@
 
 <head>
 	<title>Server Stat Demo Page</title>
+	<style>
+		[ng\:cloak], [ng-cloak], .ng-cloak {
+			display: none !important;
+		}
+	</style>
 </head>
 
 <body ng-app="serverStat">
-	<div ng-controller="serverStatCtrl as mss" class="mss-box">
+	<div ng-controller="serverStatCtrl as mss" class="mss-box" ng-cloak>
 		<p class="mss-loading" ng-if="!mss.status">Loading, please wait...</p>
 		<div class="mss-data" ng-if="mss.status">
 			<div class="mss-game-status" ng-init="game = mss.status.game" translate-attr="{ title: 'game.stress.' + (game.stress == -1 ? 'na' : 'stress') }" translate-values="{stress: game.stress}">
@@ -45,7 +50,7 @@
 					<div class="mss-server-box-name" translate>login.name</div>
 					<div class="mss-login-status-text mss-server-box-status-text mss-text-{{login.state}}" translate="state.{{login.state}}"></div>
 				</div>
-				<div class="mss-server-box mss-chat-status" ng-init="chat = mss.status.chat" translate-attr="{title: 'chat.desc'}" translate-values="{chat: website.ping}">
+				<div class="mss-server-box mss-chat-status" ng-init="chat = mss.status.chat" translate-attr="{title: 'chat.desc'}" translate-values="{ping: chat.ping}">
 					<div class="mss-server-box-name" translate>chat.name</div>
 					<div class="mss-chat-status-text mss-server-box-status-text mss-text-{{chat.state}}" translate="state.{{chat.state}}"></div>
 				</div>

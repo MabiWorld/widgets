@@ -58,6 +58,14 @@ function StatusService($http) {
 					status.game.state = 'offline';
 				}
 				status.game.stress = -1;
+			} else {
+				status.game.state = stateNames[status.game.state];
+				for (var server of status.game.servers) {
+					server.state = stateNames[server.state];
+					for (var channel of server.channels) {
+						channel.state = stateNames[channel.state];
+					}
+				}
 			}
 
 			return status;
