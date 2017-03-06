@@ -10,7 +10,8 @@ module.exports = {
 
     // The chunks to build 
     entry: {
-        widgets: path.join(__dirname, 'src/widgets.js')
+        widgets: path.join(__dirname, 'src/widgets.js'),
+        mss: path.join(__dirname, 'src/mss/index.js')
     },
 
     // Where to put the bundles
@@ -24,6 +25,14 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            sourceMap: true,
+            compressor: {
+                warnings: false,
+                screw_ie8: true
+            }
         })
     ],
 

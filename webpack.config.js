@@ -10,7 +10,8 @@ module.exports = {
 
     // The chunks to build 
     entry: {
-        widgets: path.join(__dirname, 'src/widgets.js')
+        widgets: path.join(__dirname, 'src/widgets.js'),
+        mss: path.join(__dirname, 'src/mss/index.js')
     },
 
     // Where to put the bundles
