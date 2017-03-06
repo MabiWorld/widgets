@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Server Stat Demo Page</title>
+</head>
+
+<body ng-app="serverStat">
+	<div ng-controller="serverStatCtrl as mss" class="mss-box">
+		<p class="mss-loading" ng-if="!mss.status">Loading, please wait...</p>
+		<div class="mss-data" ng-if="mss.status">
+			<div class="mss-game-status" ng-init="game = mss.status.game" translate-attr="{ title: 'game.stress.' + (game.stress == -1 ? 'na' : 'stress') }" translate-values="{stress: game.stress}">
+				<div class="mss-game-status-text" translate="game.state.{{ game.state }}"></div>
+				<div class="mss-game-bar-bg">
+					<div class="mss-game-bar mss-background-{{ game.state }}" ng-style="{'width': (game.stress == -1 ? 100 : game.stress) + '%', 'transition': 'width 2s' , '-webkit-transition': 'width 2s'}"></div>
+				</div>
+			</div>
+			<div class="mss-game-servers">
+				<div ng-repeat="server in mss.status.game.servers | orderBy:'name':false:mss.serverComparator track by server.name" class="mss-server mss-server-{{server.name}}">
+					<div class="mss-icon-box" translate-attr="{ title: 'server.desc.' + mss.status.type }" translate-values="{name: server.name, stress:server.stress, state:server.state}">
+						<div class="mss-server-icon mss-server-icon-{{server.name}} {{(server.state | isBadState) ? 'mss-grayscale' : ''}}">
+							<span class="mss-server-icon-warning" ng-if="server.state | isBadState"></span>
+						</div>
+						<round-progress max="100" radius="24" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="server.stress == -1 ? 100 : server.stress" color="{{ server.state | stateColor }}"></round-progress>
+					</div>
+					<div ng-repeat="channel in server.channels | orderBy:'name':false:mss.channelComparator track by channel.name" class="mss-channel mss-server-channel-{{server.name}}-{{channel.name}}"
+						translate-attr="{title: 'channel.desc.' + mss.status.type}", translate-values="{name: channel.name, stress:channel.stress, state:channel.state, ping:channel.ping}">
+						<span class="mss-channel-icon mss-icon-{{channel.status}}">
+							<span class="mss-ping-icon mss-ping-icon-{{channel.ping | ratePing }}"></span>
+						</span>
+						<div class="mss-channel-circle">
+							<div ng-if="channel.name != 'HCh'" class="mss-channel-name">{{channel.name}}</div>
+							<div ng-if="channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
+							<round-progress max="100" radius="16" stroke="4" duration="{{ mss.updates == 1 ? 0 : 2000 }}" current="channel.stress == -1 ? 100 : channel.stress" color="{{ channel.state | stateColor }}"></round-progress>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mss-other-servers">
+				<div class="mss-server-box mss-site-status" ng-init="website = mss.status.website" translate-attr="{title: 'website.desc'}" translate-values="{ping: website.ping}">
+					<div class="mss-server-box-name" translate>website.name</div>
+					<div class="mss-site-status-text mss-server-box-status-text mss-text-{{website.state}}" translate="state.{{website.state}}"></div>
+				</div>
+				<div class="mss-server-box mss-login-status" ng-init="login = mss.status.login" translate-attr="{title: 'login.desc'}" translate-values="{ping: login.ping}">
+					<div class="mss-server-box-name" translate>login.name</div>
+					<div class="mss-login-status-text mss-server-box-status-text mss-text-{{login.state}}" translate="state.{{login.state}}"></div>
+				</div>
+				<div class="mss-server-box mss-chat-status" ng-init="chat = mss.status.chat" translate-attr="{title: 'chat.desc'}" translate-values="{chat: website.ping}">
+					<div class="mss-server-box-name" translate>chat.name</div>
+					<div class="mss-chat-status-text mss-server-box-status-text mss-text-{{chat.state}}" translate="state.{{chat.state}}"></div>
+				</div>
+				<div class="mss-updated-on" translate translate-values="{updated: mss.status.updated}">updated</div>
+			</div>
+		</div>
+		<div translate>byline</div>
+	</div>
+</body>
+
+</html>
