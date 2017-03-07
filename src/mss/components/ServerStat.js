@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 function ServerStat() {
-	return <div></div>;
+	return <div>Hi</div>;
 }
 
 export default ServerStat;

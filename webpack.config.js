@@ -18,7 +18,8 @@ module.exports = {
     // Where to put the bundles
     output: {
         path: path.join(__dirname, '/dist/'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/'
     },
 
     plugins: [
@@ -30,7 +31,8 @@ module.exports = {
         new HtmlWebpackPlugin({ inject: true, template: './demo/mss/index.html' }),
         new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
-		})
+		}),
+        new webpack.NamedModulesPlugin()
     ],
 
     module: {
@@ -42,7 +44,8 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['env', 'react']
+                    presets: [['env', {modules: false}], 'react', 'react-hmre'],
+                    plugins: ['react-hot-loader/babel']
                 }
             },
 
