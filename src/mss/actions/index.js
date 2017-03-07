@@ -20,13 +20,15 @@ export function fetchStatus() {
         dispatch(requestStatus());
 
         return fetch('http://mabi.world/mss/status.json')
-            .then(Response => response.json())
+            .then(response => response.json())
             .then(fixupStatus)
             .then(status => {
-                dispatch(updateStatus())
+                dispatch(updateStatus(status));
+                return status;
             })
             .catch(err => {
-                dispatch(updateStatus(undefined))
+                console.warn("Failed to fetch server status!", err);
+                dispatch(updateStatus(null))
             });
     }
 
@@ -41,6 +43,10 @@ export function fetchStatus() {
         6: 'error',
         7: 'ping'
     }
+
+    function pingToState(ping) {
+		return ping ? 'online' : 'offline';
+	}
 
     /**
      * Munges the status json from the server to be a bit nicer to work with

@@ -11,7 +11,8 @@ module.exports = {
     // The chunks to build 
     entry: {
         widgets: path.join(__dirname, 'src/widgets.js'),
-        mss: path.join(__dirname, 'src/mss/index.js')
+        mss: path.join(__dirname, 'src/mss/index.js'),
+        vendor: ['react', 'react-dom']
     },
 
     // Where to put the bundles
@@ -25,7 +26,11 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development')
-        })
+        }),
+        new HtmlWebpackPlugin({ inject: true, template: './demo/mss/index.html' }),
+        new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+		})
     ],
 
     module: {
@@ -37,7 +42,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['env']
+                    presets: ['env', 'react']
                 }
             },
 

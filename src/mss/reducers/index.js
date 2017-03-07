@@ -9,16 +9,16 @@ import {
  * @param {*} status 
  * @param {*} action 
  */
-function status(status, action) {
+function status(status = null, action) {
 	switch (action.type) {
 		case UPDATE_STATUS:
-			if (action.payload === undefined) {
-				return undefined;
+			if (action.status === undefined) {
+				return null;
 			}
 
-			newStatus = Immutable(action.payload);
+			const newStatus = Immutable(action.status);
 
-			return Immutable.replace(status, newStatus);
+			return status ? Immutable.replace(status, newStatus) : newStatus;
 		default:
 			return status;	
 	}
