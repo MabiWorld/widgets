@@ -4,7 +4,10 @@
   "description": "All the various widgets of MabiWorld.",
   "main": "src/widgets.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "moment": "^2.17.1",
+    "moment-timezone": "^0.5.11"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
