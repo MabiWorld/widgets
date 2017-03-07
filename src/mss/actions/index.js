@@ -1,11 +1,8 @@
-import { createActions } from 'redux-actions';
+export const STATUS_UPDATE;
 
-const actions = createActions({
-    APP: {
-        STATUS: {
-            UPDATE: status => ({ status: status })
-        }
+export const statusUpdate = function (status) {
+    return {
+        type: STATUS_UPDATE,
+        status
     }
-});
-
-export default actions;
+}
