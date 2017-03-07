@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import Immutable from 'seamless-immutable';
-import { STATUS_UPDATE } from '../actions';
+import {
+	UPDATE_STATUS, REQUEST_STATUS
+} from '../actions';
 
 /**
  * @description updates the state's status value
@@ -9,7 +11,7 @@ import { STATUS_UPDATE } from '../actions';
  */
 function status(status, action) {
 	switch (action.type) {
-		case STATUS_UPDATE:
+		case UPDATE_STATUS:
 			if (action.payload === undefined) {
 				return undefined;
 			}
