@@ -1,9 +1,9 @@
 import './patch';
-import 'moment';
+import moment from 'moment';
 import 'moment-timezone';
 import { SERVER_TIMEZONE } from './constants'
 
-export default clock = {
+export default {
     getServerTime,
     getErinnTime,
     onRealTimeTicked,
@@ -44,13 +44,13 @@ function updateErinnTime() {
     var next = getErinnTime().add(1, 'minute').second(0).millisecond(0); // Get it again since we wasted time in handlers
 
     // set up next round
-    timeout(updateErinnTime, next.toReal().diff(getServerTime()));
+    setTimeout(updateErinnTime, next.toReal().diff(getServerTime()));
 }
 
 function updateRealTime() {
     trigger(handlers.real, getServerTime());
 
-    timeout(updateRealTime, 1000 - moment().milliseconds());
+    setTimeout(updateRealTime, 1000 - moment().milliseconds());
 }
 
 /**

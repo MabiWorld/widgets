@@ -1,7 +1,7 @@
 import moment from 'moment';
 import 'moment-timezone';
 
-import {MS_SCALE_FACTOR, ERINN_EPOCH} from './constants'
+import {MS_SCALE_FACTOR, ERINN_EPOCH, SERVER_TIMEZONE} from './constants'
 
 // Patch moment with some useful methods
 
