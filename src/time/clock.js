@@ -1,7 +1,7 @@
 import './patch';
 import 'moment';
 import 'moment-timezone';
-import {SERVER_TIMEZONE} from './constants'
+import { SERVER_TIMEZONE } from './constants'
 
 export default clock = {
     getServerTime,
@@ -72,7 +72,7 @@ function off(handlers, oldHandler) {
     handers.delete(oldHandler);
 }
 
-onRealTimeTicked = (handler) => on(handlers.real, handler);
-offRealTimeTicked = (handler) => off(handlers.real, handler);
-onErinnTimeTicked = (handler) => on(handlers.erinn, handler);
-offErinnTimeTicked = (handler) => off(handlers.erinn, handler);
+function onRealTimeTicked(handler) { on(handlers.real, handler); }
+function offRealTimeTicked(handler) { off(handlers.real, handler); }
+function onErinnTimeTicked(handler) { on(handlers.erinn, handler); }
+function offErinnTimeTicked(handler) { off(handlers.erinn, handler); }
