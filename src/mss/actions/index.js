@@ -20,13 +20,13 @@ export function fetchStatus() {
         dispatch(requestStatus());
 
         return fetch('http://mabi.world/mss/status.json')
-            .then(Response => response.json())
+            .then(response => response.json())
             .then(fixupStatus)
             .then(status => {
                 dispatch(updateStatus())
             })
             .catch(err => {
-                dispatch(updateStatus(undefined))
+                dispatch(updateStatus(null))
             });
     }
 

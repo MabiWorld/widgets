@@ -10,7 +10,8 @@ config.devtool = 'source-map';
 config.plugins.push(
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
+    new HtmlWebpackPlugin({ inject: true, template: './demo/mss/index.html' })
 );
 
 module.exports = config;

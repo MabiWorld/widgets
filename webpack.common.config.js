@@ -7,8 +7,6 @@ const Visualizer = require('webpack-visualizer-plugin');
 module.exports = {
     // The chunks to build 
     entry: {
-        time: path.join(__dirname, 'src/time/index.js'),
-        mss: path.join(__dirname, 'src/mss/index.js'),
         widgets: path.join(__dirname, 'src/widgets.js'),
         vendor: ['redux', 'redux-logger', 'redux-thunk', 'moment', 'moment-timezone', 'seamless-immutable', 'isomorphic-fetch', 'babel-polyfill']
     },
@@ -22,6 +20,10 @@ module.exports = {
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            __dirname
+        ),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minCunks: Infinity,
@@ -38,7 +40,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel-loader',
                 query: {
-                    presets: [['env', {modules: false}]]
+                    presets: [['env', { modules: false }]]
                 }
             },
 
