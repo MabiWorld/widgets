@@ -5,10 +5,37 @@
   "main": "src/widgets.js",
   "dependencies": {},
   "devDependencies": {
+    "@angular/common": "^2.4.9",
+    "@angular/compiler": "^2.4.9",
+    "@angular/core": "^2.4.9",
+    "@angular/platform-browser": "^2.4.9",
+    "@angular/platform-browser-dynamic": "^2.4.9",
+    "@angularclass/hmr": "^1.2.2",
+    "@angularclass/hmr-loader": "^3.0.2",
+    "@types/hammerjs": "^2.0.34",
+    "@types/node": "^7.0.8",
+    "awesome-typescript-loader": "^3.1.2",
+    "babel-polyfill": "^6.23.0",
+    "css-loader": "^0.27.1",
+    "file-loader": "^0.10.1",
     "moment": "^2.17.1",
-    "moment-timezone": "^0.5.11"
+    "moment-timezone": "^0.5.11",
+    "rimraf": "^2.6.1",
+    "rxjs": "^5.2.0",
+    "style-loader": "^0.13.2",
+    "tslib": "^1.6.0",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-merge": "^4.0.0",
+    "zone.js": "^0.7.8"
   },
   "scripts": {
+    "build:dev": "npm run clean:dist && webpack --config config/webpack.dev.js --progress --profile",
+    "build:prod": "npm run clean:dist && webpack -p --config config/webpack.prod.js  --progress --profile --bail",
+    "build": "npm run build:dev",
+    "clean:dist": "npm run rimraf -- dist",
+    "start": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --inline --hot --content-base src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
