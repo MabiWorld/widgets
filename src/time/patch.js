@@ -1,12 +1,12 @@
 import moment from 'moment';
 import 'moment-timezone';
 
-import {MS_SCALE_FACTOR, ERINN_EPOCH, SERVER_TIMEZONE} from './constants'
+import { MS_SCALE_FACTOR, ERINN_EPOCH, SERVER_TIMEZONE } from './constants';
 
 // Patch moment with some useful methods
 
 moment.fn.isNight = function () {
-	return this.hour() < 6 || this.hour() >= 18
+	return this.hour() < 6 || this.hour() >= 18;
 };
 
 /**
@@ -52,4 +52,4 @@ moment.duration.fn.toErinn = function () {
  */
 moment.duration.fn.toReal = function () {
 	return moment.duration(this.asMilliseconds() / MS_SCALE_FACTOR);
-}
+};
