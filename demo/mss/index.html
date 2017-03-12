@@ -15,35 +15,38 @@
 	<div id="server-stat" class="mss-box" v-cloak>
 		<p class="mss-loading" v-show="!status">Loading, please wait...</p>
 		<div class="mss-data" v-if="status">
-			<div class="mss-game-status">
-				<div class="mss-game-status-text">{{status.game.state}}</div>
-				<div class="mss-game-bar-bg">
-					<div :class="'mss-game-bar mss-background-' + status.game.state" :style="'width: ' + (status.game.stress == -1 ? 100 : status.game.stress) + '%'"></div>
-				</div>
-			</div>
-			<display-servers :servers="status.game.servers">
-				<template scope="props">
-					<div class="mss-server">
-						<div class="mss-icon-box">
-							<div :class="'mss-server-icon mss-server-icon-' + props.server.name">
-								<span class="mss-server-icon-warning"></span>
-							</div>
-						</div>
-
-						<display-channels :channels="props.server.channels">
-							<template scope="props">
-								<span :class="'mss-channel-icon ' + (props.channel.event ? 'mss-icon-event' : 'mss-icon-' + props.channel.state)">
-								<span class="mss-ping-icon"></span>
-								</span>
-								<div class="mss-channel-circle">
-									<div v-if="props.channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
-									<div v-else class="mss-channel-name">{{props.channel.name}}</div>
-								</div>
-							</template>
-						</display-channels>
+			<game :game="status.game">
+				<template scope="game">
+					<div class="mss-game-status-text">{{game.state}}</div>
+					<div class="mss-game-bar-bg">
+						<div :class="'mss-game-bar mss-background-' + game.state" :style="'width: ' + (game.stress == -1 ? 100 : game.stress) + '%'"></div>
 					</div>
 				</template>
-			</display-servers>
+			</game>
+
+			<server v-for="server in status.game.servers" :key="server.name" :server="server">
+				<template scope="server">
+					<div class="mss-icon-box mss-server-icon">
+						<div :class="'mss-server-icon mss-server-icon-' + server.id">
+							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
+						</div>
+					</div>
+
+					<div class="mss-channels">
+						<channel v-for="channel in server.channels" :key="channel.name" :channel="channel">
+							<template scope="channel">
+								<span :class="'mss-channel-icon ' + (channel.event ? 'mss-icon-event' : 'mss-icon-' + channel.state)">
+									<span :class="'mss-ping-icon mss-ping-icon-' + channel.ratedPing"></span>
+								</span>
+								<div class="mss-channel-circle">
+									<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
+									<div v-else class="mss-channel-name">{{channel.id}}</div>
+								</div>
+							</template>
+						</channel>
+					</div>
+				</template>
+			</server>
 			<div class="mss-other-servers">
 				<div class="mss-server-box mss-site-status">
 					<div class="mss-server-box-name">Website</div>

@@ -5,6 +5,9 @@ import Vue from 'vue';
 import ServerStatus from './ServerStatus';
 import DisplayServers from './components/DisplayServers';
 import DisplayChannels from './components/DisplayChannels';
+import Game from './components/Game';
+import Server from './components/Server';
+import Channel from './components/Channel';
 import StatusService from './services/status';
 
 Vue.config.productionTip = false;
@@ -12,7 +15,7 @@ Vue.config.productionTip = false;
 /* eslint-disable no-new */
 const vm = new Vue({
 	el: '#server-stat',
-	components: { ServerStatus, DisplayServers, DisplayChannels },
+	components: { ServerStatus, DisplayServers, DisplayChannels, Game, Server, Channel },
 	data: function () {
 		return {
 			status: undefined
