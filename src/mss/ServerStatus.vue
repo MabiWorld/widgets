@@ -5,12 +5,13 @@
 </template>
 
 <script>
-export default {
-	name: 'ServerStatus',
-	components: {
-	}
-};
+	export default {
+		name: 'server-status',
+		props: ['status']
+	};
+
 </script>
 
 <style>
+
 </style>
