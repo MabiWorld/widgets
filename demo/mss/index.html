@@ -4,6 +4,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Server Stat Demo</title>
+	<style>
+		[v-cloak] {
+			display: none !important;
+		}
+	</style>
 </head>
 
 <body>
@@ -13,28 +18,30 @@
 			<div class="mss-game-status">
 				<div class="mss-game-status-text">{{status.game.state}}</div>
 				<div class="mss-game-bar-bg">
-					<div :class="'mss-game-bar mss-background-' + status.game.state" :css="'width: ' + (status.game.stress == -1 ? 100 : status.game.stress) + '%'"></div>
+					<div :class="'mss-game-bar mss-background-' + status.game.state" :style="'width: ' + (status.game.stress == -1 ? 100 : status.game.stress) + '%'"></div>
 				</div>
 			</div>
 			<display-servers :servers="status.game.servers">
 				<template scope="props">
-					<div class="mss-icon-box">
-						<div :class="'mss-server-icon mss-server-icon-' + props.server.name">
-							<span class="mss-server-icon-warning"></span>
-						</div>
-					</div>
-
-					<display-channels :channels="props.server.channels">
-						<template scope="props">
-							<span :class="'mss-channel-icon ' + (props.channel.event ? 'mss-icon-event' : 'mss-icon-' + props.channel.state)">
-								<span class="mss-ping-icon"></span>
-							</span>
-							<div class="mss-channel-circle">
-								<div v-if="props.channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
-								<div v-else class="mss-channel-name">{{props.channel.name}}</div>
+					<div class="mss-server">
+						<div class="mss-icon-box">
+							<div :class="'mss-server-icon mss-server-icon-' + props.server.name">
+								<span class="mss-server-icon-warning"></span>
 							</div>
-						</template>
-					</display-channels>
+						</div>
+
+						<display-channels :channels="props.server.channels">
+							<template scope="props">
+								<span :class="'mss-channel-icon ' + (props.channel.event ? 'mss-icon-event' : 'mss-icon-' + props.channel.state)">
+								<span class="mss-ping-icon"></span>
+								</span>
+								<div class="mss-channel-circle">
+									<div v-if="props.channel.name == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
+									<div v-else class="mss-channel-name">{{props.channel.name}}</div>
+								</div>
+							</template>
+						</display-channels>
+					</div>
 				</template>
 			</display-servers>
 			<div class="mss-other-servers">
@@ -44,11 +51,11 @@
 				</div>
 				<div class="mss-server-box mss-login-status">
 					<div class="mss-server-box-name">Login</div>
-					<div class="'mss-login-status-text mss-server-box-status-text mss-text-' + status.login.state">{{status.website.state}}</div>
+					<div :class="'mss-login-status-text mss-server-box-status-text mss-text-' + status.login.state">{{status.website.state}}</div>
 				</div>
 				<div class="mss-server-box mss-chat-status">
 					<div class="mss-server-box-name">Chat</div>
-					<div class="'mss-chat-status-text mss-server-box-status-text mss-text-' + status.chat.state">{{status.chat.state}}</div>
+					<div :class="'mss-chat-status-text mss-server-box-status-text mss-text-' + status.chat.state">{{status.chat.state}}</div>
 				</div>
 			</div>
 			<div class="mss-updated-on">{{status.updated}}</div>

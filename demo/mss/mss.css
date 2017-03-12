@@ -1,0 +1,289 @@
+.mss-server {
+	width: 58px;
+	display: inline-block;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+	margin: 2px;
+	text-align: center;
+}
+
+.mss-server-icon {
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: absolute;
+	left: 9px;
+	top: 4px;
+	border: none;
+	border-radius: 20px;
+	background-color: #F0F0F0;
+	z-index: 2;
+}
+
+.mss-server-icon-mabius1 {
+	background: url('img/servericon-mabius1.png');
+}
+
+.mss-server-icon-mabius2 {
+	background: url('img/servericon-mabius2.png');
+}
+
+.mss-server-icon-mabius3 {
+	background: url('img/servericon-mabius3.png');
+}
+
+.mss-server-icon-mabius4 {
+	background: url('img/servericon-mabius4.png');
+}
+
+.mss-icon-box {
+	position: relative;
+	margin-top: 5px;
+}
+
+.mss-box {
+	width: 256px;
+	background: #EEEEFF;
+	border: 1px solid #AAAAEE;
+	overflow: hidden;
+	padding: 5px;
+	text-align: center;
+	font-family: Tahoma;
+	font-size: 12px;
+}
+
+.mss-updated-on {
+	font-size: 80%;
+}
+
+.mss-game-bar-bg {
+	width: 250px;
+	height: 18px;
+	display: block;
+	margin-left: 2px;
+	position: relative;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+.mss-game-bar {
+	height: 18px;
+	display: block;
+	width: 0px;
+	position: absolute;
+}
+
+.mss-game-status-text {
+	height: 20px;
+	width: 250px;
+	line-height: 16px;
+	text-align: center;
+	display: block;
+	font-weight: bold;
+}
+
+.mss-server-icon-warning {
+	width: 20px;
+	height: 20px;
+	line-height: 48px;
+	display: block;
+	position: absolute;
+	right: -4px;
+	bottom: -4px;
+	background-image: url('img/warning.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+	text-align: center;
+	z-index: 5;
+}
+
+.mss-channel {
+	width: 58px;
+	height: 32px;
+	margin-bottom: 4px;
+	display: block;
+}
+
+.mss-channel-circle {
+	width: 24px;
+	height: 24px;
+	margin-left: 4px;
+	display: block;
+	position: relative;
+	border-radius: 24px;
+	text-align: center;
+	top:-3px;
+}
+
+.mss-channel-name {
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	width: 24px;
+	height: 24px;
+	border-radius: 24px;
+	background-color: #DDEEDD;
+	z-index: 5;
+	font-size: 10px;
+	display: block;
+	text-align: center;
+	line-height: 22px;
+	font-weight: bold;
+}
+
+.mss-channel-icon {
+	width: 16px;
+	height: 16px;
+	margin-top: 2px;
+	margin-right: 2px;
+	float: right;
+	background-image: url('img/icons.png');
+	-webkit-transition: background-position 2s;
+	transition: background-position 2s;
+}
+.mss-ping-icon {
+	width: 13px;
+	height: 8px;
+	position: absolute;
+	display: block;
+	margin-top: 16px;
+	background: url('img/pingicons.png') no-repeat;
+	-webkit-transition: background-position 2s;
+	transition: background-position 2s;
+}
+.mss-ping-icon-off {
+ 	background-position: 0px 0px;
+}
+.mss-ping-icon-low {
+ 	background-position: 0px -8px;
+}
+.mss-ping-icon-medium {
+ 	background-position: 0px -16px;
+}
+.mss-ping-icon-high {
+ 	background-position: 0px -24px;
+}
+.mss-housing-channel {
+	background: url('img/hch.png') center center no-repeat #DDEEDD;
+}
+
+.mss-server-box {
+	display: inline-block;
+	width: 77px;
+	margin: 3px;
+	height: 40px;
+	text-align: center;
+	font-size: 11px;
+	line-height: 20px;
+	display: inline-block;
+	float: left;
+	border: 1px solid #BBBBBB;
+	background-color: #FAFAFF;
+}
+
+.mss-grayscale {
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.mss-server-box-name {
+	font-weight: bold;
+}
+
+.mss-server-box-status-text {
+	padding: 1px 3px;
+}
+
+/* icon */
+.mss-icon-event {
+	background-position: -16px 0px;
+}
+
+.mss-icon-offline {
+	background-position: -32px 0px;
+}
+
+.mss-icon-maintenance {
+	background-position: -48px 0px;
+}
+
+.mss-icon-booting {
+	background-position: -80px 0px;
+}
+
+.mss-icon-error {
+	background-position: -64px 0px;
+}
+
+/* Text */
+.mss-text-offline {
+	color: #999999;
+}
+
+.mss-text-maintenance {
+	color: #999999;
+}
+
+.mss-text-online {
+	color: green;
+}
+
+.mss-text-busy {
+	color: #FFBB00;
+}
+
+.mss-text-full {
+	color: #FF9900;
+}
+
+.mss-text-bursting {
+	color: #CC0000;
+}
+
+.mss-text-booting {
+	color: #BBBBBB;
+}
+
+.mss-text-error {
+	color: #999999;
+}
+
+/* Backgrounds */
+.mss-background-offline {
+	background-color: #999999;
+}
+
+.mss-background-maintenance {
+	background-color: #999999;
+}
+
+.mss-background-online {
+	background-color: green;
+}
+
+.mss-background-busy {
+	background-color: #FFBB00;
+}
+
+.mss-background-full {
+	background-color: #FF9900;
+}
+
+.mss-background-bursting {
+	background-color: #CC0000;
+}
+
+.mss-background-booting {
+	background-color: #BBBBBB;
+}
+
+.mss-background-error {
+	background-color: #999999;
+}
+.mss-background-ping {
+	background-color: #6699FF;
+}
