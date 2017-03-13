@@ -8,6 +8,7 @@ import ServerStatus from './ServerStatus';
 import Game from './components/Game';
 import Server from './components/Server';
 import Channel from './components/Channel';
+import OtherServer from './components/OtherServer';
 
 import RoundStress from './components/RoundStress';
 import PingIcon from './components/PingIcon';
@@ -16,6 +17,8 @@ import StateIcon from './components/StateIcon';
 import StatusService from './services/status';
 
 import RoundProgress from './components/RoundProgress';
+
+require('./mss.scss');
 
 Vue.config.productionTip = false;
 
@@ -127,7 +130,7 @@ Object.keys(locales).forEach(function (lang) {
 /* eslint-disable no-new */
 const vm = new Vue({
 	el: '#server-stat',
-	components: { ServerStatus, Game, Server, Channel, RoundProgress, PingIcon, StateIcon, RoundStress },
+	components: { ServerStatus, Game, Server, Channel, RoundProgress, PingIcon, StateIcon, RoundStress, OtherServer },
 	data: function () {
 		return {
 			status: undefined,

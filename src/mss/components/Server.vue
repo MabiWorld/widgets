@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<slot :id="server.name" :localName="localName" :stress="server.stress" :state="server.state" :event="server.event" :channels="sortedChannels"
-			:fullDesc="fullDesc" :pingDesc="pingDesc" :stressMsg="stressMsg" :stateMsg="stateMsg"></slot>
+			:fullDesc="fullDesc" :pingDesc="pingDesc" :stressMsg="stressMsg" :stateMsg="stateMsg" :isBadState="isBadState"></slot>
 	</div>
 </template>
 

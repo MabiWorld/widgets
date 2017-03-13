@@ -28,8 +28,8 @@
 						<template scope="server">
 							<div class="mss-icon-box" :title="status.type == 'ping' ? server.pingDesc : server.fullDesc">
 								<div class="mss-server-icon" :class="'mss-server-icon-' + server.id + (server.isBadState ? ' mss-grayscale' : '')">
-									<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 								</div>
+								<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 								<round-stress :stress="server.stress" :state="server.state" :radius="24"></round-stress>
 							</div>
 
@@ -55,18 +55,24 @@
 				</template>
 			</game>
 			<div class="mss-other-servers">
-				<div class="mss-server-box mss-site-status">
-					<div class="mss-server-box-name">{{ $t('website.name') }}</div>
-					<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{$t('state.' + status.website.state)}}</div>
-				</div>
-				<div class="mss-server-box mss-login-status">
-					<div class="mss-server-box-name">{{ $t('login.name') }}</div>
-					<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{ $t('state.' + status.login.state) }}</div>
-				</div>
-				<div class="mss-server-box mss-chat-status">
-					<div class="mss-server-box-name">{{ $t('chat.name') }}</div>
-					<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{ $t('state.' + status.chat.state) }}</div>
-				</div>
+				<other-server :server="status.website" id="website" class="mss-server-box mss-site-status">
+					<template scope="website">
+						<div class="mss-server-box-name">{{ website.localName }}</div>
+						<div class="mss-site-status-text mss-server-box-status-text" :class="'mss-color-' + website.state">{{ website.stateMsg }}</div>
+					</template>
+				</other-server>
+				<other-server :server="status.login" id="login" class="mss-server-box mss-site-status">
+					<template scope="login">
+						<div class="mss-server-box-name">{{ login.localName }}</div>
+						<div class="mss-site-status-text mss-server-box-status-text" :class="'mss-color-' + login.state">{{ login.stateMsg }}</div>
+					</template>
+				</other-server>
+				<other-server :server="status.chat" id="chat" class="mss-server-box mss-site-status">
+					<template scope="chat">
+						<div class="mss-server-box-name">{{ chat.localName }}</div>
+						<div class="mss-site-status-text mss-server-box-status-text" :class="'mss-color-' + chat.state">{{ chat.stateMsg }}</div>
+					</template>
+				</other-server>
 			</div>
 			<br />
 			<div v-html="$t('byline')"></div>
