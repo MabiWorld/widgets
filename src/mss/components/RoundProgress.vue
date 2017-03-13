@@ -1,16 +1,17 @@
 <style>
-	.containter {
+	.round-progress {
 		display: block;
 		position: relative;
-		overflow: hidden
+		overflow: hidden;
+		margin: auto;
 	}
 
-	.containter.responsive {
+	.round-progress.responsive {
 		width: 100%;
 		padding-bottom: 100%;
 	}
 
-	.containter.containter.responsive > svg {
+	.round-progress.responsive > svg {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -20,7 +21,7 @@
 </style>
 
 <template>
-	<div class="container" :class="{ responsive: responsive }" :style="containerStyle">
+	<div class="round-progress" :class="{ responsive: responsive }" :style="containerStyle">
 		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="viewBox">
 			<circle fill="none" :cx="radius" :cy="radius" :r="radius - stroke / 2" :style="bgStyle" />
 			<path fill="none" :style="pathStyle" :transform="pathTransform" :d="pathArc" />

@@ -26,7 +26,7 @@
 
 			<server v-for="server in status.game.servers" :key="server.name" :server="server">
 				<template scope="server">
-					<div class="mss-icon-box mss-server-icon">
+					<div class="mss-icon-box">
 						<div :class="'mss-server-icon mss-server-icon-' + server.id">
 							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 						</div>
