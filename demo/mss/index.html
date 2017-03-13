@@ -30,7 +30,7 @@
 						<div :class="'mss-server-icon mss-server-icon-' + server.id">
 							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 						</div>
-						<round-progress :radius="24" :stroke="4" :max="100" :current="server.stress == -1 ? 100 : server.stress"></round-progress>
+						<round-progress :radius="24" :stroke="4" :max="100" :duration="2000" :current="server.stress == -1 ? 100 : server.stress" :color="null"></round-progress>
 					</div>
 
 					<div class="mss-channels">
@@ -42,6 +42,7 @@
 								<div class="mss-channel-circle">
 									<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
 									<div v-else class="mss-channel-name">{{channel.id}}</div>
+									<round-progress :radius="16" :stroke="4" :duration="2000" :max="100" :current="channel.stress == -1 ? 100 : channel.stress" color="null"></round-progress>
 								</div>
 							</template>
 						</channel>

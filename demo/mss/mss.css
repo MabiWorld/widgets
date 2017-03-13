@@ -39,6 +39,11 @@
 .mss-icon-box {
 	position: relative;
 	margin-top: 5px;
+	margin-bottom: 4px;
+}
+
+.round-progress {
+	stroke: red;
 }
 
 .mss-box {
