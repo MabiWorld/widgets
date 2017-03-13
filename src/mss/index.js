@@ -4,8 +4,6 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 
 import ServerStatus from './ServerStatus';
-import DisplayServers from './components/DisplayServers';
-import DisplayChannels from './components/DisplayChannels';
 import Game from './components/Game';
 import Server from './components/Server';
 import Channel from './components/Channel';
@@ -121,7 +119,7 @@ Object.keys(locales).forEach(function (lang) {
 /* eslint-disable no-new */
 const vm = new Vue({
 	el: '#server-stat',
-	components: { ServerStatus, DisplayServers, DisplayChannels, Game, Server, Channel, RoundProgress },
+	components: { ServerStatus, Game, Server, Channel, RoundProgress },
 	data: function () {
 		return {
 			status: undefined,

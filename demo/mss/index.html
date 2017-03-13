@@ -30,7 +30,8 @@
 								<div :class="'mss-server-icon mss-server-icon-' + server.id + (server.isBadState ? ' mss-grayscale' : '')">
 									<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 								</div>
-								<round-progress :radius="24" :stroke="4" :max="100" :duration="2000" :current="server.stress == -1 ? 100 : server.stress" color="null"></round-progress>
+								<round-progress :radius="24" :stroke="4" :max="100" :duration="2000" :current="server.stress == -1 ? 100 : server.stress"
+								 color="null"></round-progress>
 							</div>
 
 							<div class="mss-channels">
@@ -42,31 +43,32 @@
 										<div :class="'mss-channel-circle mss-stroke-' + channel.state">
 											<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
 											<div v-else class="mss-channel-name">{{channel.id}}</div>
-											<round-progress :radius="16" :stroke="4" :duration="2000" :max="100" :current="channel.stress == -1 ? 100 : channel.stress" :color="null"></round-progress>
+											<round-progress :radius="16" :stroke="4" :duration="2000" :max="100" :current="channel.stress == -1 ? 100 : channel.stress"
+											 :color="null"></round-progress>
 										</div>
 									</template>
 								</channel>
 							</div>
 						</template>
 					</server>
-					<div class="mss-other-servers">
-						<div class="mss-server-box mss-site-status">
-							<div class="mss-server-box-name">{{ $t('website.name') }}</div>
-							<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{$t('state.' + status.website.state)}}</div>
-						</div>
-						<div class="mss-server-box mss-login-status">
-							<div class="mss-server-box-name">{{ $t('login.name') }}</div>
-							<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{ $t('state.' + status.login.state) }}</div>
-						</div>
-						<div class="mss-server-box mss-chat-status">
-							<div class="mss-server-box-name">{{ $t('chat.name') }}</div>
-							<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{ $t('state.' + status.chat.state) }}</div>
-						</div>
-					</div>
-					<br />
-					<div v-html="$t('byline')"></div>
 				</template>
 			</game>
+			<div class="mss-other-servers">
+				<div class="mss-server-box mss-site-status">
+					<div class="mss-server-box-name">{{ $t('website.name') }}</div>
+					<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{$t('state.' + status.website.state)}}</div>
+				</div>
+				<div class="mss-server-box mss-login-status">
+					<div class="mss-server-box-name">{{ $t('login.name') }}</div>
+					<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{ $t('state.' + status.login.state) }}</div>
+				</div>
+				<div class="mss-server-box mss-chat-status">
+					<div class="mss-server-box-name">{{ $t('chat.name') }}</div>
+					<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{ $t('state.' + status.chat.state) }}</div>
+				</div>
+			</div>
+			<br />
+			<div v-html="$t('byline')"></div>
 		</div>
 	</div>
 	<!-- built files will be auto injected -->
