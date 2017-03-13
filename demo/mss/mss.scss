@@ -26,8 +26,8 @@ $transitionSpeed: 2s;
 	display: block;
 	width: 0px;
 	position: absolute;
-	-webkit-transition: width $transitionSpeed;
-	transition: width $transitionSpeed;
+	-webkit-transition: width $transitionSpeed, background-color $transitionSpeed;
+	transition: width $transitionSpeed, background-color $transitionSpeed;
 }
 
 .mss-game-status-text {
@@ -124,6 +124,8 @@ $serverPics: (
 	height: 32px;
 	margin-bottom: 4px;
 	display: block;
+	-webkit-transform: stroke $transitionSpeed;
+	transform: stroke $transitionSpeed;
 }
 
 .mss-channel-circle {
@@ -234,4 +236,6 @@ $stateColors: (
 	position: relative;
 	margin-top: 5px;
 	margin-bottom: 4px;
+	-webkit-transform: stroke $transitionSpeed;
+	transform: stroke $transitionSpeed;
 }
