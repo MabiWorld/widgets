@@ -124,18 +124,27 @@ const vm = new Vue({
 	components: { ServerStatus, DisplayServers, DisplayChannels, Game, Server, Channel, RoundProgress },
 	data: function () {
 		return {
-			status: undefined
+			status: undefined,
+			timer: undefined
 		};
+	},
+	methods: {
+		updateStatus() {
+			StatusService.get().then((status) => {
+				Vue.set(vm, 'status', status);
+			}).catch((err) => {
+				console.warn(err);
+				vm.status = undefined;
+			});
+		}
+	},
+
+	created() {
+		setTimeout(this.updateStatus);
+		this.timer = setInterval(this.updateStatus, 30 * 1000);
+	},
+
+	beforeDestroy() {
+		clearInterval(this.timer);
 	}
 });
-
-updateStatus();
-
-function updateStatus() {
-	StatusService.get().then((status) => {
-		Vue.set(vm, 'status', status);
-	}).catch((err) => {
-		console.warn(err);
-		vm.status = undefined;
-	});
-}
