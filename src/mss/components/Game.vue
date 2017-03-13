@@ -1,5 +1,5 @@
 <template>
-	<div class="mss-game-status">
+	<div>
 		<slot :state="game.state" :event="game.event" :stress="game.stress"></slot>
 	</div>
 </template>

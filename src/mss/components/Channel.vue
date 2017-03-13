@@ -1,5 +1,5 @@
 <template>
-	<div class="mss-channel">
+	<div>
 		<slot :id="channel.name" :stress="channel.stress" :state="channel.state" :event="channel.event" :ratedPing="ratedPing"></slot>
 	</div>
 </template>

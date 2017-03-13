@@ -15,26 +15,27 @@
 	<div id="server-stat" class="mss-box" v-cloak>
 		<p class="mss-loading" v-show="!status">Loading, please wait...</p>
 		<div class="mss-data" v-if="status">
-			<game :game="status.game">
+			<game :game="status.game" class="mss-game-status" :title="$t((status.game.stress < 0 ? 'game.stress.na' : 'game.stress.stress'), status.game.stress)">
 				<template scope="game">
-					<div class="mss-game-status-text">{{game.state}}</div>
+					<div class="mss-game-status-text">{{ $t('game.state.' + game.state) }}</div>
 					<div class="mss-game-bar-bg">
 						<div :class="'mss-game-bar mss-background-' + game.state" :style="'width: ' + (game.stress == -1 ? 100 : game.stress) + '%'"></div>
 					</div>
 				</template>
 			</game>
 
-			<server v-for="server in status.game.servers" :key="server.name" :server="server">
+			<server v-for="server in status.game.servers" :key="server.name" :server="server" class="mss-server">
 				<template scope="server">
-					<div :class="'mss-icon-box mss-stroke-' + server.state">
-						<div :class="'mss-server-icon mss-server-icon-' + server.id">
+					<div :class="'mss-icon-box mss-stroke-' + server.state" :title="$t('server.desc.' + status.type, {name: server.localName, stress: server.stress, state: $t('state.'+server.state)})">
+						<div :class="'mss-server-icon mss-server-icon-' + server.id + (server.isBadState ? ' mss-grayscale' : '')">
 							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 						</div>
 						<round-progress :radius="24" :stroke="4" :max="100" :duration="2000" :current="server.stress == -1 ? 100 : server.stress" :color="null"></round-progress>
 					</div>
 
 					<div class="mss-channels">
-						<channel v-for="channel in server.channels" :key="channel.name" :channel="channel">
+						<channel v-for="channel in server.channels" :key="channel.name" :channel="channel" class="mss-channel"
+							:title="$t('channel.desc.' + status.type, {name: $t('channel.name.' + channel.name), stress: channel.stress, state: $t('state.' + channel.state), ping: channel.ping, event: (channel.event ? $t(channel.event) : '')})">
 							<template scope="channel">
 								<span :class="'mss-channel-icon ' + (channel.event ? 'mss-icon-event' : 'mss-icon-' + channel.state)">
 									<span :class="'mss-ping-icon mss-ping-icon-' + channel.ratedPing"></span>
@@ -51,19 +52,21 @@
 			</server>
 			<div class="mss-other-servers">
 				<div class="mss-server-box mss-site-status">
-					<div class="mss-server-box-name">Website</div>
-					<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{status.website.state}}</div>
+					<div class="mss-server-box-name">{{ $t('website.name') }}</div>
+					<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{$t('state.' + status.website.state)}}</div>
 				</div>
 				<div class="mss-server-box mss-login-status">
-					<div class="mss-server-box-name">Login</div>
-					<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{status.website.state}}</div>
+					<div class="mss-server-box-name">{{ $t('login.name') }}</div>
+					<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{ $t('state.' + status.login.state) }}</div>
 				</div>
 				<div class="mss-server-box mss-chat-status">
-					<div class="mss-server-box-name">Chat</div>
-					<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{status.chat.state}}</div>
+					<div class="mss-server-box-name">{{ $t('chat.name') }}</div>
+					<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{ $t('state.' + status.chat.state) }}</div>
 				</div>
 			</div>
-			<div class="mss-updated-on">{{status.updated}}</div>
+			<div class="mss-updated-on">{{$t('updated', { updated: status.updated.toLocaleString() }) }}</div>
+			<br />
+			<div v-html="$t('byline')"></div>
 		</div>
 	</div>
 	<!-- built files will be auto injected -->

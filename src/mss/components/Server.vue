@@ -1,5 +1,5 @@
 <template>
-	<div class="mss-server">
+	<div>
 		<slot :id="server.name" :localName="localName" :stress="server.stress" :state="server.state" :event="server.event" :channels="sortedChannels"></slot>
 	</div>
 </template>
@@ -12,7 +12,7 @@
 		props: ['server'],
 		computed: {
 			localName: function () {
-				return this.server.name;
+				return this.$t('server.name.' + this.server.name);
 			},
 			isBadState: function () {
 				return isBadState(this.server.state);
