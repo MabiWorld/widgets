@@ -1,3 +1,3 @@
 // Bundles assets for demo page
 
-require('./mss.css');
+require('./mss.scss');

@@ -26,7 +26,7 @@
 
 			<server v-for="server in status.game.servers" :key="server.name" :server="server">
 				<template scope="server">
-					<div class="mss-icon-box">
+					<div :class="'mss-icon-box mss-stroke-' + server.state">
 						<div :class="'mss-server-icon mss-server-icon-' + server.id">
 							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 						</div>
@@ -39,7 +39,7 @@
 								<span :class="'mss-channel-icon ' + (channel.event ? 'mss-icon-event' : 'mss-icon-' + channel.state)">
 									<span :class="'mss-ping-icon mss-ping-icon-' + channel.ratedPing"></span>
 								</span>
-								<div class="mss-channel-circle">
+								<div :class="'mss-channel-circle mss-stroke-' + channel.state">
 									<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
 									<div v-else class="mss-channel-name">{{channel.id}}</div>
 									<round-progress :radius="16" :stroke="4" :duration="2000" :max="100" :current="channel.stress == -1 ? 100 : channel.stress" color="null"></round-progress>
@@ -52,15 +52,15 @@
 			<div class="mss-other-servers">
 				<div class="mss-server-box mss-site-status">
 					<div class="mss-server-box-name">Website</div>
-					<div :class="'mss-site-status-text mss-server-box-status-text mss-text-' + status.website.state">{{status.website.state}}</div>
+					<div :class="'mss-site-status-text mss-server-box-status-text mss-color-' + status.website.state">{{status.website.state}}</div>
 				</div>
 				<div class="mss-server-box mss-login-status">
 					<div class="mss-server-box-name">Login</div>
-					<div :class="'mss-login-status-text mss-server-box-status-text mss-text-' + status.login.state">{{status.website.state}}</div>
+					<div :class="'mss-login-status-text mss-server-box-status-text mss-color-' + status.login.state">{{status.website.state}}</div>
 				</div>
 				<div class="mss-server-box mss-chat-status">
 					<div class="mss-server-box-name">Chat</div>
-					<div :class="'mss-chat-status-text mss-server-box-status-text mss-text-' + status.chat.state">{{status.chat.state}}</div>
+					<div :class="'mss-chat-status-text mss-server-box-status-text mss-color-' + status.chat.state">{{status.chat.state}}</div>
 				</div>
 			</div>
 			<div class="mss-updated-on">{{status.updated}}</div>
