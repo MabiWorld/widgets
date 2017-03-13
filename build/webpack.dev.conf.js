@@ -29,9 +29,14 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'mss-demo.html',
+      filename: 'mss/demo.html',
       template: 'demo/mss/index.html',
       inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'demo/index.html',
+      inject: false
     }),
     new FriendlyErrorsPlugin()
   ]
