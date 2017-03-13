@@ -17,8 +17,8 @@
 		<div class="mss-data" v-if="status">
 			<game :game="status.game">
 				<template scope="game">
-					<div class="mss-game-status" :title="$t((status.game.stress < 0 ? 'game.stress.na' : 'game.stress.stress'), status.game.stress)">
-						<div class="mss-game-status-text">{{ $t('game.state.' + game.state) }}</div>
+					<div class="mss-game-status" :title="game.stressMsg">
+						<div class="mss-game-status-text">{{ game.stateMsg }}</div>
 						<div class="mss-game-bar-bg">
 							<div :class="'mss-game-bar mss-background-' + game.state" :style="'width: ' + (game.stress == -1 ? 100 : game.stress) + '%'"></div>
 						</div>
@@ -26,25 +26,26 @@
 
 					<server v-for="server in game.orderedServers" :key="server.name" :server="server" class="mss-server">
 						<template scope="server">
-							<div :class="'mss-icon-box mss-stroke-' + server.state" :title="$t('server.desc.' + status.type, {name: server.localName, stress: server.stress, state: $t('state.'+server.state)})">
-								<div :class="'mss-server-icon mss-server-icon-' + server.id + (server.isBadState ? ' mss-grayscale' : '')">
+							<div class="mss-icon-box" :title="status.type == 'ping' ? server.pingDesc : server.fullDesc">
+								<div class="mss-server-icon" :class="'mss-server-icon-' + server.id + (server.isBadState ? ' mss-grayscale' : '')">
 									<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 								</div>
-								<round-progress :radius="24" :stroke="4" :max="100" :duration="2000" :current="server.stress == -1 ? 100 : server.stress"
-								 color="null"></round-progress>
+								<round-stress :stress="server.stress" :state="server.state" :radius="24"></round-stress>
 							</div>
 
 							<div class="mss-channels">
-								<channel v-for="channel in server.channels" :key="channel.name" :channel="channel" class="mss-channel" :title="$t('channel.desc.' + status.type, {name: $t('channel.name.' + channel.name), stress: channel.stress, state: $t('state.' + channel.state), ping: channel.ping.toFixed(0), event: (channel.event ? $t(channel.event) : '')})">
+								<channel v-for="channel in server.channels" :key="channel.name" :channel="channel">
 									<template scope="channel">
-										<span :class="'mss-channel-icon ' + (channel.event ? 'mss-icon-event' : 'mss-icon-' + channel.state)">
-									<span :class="'mss-ping-icon mss-ping-icon-' + channel.ratedPing"></span>
-										</span>
-										<div :class="'mss-channel-circle mss-stroke-' + channel.state">
-											<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
-											<div v-else class="mss-channel-name">{{channel.id}}</div>
-											<round-progress :radius="16" :stroke="4" :duration="2000" :max="100" :current="channel.stress == -1 ? 100 : channel.stress"
-											 :color="null"></round-progress>
+										<div class="mss-channel" :title="status.type == 'ping' ? channel.pingDesc : channel.fullDesc">
+											<div class="mss-channel-circle">
+												<div v-if="channel.id == 'HCh'" class="mss-channel-name mss-housing-channel"></div>
+												<div v-else class="mss-channel-name">{{channel.id}}</div>
+												<round-stress :stress="channel.stress" :state="channel.state" :radius="16"></round-stress>
+											</div>
+											<div class="mss-icons">
+												<state-icon :event="channel.event" :state="channel.state"></state-icon>
+												<ping-icon :rated-ping="channel.ratedPing"></ping-icon>
+											</div>
 										</div>
 									</template>
 								</channel>

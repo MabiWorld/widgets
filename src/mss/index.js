@@ -4,9 +4,15 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 
 import ServerStatus from './ServerStatus';
+
 import Game from './components/Game';
 import Server from './components/Server';
 import Channel from './components/Channel';
+
+import RoundStress from './components/RoundStress';
+import PingIcon from './components/PingIcon';
+import StateIcon from './components/StateIcon';
+
 import StatusService from './services/status';
 
 import RoundProgress from './components/RoundProgress';
@@ -48,7 +54,7 @@ var locales = {
 		},
 		server: {
 			desc: {
-				state: "{name} - { stress }% full\r\n{state}",
+				full: "{name} - {stress}\r\n{state}",
 				ping: "{name}\r\n{state} (load not available)"
 			},
 			state: {
@@ -66,12 +72,13 @@ var locales = {
 				mabius2: 'Ruairi',
 				mabius3: 'Tarlach',
 				mabius4: 'Alexina'
-			}
+			},
+			stress: '{stress}% full'
 		},
 		channel: {
 			event: '| Event',
 			desc: {
-				state: "{name} - {stress}% full\r\nPing: {ping}ms\r\n{state} {event}",
+				full: "{name} - {stress}\r\nPing: {ping}ms\r\n{state} {event}",
 				ping: "{name}\r\nPing: {ping}ms\r\nOnline (load not available)"
 			},
 			state: {
@@ -93,7 +100,8 @@ var locales = {
 				Ch6: 'Channel 6',
 				Ch7: 'Channel 7',
 				HCh: 'Housing Channel'
-			}
+			},
+			stress: '{stress}% full'
 		},
 		website: {
 			name: 'Website',
@@ -119,7 +127,7 @@ Object.keys(locales).forEach(function (lang) {
 /* eslint-disable no-new */
 const vm = new Vue({
 	el: '#server-stat',
-	components: { ServerStatus, Game, Server, Channel, RoundProgress },
+	components: { ServerStatus, Game, Server, Channel, RoundProgress, PingIcon, StateIcon, RoundStress },
 	data: function () {
 		return {
 			status: undefined,

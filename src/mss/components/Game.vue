@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<slot :state="game.state" :event="game.event" :stress="game.stress" :orderedServers="sortedServers"></slot>
+		<slot :state="game.state" :event="game.event" :stress="game.stress" :orderedServers="sortedServers"
+			:stressMsg="stressMsg" :stateMsg="stateMsg"></slot>
 	</div>
 </template>
 
@@ -9,6 +10,14 @@
 		name: 'game',
 		props: ['game'],
 		computed: {
+			stressMsg() {
+				return this.game.stress < 0 
+					? this.$t('game.stress.na') 
+					: this.$t('game.stress.stress', { stress: this.game.stress });
+			},
+			stateMsg() {
+				return this.$t('game.state.' + this.game.state);
+			},
 			sortedServers() {
 				var self = this;
 				function sort(a, b) {

@@ -159,12 +159,15 @@ $serverPics: (
 	background: url('img/hch.png') center center no-repeat #DDEEDD;
 }
 
+.mss-icons {
+	margin-top: 2px;
+	margin-right: 2px;
+}
+
 .mss-ping-icon {
 	width: 13px;
 	height: 8px;
-	position: absolute;
-	display: block;
-	margin-top: 16px;
+	display: inline-block;
 	background: url('img/pingicons.png') no-repeat;
 	-webkit-transition: background-position $transitionSpeed;
 	transition: background-position $transitionSpeed;
@@ -183,12 +186,10 @@ $pingIconClasses: (
 	}
 }
 
-.mss-channel-icon {
+.mss-state-icon {
+	display: inline-block;
 	width: 16px;
 	height: 16px;
-	margin-top: 2px;
-	margin-right: 2px;
-	float: right;
 	background-image: url('img/icons.png');
 	-webkit-transition: background-position $transitionSpeed;
 	transition: background-position $transitionSpeed;
@@ -203,7 +204,7 @@ $stateIconClasses: (
 );
 
 @each $state, $offset in $stateIconClasses {
-	.mss-icon-#{$state} {
+	.mss-state-icon-#{$state} {
 		background-position: $offset 0px;
 	}
 }
