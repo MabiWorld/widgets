@@ -30,6 +30,7 @@
 						<div :class="'mss-server-icon mss-server-icon-' + server.id">
 							<span class="mss-server-icon-warning" v-show="server.isBadState"></span>
 						</div>
+						<round-progress :radius="24" :stroke="4" :max="100" :current="server.stress == -1 ? 100 : server.stress"></round-progress>
 					</div>
 
 					<div class="mss-channels">

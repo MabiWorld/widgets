@@ -10,12 +10,14 @@ import Server from './components/Server';
 import Channel from './components/Channel';
 import StatusService from './services/status';
 
+import RoundProgress from './components/RoundProgress';
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 const vm = new Vue({
 	el: '#server-stat',
-	components: { ServerStatus, DisplayServers, DisplayChannels, Game, Server, Channel },
+	components: { ServerStatus, DisplayServers, DisplayChannels, Game, Server, Channel, RoundProgress },
 	data: function () {
 		return {
 			status: undefined
