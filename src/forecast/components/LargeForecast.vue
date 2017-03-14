@@ -17,7 +17,13 @@
 			};
 		},
 		computed: {
+			until() {
+				return this.forecast.startTime - this.clock.real;	
+			},
 			currentlyNight() {
+				if (this.until > 0) {
+					return this.forecast.startTime.toErinn().isNight();
+				}
 				return this.clock.erinn.isNight();
 			},
 			intensity() {
