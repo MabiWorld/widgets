@@ -1,4 +1,4 @@
 import './patch';
-import clock from './clock';
+import Clock from './clock';
 
-export { clock };
+export { Clock };

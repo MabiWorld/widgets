@@ -29,7 +29,12 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: 'mss/demo.html',
+      filename: 'forecast/index.html',
+      template: 'demo/forecast/index.html',
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'mss/index.html',
       template: 'demo/mss/index.html',
       inject: true
     }),

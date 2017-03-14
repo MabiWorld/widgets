@@ -3,7 +3,11 @@ import moment from 'moment';
 import 'moment-timezone';
 import { SERVER_TIMEZONE } from './constants';
 
-export default {
+const Clock = {
+	now: {
+		erinn: getErinnTime(),
+		real: getServerTime()
+	},
 	getServerTime,
 	getErinnTime,
 	onRealTimeTicked,
@@ -11,6 +15,8 @@ export default {
 	onErinnTimeTicked,
 	offErinnTimeTicked
 };
+
+export default Clock;
 
 let handlers = {
 	real: new Set(),
@@ -40,7 +46,9 @@ function getErinnTime() {
 }
 
 function updateErinnTime() {
-	trigger(handlers.erinn, getErinnTime());
+	const time = getErinnTime();
+	Clock.now.erinn = time;
+	trigger(handlers.erinn, time);
 	var next = getErinnTime().add(1, 'minute').second(0).millisecond(0); // Get it again since we wasted time in handlers
 
 	// set up next round
@@ -48,7 +56,9 @@ function updateErinnTime() {
 }
 
 function updateRealTime() {
-	trigger(handlers.real, getServerTime());
+	const time = getServerTime();
+	Clock.now.real = time;
+	trigger(handlers.real, time);
 
 	setTimeout(updateRealTime, 1000 - moment().milliseconds());
 }

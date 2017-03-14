@@ -1,0 +1,162 @@
+$intensityMap: (
+		//      Large,         small day [night] 
+	"-9": ("unknown.png", "unknown-sm.png"),
+	"-8": ("none.png", ("palala-sm.png", "eweca-sm.png")),
+	"-7": ("cloudy1.png", ("palala-sm.png", "eweca-sm.png")),
+	"-6": ("cloudy2.png", ("cloudy1-sm.png", "cloudy1-sm-n.png")),
+	"-5": ("cloudy2.png", ("cloudy1-sm.png", "cloudy1-sm-n.png")),
+	"-4": ("cloudy3.png", ("cloudy2-sm.png", "cloudy2-sm-n.png")),
+	"-3": ("cloudy3.png", ("cloudy2-sm.png", "cloudy2-sm-n.png")),
+	"-2": ("cloudy4.png", ("cloudy3-sm.png", "cloudy2-sm-n.png")),
+	"-1": ("cloudy4.png", ("cloudy3-sm.png", "cloudy2-sm-n.png")),
+	0: ("cloudy5.png", "cloudy4-sm.png"),
+	1: ("rain1-5.png", "rain1-5-sm.png"),
+	2: ("rain1-5.png", "rain1-5-sm.png"),
+	3: ("rain1-5.png", "rain1-5-sm.png"),
+	4: ("rain1-5.png", "rain1-5-sm.png"),
+	5: ("rain1-5.png", "rain1-5-sm.png"),
+	6: ("rain6-14.png", "rain6-14-sm.png"),
+	7: ("rain6-14.png", "rain6-14-sm.png"),
+	8: ("rain6-14.png", "rain6-14-sm.png"),
+	9: ("rain6-14.png", "rain6-14-sm.png"),
+	10: ("rain6-14.png", "rain6-14-sm.png"),
+	11: ("rain6-14.png", "rain6-14-sm.png"),
+	12: ("rain6-14.png", "rain6-14-sm.png"),
+	13: ("rain6-14.png", "rain6-14-sm.png"),
+	14: ("rain6-14.png", "rain6-14-sm.png"),
+	15: ("rain15-19.png", "rain15-19-sm.png"),
+	16: ("rain15-19.png", "rain15-19-sm.png"),
+	17: ("rain15-19.png", "rain15-19-sm.png"),
+	18: ("rain15-19.png", "rain15-19-sm.png"),
+	19: ("rain15-19.png", "rain15-19-sm.png"),
+	20: ("rain20.png", "rain20-sm.png")
+);
+
+$customIntensityMap: (
+	physis: (
+		1: ("snow1-9.png", "snow1-9-sm.png"),
+		2: ("snow1-9.png", "snow1-9-sm.png"),
+		3: ("snow1-9.png", "snow1-9-sm.png"),
+		4: ("snow1-9.png", "snow1-9-sm.png"),
+		5: ("snow1-9.png", "snow1-9-sm.png"),
+		6: ("snow1-9.png", "snow1-9-sm.png"),
+		7: ("snow1-9.png", "snow1-9-sm.png"),
+		8: ("snow1-9.png", "snow1-9-sm.png"),
+		9: ("snow1-9.png", "snow1-9-sm.png"),
+		10: ("snow10-19.png", "snow10-19-sm.png"),
+		11: ("snow10-19.png", "snow10-19-sm.png"),
+		12: ("snow10-19.png", "snow10-19-sm.png"),
+		13: ("snow10-19.png", "snow10-19-sm.png"),
+		14: ("snow10-19.png", "snow10-19-sm.png"),
+		15: ("snow10-19.png", "snow10-19-sm.png"),
+		16: ("snow10-19.png", "snow10-19-sm.png"),
+		17: ("snow10-19.png", "snow10-19-sm.png"),
+		18: ("snow10-19.png", "snow10-19-sm.png"),
+		19: ("snow10-19.png", "snow10-19-sm.png")
+	)
+);
+
+.forecast-area {
+	/*position: absolute;*/
+
+	display: inline-block;
+	width: 150px;
+	padding: 5px;
+
+	background-color: #222;
+}
+
+.forecast-area-title {
+	width: 100%;
+
+	color: #eee;
+	text-align: center;
+}
+
+.forecast-area-today {
+	position: relative;
+	overflow: hidden;
+
+	width: 100%;
+	height: 150px;
+
+	margin: 5px 0px;
+}
+
+.area-forecast td {
+	overflow: hidden;
+
+	width: 100%;
+
+	color: #eee;
+	text-align: center;
+	border-top: 1px solid black;
+}
+
+/* Big widget */
+.forecast-big-bg {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+
+	width: 112px;
+	height: 112px;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.forecast-big-bg.day {
+	background-image: url('img/palala.png');
+}
+
+.forecast-big-bg.night {
+	background-image: url('img/eweca.png');
+}
+
+.forecast-big-weather {
+	position: absolute;
+	top: 40px;
+	left: 35px;
+
+	width: 115px;
+	height: 115px;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.forecast-small-weather {
+	width: 45px;
+	height: 45px;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+@each $intensity, $img in $intensityMap {
+	.forecast-big-weather.forecast-intensity_#{$intensity} {
+		background-image: url('img/#{nth($img, 1)}');
+	}
+
+	$small: nth($img, 2);
+	
+	.forecast-small-weather.forecast-intensity_#{$intensity} {
+		background-image: url('img/#{nth($small, 1)}');
+	}
+
+	@if length($small) == 2 {
+		.forecast-small-weather.forecast-intensity_#{$intensity}.night {
+			background-image: url('img/#{nth($small, 2)}');
+		}
+	}
+}
+
+
+@each $area, $map in $customIntensityMap {
+	@each $intensity, $img in $map {
+		.forecast-big-weather.forecast-intensity_#{$intensity}.forecast-area-#{$area} {
+			background-image: url('img/#{nth($img, 1)}');
+		}
+		.forecast-small-weather.forecast-intensity_#{$intensity}.forecast-area-#{$area} {
+			background-image: url('img/#{nth($img, 2)}');
+		}
+	}
+}
