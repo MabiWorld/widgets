@@ -103,36 +103,43 @@ $customIntensityMap: (
 	height: 112px;
 	background-repeat: no-repeat;
 	background-size: contain;
-
-	// Day to night transitions
-	// Move left and down, then change img and set right, then in
-
-	animation-name: day-to-night-big-left-out, day-to-night-big-top-out, day-to-night-big-left-in, day-to-night-big-top-in;
-	animation-duration: 1s, 1s, 1s, 1s;
-	animation-delay: 0s, 0s, 1s, 1s;
-	animation-timing-function: ease-out, ease-in, ease-in, ease-out;
-
-	transition: background-image 0s;
-	//transition-delay: 2s;
 }
 
 $big-bg-ani-width: 150;
+
+// Day to night transitions
+// Move left and down, then change img and set right, then in
+.forecast-big-daychange-enter-active {
+	animation-name: day-to-night-big-left-in, day-to-night-big-top-in;
+	animation-duration: 2s, 2s;
+	animation-delay: 0s, 0s;
+	animation-timing-function: ease-in, ease-out;
+}
+
+.forecast-big-daychange-leave-active {
+	animation-name: day-to-night-big-left-out, day-to-night-big-top-out;
+	animation-duration: 1s, 1s;
+	animation-delay: 0s, 0s;
+	animation-timing-function: ease-out, ease-in;
+}
 
 @keyframes day-to-night-big-left-out {
 	from {left: 0px; }
 	to { left: -#{$big-bg-ani-width}px; }
 }
 @keyframes day-to-night-big-left-in {
-	from {left: #{$big-bg-ani-width}px; }
-	to { left: 0px; }
+	0% {left: #{$big-bg-ani-width}px; }
+	50% {left: #{$big-bg-ani-width}px; }
+	100% { left: 0px; }
 }
 @keyframes day-to-night-big-top-out {
 	from {top: 0px; }
 	to { top: #{$big-bg-ani-width*2/3}px; }
 }
 @keyframes day-to-night-big-top-in {
-	from {top: #{$big-bg-ani-width*2/3}px; }
-	to { top: 0px; }
+	0% {top: #{$big-bg-ani-width*2/3}px; }
+	50% {top: #{$big-bg-ani-width*2/3}px; }
+	100% { top: 0px; }
 }
 
 .forecast-big-bg.day {
