@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<div :class="'forecast-area-' + area.id">
 		<div class="forecast-area-title">{{ area.id }}</div>
 		<large-forecast class="forecast-area-today" :title="area.now.intensity" :forecast="area.now"></large-forecast>
-		<div class="area-forecast" :class="'forecast-area-' + area.id">
+		<div class="area-forecast">
 			<table v-if="area.next">
 				<tr>
 					<td v-for="next in area.next" :title="next.intensity">

@@ -152,10 +152,10 @@ $customIntensityMap: (
 
 @each $area, $map in $customIntensityMap {
 	@each $intensity, $img in $map {
-		.forecast-big-weather.forecast-intensity_#{$intensity}.forecast-area-#{$area} {
+		.forecast-area-#{$area} .forecast-big-weather.forecast-intensity_#{$intensity} {
 			background-image: url('img/#{nth($img, 1)}');
 		}
-		.forecast-small-weather.forecast-intensity_#{$intensity}.forecast-area-#{$area} {
+		.forecast-area-#{$area} .forecast-small-weather.forecast-intensity_#{$intensity} {
 			background-image: url('img/#{nth($img, 2)}');
 		}
 	}
