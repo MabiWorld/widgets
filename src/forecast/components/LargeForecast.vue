@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<transition name="forecast-big-daychange">
-			<div key="night" v-if="currentlyNight" class="forecast-big-bg night"></div>
-			<div key="day" v-else class="forecast-big-bg day"></div>
-		</transition>
+		<transition-group name="forecast-big-daychange">
+			<div key="night" v-show="currentlyNight" class="forecast-big-bg night"></div>
+			<div key="day" v-show="!currentlyNight" class="forecast-big-bg day"></div>
+		</transition-group>
 		<div class="forecast-big-weather" :class="'forecast-intensity_' + intensity"></div>
 	</div>
 </template>
