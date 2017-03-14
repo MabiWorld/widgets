@@ -11,9 +11,14 @@
 	export default {
 		name: 'large-forecast',
 		props: ['forecast'],
+		data: function() {
+			return {
+				clock: Clock.now
+			};
+		},
 		computed: {
 			currentlyNight() {
-				return Clock.now.erinn.isNight();
+				return this.clock.erinn.isNight();
 			},
 			intensity() {
 				return this.forecast.intensity;
