@@ -103,6 +103,36 @@ $customIntensityMap: (
 	height: 112px;
 	background-repeat: no-repeat;
 	background-size: contain;
+
+	// Day to night transitions
+	// Move left and down, then change img and set right, then in
+
+	animation-name: day-to-night-big-left-out, day-to-night-big-top-out, day-to-night-big-left-in, day-to-night-big-top-in;
+	animation-duration: 1s, 1s, 1s, 1s;
+	animation-delay: 0s, 0s, 1s, 1s;
+	animation-timing-function: ease-out, ease-in, ease-in, ease-out;
+
+	transition: background-image 0s;
+	//transition-delay: 2s;
+}
+
+$big-bg-ani-width: 150;
+
+@keyframes day-to-night-big-left-out {
+	from {left: 0px; }
+	to { left: -#{$big-bg-ani-width}px; }
+}
+@keyframes day-to-night-big-left-in {
+	from {left: #{$big-bg-ani-width}px; }
+	to { left: 0px; }
+}
+@keyframes day-to-night-big-top-out {
+	from {top: 0px; }
+	to { top: #{$big-bg-ani-width*2/3}px; }
+}
+@keyframes day-to-night-big-top-in {
+	from {top: #{$big-bg-ani-width*2/3}px; }
+	to { top: 0px; }
 }
 
 .forecast-big-bg.day {
