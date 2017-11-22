@@ -1,7 +1,3 @@
-.template, .make-timer {
-	display: none !important;
-}
-
 .time-erinn-current:before {
 	content: "Erinn Time: ";
 }

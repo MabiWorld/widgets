@@ -209,7 +209,7 @@ timer_type.rotate = function (display, args, list) {
 		// Remaining time left from now til the next point of "every"
 		var st = getServerTime();
 		rotation = Math.floor(st.diff(epoch) / every);
-		nextEvery = moment(epoch).add((rotation + 1) * every);
+		var nextEvery = moment(epoch).add((rotation + 1) * every);
 		rotation %= list.length;
 		setTimeout(rotateAndReschedule, nextEvery.diff(st));
 	}

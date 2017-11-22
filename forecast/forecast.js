@@ -31,7 +31,7 @@ var l18n = {
 	"physis": "Physis",
 	"type11": "The Shadow Realm",
 	"type12": "Western Uladh",
-	"type13": "Doki Doki Island??",
+	"type13": "Unknown",
 
 	"intensity": {
 		"-9": "Random weather!",
@@ -70,8 +70,10 @@ var l18n_short = {
 	"physis": "Physis",
 	"type11": "Shadows",
 	"type12": "W.Uladh",
-	"type13": "DokiDoki??",
+	"type13": "Unknown",
 }
+
+var l18n_link = {};
 
 var weather2gfx = {
 	//      Large,           Day small,          Night small 
@@ -141,8 +143,18 @@ function intensity(v, id) {
 	return ww[v];
 }
 
+function boundNearest(date) {
+	date = moment(date).seconds(0);
+	var mn = date.minutes();
+	if (mn < 10) date.minutes(0);
+	else if (mn < 30) date.minutes(20);
+	else if (mn < 50) date.minutes(40);
+	else data.add(1, "hour").minutes(0);
+	return date;
+}
+
 function boundUp(date) {
-	date = moment(date);
+	date = moment(date).seconds(0);
 	var mn = date.minutes();
 	if (mn < 20) date.minutes(20);
 	else if (mn < 40) date.minutes(40);
@@ -151,7 +163,7 @@ function boundUp(date) {
 }
 
 function boundDown(date) {
-	date = moment(date);
+	date = moment(date).seconds(0);
 	var mn = date.minutes();
 	if (mn < 20) date.minutes(0);
 	else if (mn < 40) date.minutes(20);
@@ -167,7 +179,7 @@ function getgfx(fc, idx, id) {
 	}
 
 	if (gfx.substr(0, 4) == "http" || gfx.charAt(0) == "/") return gfx;
-	return "http://mabi.world/gfx/" + gfx;
+	return "//mabi.world/gfx/" + gfx;
 }
 
 // Load everything
@@ -176,7 +188,13 @@ $(function(){
 	var $wgs = $(".weather.settings .weather-intensity");
 	if ($wgs.length > 0) {
 		// Table is of the form:
+		// Intensity Location Graphics+ Commentary
 		// Intensity Location LargeGfx SmallGfx-Day SmallGfx-Night Commentary
+
+		var numGfx = 3;
+		var mo = $wgs.attr("class").match("num-gfx-(\d+)");
+		if (mo) numGfx = parseInt(mo[1]);
+
 		$wgs.find("tr").each(function () {
 			var arr = [];
 			$(this).find("td").each(function () { arr.push($(this)); });
@@ -201,8 +219,13 @@ $(function(){
 				return $x.find("img").addBack("img").attr("src");
 			}
 
-			wwg[arr[0]] = [imgsrc(arr[2]), imgsrc(arr[3]), imgsrc(arr[4])];
-			wwc[arr[0]] = arr[5].text();
+			var limit = Math.min(numGfx + 2, arr.length - 1), gfx = [];
+			for (var i=2; i < limit; ++i) {
+				gfx.push(imgsrc(arr[i]));
+			}
+
+			wwg[arr[0]] = gfx;
+			wwc[arr[0]] = arr[limit].text();
 		});
 	}
 
@@ -212,10 +235,28 @@ $(function(){
 		weather2gfx.body[1] = $wbs.find("img.eweca").attr("src");
 	}
 
+	var $wts = $(".weather.settings .weather-titles");
+	if ($wts.length > 0) {
+		$wts.find("tr").each(function () {
+			var $this = $(this);
+			var name = $this.children("td:first").text().trim();
+			var $long = $this.children("td:nth-child(2)");
+			var $short = $this.children("td:last");
+
+			l18n[name] = $long.text();
+			l18n_short[name] = $short.text();
+
+			if ($long.is(":has(a)")) {
+				l18n_link[name] = $long.find("a").attr("href");
+			}
+		});
+	}
+
 	$(".weather.settings").remove();
 
 	loadHourWidget();
 	loadBestRainWidgets();
+	loadGenericWeatherWidgets();
 });
 
 // Hour forecast widget functions
@@ -225,7 +266,9 @@ function loadHourWidget() {
 	if ($wwh.length == 0) return;
 
 	// Remove MediaWiki forced sizes...
-	$wwh.find("a.image > img").removeAttr("width").removeAttr("height").unwrap();
+	var $imgs = $wwh.find("a.image > img").unwrap();
+	$imgs.filter("[width='1']").removeAttr("width")
+	$imgs.filter("[height='1']").removeAttr("height")
 
 	// Template out each area, hide them, and add them to the scroll list
 	var scrolList = new Array();
@@ -249,7 +292,13 @@ function loadHourWidget() {
 
 		var name = l18n[id], $new;
 		$new = $template.clone().removeClass("template").attr("id", "weather-hour-" + id);
-		$new.find(".area-title").text(name);
+		if (id in l18n_link) {
+			$new.find(".area-title").append(
+				$("<a>").attr("href", l18n_link[id]).text(name)
+			);
+		} else {
+			$new.find(".area-title").text(name);
+		}
 		$new.find(".area-today-body").attr("src", getgfx("body", erinnDay, "body")).data({"forecast": "body", "table": id});
 		$wwh.append($new.hide());
 
@@ -281,7 +330,7 @@ function loadHourWidget() {
 function updateAreas(handler) {
 	var highestForecast = $(".weather-widget-hour").data("highestForecast");
 	$.ajax({
-		url: "http://mabi.world/forecast.php",
+		url: "//mabi.world/forecast.php",
 		data: {
 			duration: highestForecast + 1,
 		},
@@ -310,7 +359,8 @@ function updateAreas(handler) {
 			}
 
 			if (typeof(handler) === "function") handler();
-		}
+		},
+		// TODO: Handle 502s
 	});
 }
 
@@ -347,53 +397,75 @@ function fcgfxani($elem, fc, sm, id, skip) {
 function updateGametime(e, daynight) {
 	$(".area-hour:not(.template)").each(function() {
 		var $this = $(this), $body = $this.find(".area-today-body"), id = $body.data("table");
-		$body.data({"pos": $body.position()})
-		// Go out to the left
-		.animate({
-			"left": [-$body.width(), 'easeOutSine'],
-			"top": [$body.height() * 2 / 3, 'easeInSine']
-		}, {
-			"complete": function() {
-				// Change image, and come in from the right
-				var fc = $body.data("forecast");
-				$body.attr({
-					"src": getgfx(fc, daynight, id),
-					"title": intensity(fc)
-				})
-				.css("left", $body.parent().width())
-				.animate({
-					"left": [$body.data("pos").left, 'easeInSine'],
-					"top": [$body.data("pos").top, 'easeOutSine']
-				});
-			}
-		});
-
-		// Shift little forecasts down
 		var highestForecast = $this.parent(".weather-widget-hour").data("highestForecast");
-		for (var i = 1; i <= highestForecast; ++i) {
-			var $e = $this.find(".area-forecast-" + i.toString());
-			if($e.length == 0) continue;
 
-			var fc = $e.data("forecast");
-			$e.css("position", "relative")
+		if ($this.is(":visible")) { 
+			$body.data({"pos": $body.position()})
+			// Go out to the left
 			.animate({
-				"top": $e.parent().height()
+				"left": [-$body.width(), 'easeOutSine'],
+				"top": [$body.height() * 2 / 3, 'easeInSine']
 			}, {
-				"complete": function() {
-					// Change image and then come back up!
-					$e.attr({
-						"src": getgfx(fc, daynight + 1, id),
+				"complete": function () {
+					// Change image, and come in from the right
+					var $body = $(this);
+					var fc = $body.data("forecast");
+					$body.attr({
+						"src": getgfx(fc, daynight, id),
 						"title": intensity(fc)
 					})
+					.css("left", $body.parent().width())
 					.animate({
-						"top": 0
-					}, {
-						"complete": function() {
-							$e.removeAttr("style");
-						}
+						"left": [$body.data("pos").left, 'easeInSine'],
+						"top": [$body.data("pos").top, 'easeOutSine']
 					});
 				}
 			});
+
+			// Shift little forecasts down
+			for (var i = 1; i <= highestForecast; ++i) {
+				var $e = $this.find(".area-forecast-" + i.toString());
+				if($e.length == 0) continue;
+
+				$e.css("position", "relative")
+				.animate({
+					"top": $e.parent().height()
+				}, {
+					"complete": function () {
+						// Change image and then come back up!
+						var $e = $(this);
+						var fc = $e.data("forecast");
+						$e.attr({
+							"src": getgfx(fc, daynight + 1, id),
+							"title": intensity(fc)
+						})
+						.animate({
+							"top": 0
+						}, {
+							"complete": function() {
+								$e.removeAttr("style");
+							}
+						});
+					}
+				});
+			}
+		} else {
+			var fc = $body.data("forecast");
+			$body.attr({
+				"src": getgfx(fc, daynight, id),
+				"title": intensity(fc)
+			})
+
+			for (var i = 1; i <= highestForecast; ++i) {
+				var $e = $this.find(".area-forecast-" + i.toString());
+				if($e.length == 0) continue;
+
+				var fc = $e.data("forecast");
+				$e.attr({
+					"src": getgfx(fc, daynight + 1, id),
+					"title": intensity(fc)
+				})
+			}
 		}
 	});
 }
@@ -478,6 +550,12 @@ function updateRain($time) {
 			return function(data) {
 				var id = "type1";
 
+				// If it's not raining, run the else case.
+				if (elseCase && data.best.rain.is < 1) {
+					elseCase($elem);
+					return;
+				}
+
 				function getname(n, l18n, custom) {
 					if (custom && n in custom) return custom[n];
 					return l18n[n];
@@ -522,15 +600,16 @@ function updateRain($time) {
 				});
 				
 				// We need to countdown from now until thunder time!
-				countDown($elem.find(".rain-time"), moment(data.from).add(data.next.in, "minutes"), "In ", updateRain);
+				countDown($elem.find(".rain-time"), boundNearest(moment(data.from).add(data.next.in, "minutes")), "In ", updateRain);
 			}
 		}
 	}
 
-	$(".weather-widget-rain-summary .rain-area:not(.template)").each(function() {
+	function runUpdates() {
 		// We want to grab the data and handle else cases appropriately
-		var $this = $(this),
-		    cases = $this.data("cases");
+		//var $this = $(this),
+		var $this = $(this);
+		var cases = $this.data("cases");
 
 		var i = 0;
 		function runUpdate() {
@@ -543,13 +622,207 @@ function updateRain($time) {
 				return;
 			}
 
+			var data = {
+				"from": boundDown(getServerTime()).format("YYYY-MM-DDTHH:mm:ss")
+			};
+
+			if (queryType == "next") data.for = "all";
+
+			for (var k in cases[i]) data[k] = cases[i][k];
+			++i;
+
 			$.ajax({
-				url: "http://mabi.world/forecast.php",
-				data: cases[i++],
+				url: "//mabi.world/forecast.php",
+				data: data,
 				dataType: "json",
-				success: updates[queryType]($this, runUpdate)
+				success: updates[queryType]($this, i < cases.length ? runUpdate : null),
+				// TODO: Handle 502s
 			});
 		}
 		runUpdate();
+	}
+
+	if ($time) {
+		runUpdates.call($time.parents(".rain-area"));
+	} else {
+		$(".weather-widget-rain-summary .rain-area:not(.template)").each(runUpdates);
+	}
+}
+
+// Makegeneric widgets.
+function loadGenericWeatherWidgets() {
+	var $wws = $(".weather-widget").each(function () {
+		var $ww = $(this);
+
+		var $settings = $ww.find(".settings");
+		settings = parseSettings($settings.text());
+		$settings.remove();
+
+		// General settings.
+		$ww.data("graphic", settings.graphic || 0);
+
+		// Store query parameters from settings.
+		var data = {};
+		for (var x in {
+			"of": 0, "of-all-except": 0,
+			"from": 0, "at": 0, "to": 0, "duration": 0, "tz": 0,
+			"type": 0, "next": 0, "for": 0, "in": 0, "best": 0,
+		}) {
+			if (x in settings) data[x] = settings[x];
+		}
+		$ww.data("params", data);
+
+		// Settings per node.
+		$ww.find(".time").each(function () {
+			var $this = $(this);
+			$this.data("format", $this.text());
+			$this.text("");
+			$this.show().css("visibility", "visible");
+		});
+
+		// Create fields.
+		if ("update" in settings) {
+			// Given in minutes. Minimum of 1 minute.
+			var interval = Math.max(settings.update, 1) * 60 * 1000
+			setInterval(updateGenericWeather.bind(null, $ww), interval);
+		}
+		updateGenericWeather($ww);
 	});
 }
+
+function _filterHTML(html, tag, attrs, hasText, _, text) {
+	var mo;
+
+	// Validate tagname.
+	if ([
+		"sub", "sup",
+		"b", "i", "u", "s",
+		"del", "em", "strong",
+	].indexOf(tag) < 0) {
+		return text;
+	}
+
+	if (attrs) {
+		var attrSpl = attrs.split(/([\w-\d]+)="([^"]+)"/);
+		attrs = {};
+		for (var i=0; i < attrSpl.length; i += 3) {
+			attrs[attrSpl[i+1]] = attrSpl[i+2];
+		}
+	} else {
+		attrs = {}
+	}
+
+	text = text || "";
+
+	var ret;
+	if (tag == "sub" || tag == "sup") {
+		var open = "<" + tag + ">", close = "</" + tag + ">";
+
+		if ("first" in attrs) {
+			ret = open + text.substr(0, attrs.first) + close + text.substr(attrs.first);
+		}
+		else if ("last" in attrs) {
+			var pos = text.length - attrs.last;
+			ret = text.substr(0, pos) + open + text.substr(pos) + close;
+		}
+		else {
+			ret = open + text + close;
+		}
+	}
+	else if (hasText) {
+		ret = "<" + tag + ">" + text + "</" + tag + ">";
+	}
+	else {
+		ret = "<" + tag + "/>";
+	}
+
+	return ret;
+}
+
+function filterHTML(html) {
+	html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	html = html.replace(/&lt;(\w+)( +[\w-\d]+="[^"]+")*( *\/&gt;|&gt;(([^&]+|&[^gl]|&[gl][^t]|&[gl]t[^;])+)&lt;\/ *\1 *&gt;)/g, _filterHTML);
+	return html;
+}
+
+function updateGenericWeather($ww) {
+	var settings = $ww.data();
+
+	$.ajax({
+		url: "//mabi.world/forecast.php",
+		data: settings.params,
+		dataType: "json",
+		success: function (data) {
+			if ("errors" in data) {
+				console.log("Errors from weather request:", data.errors);
+				return;
+			}
+
+			var from = moment(data.from);
+			$ww.find(".from").each(function () {
+				var $this = $(this);
+				var text = from.format($this.data("format"));
+
+				text = filterHTML(text);
+				$this.html(text);
+			});
+
+			$ww.find(".area-title").each(function () {
+				var $this = $(this);
+				var id = $this.attr("class").match(/type\d+|type-(\S+)/);
+
+				if (id) id = id[1] || id[0];
+
+				$this.text(($this.hasClass("short") ? l18n_short : l18n)[id]);
+			});
+
+			$ww.find(".forecast").each(function () {
+				var $this = $(this);
+				var mo = $this.attr("class").match(/\b(type\d+)-(\d+)\b/);
+
+				var id, val; 
+
+				if (mo) {
+					id = mo[1];
+					val = mo[2];
+				} else {
+					var multi = false;
+					for (var k in data.forecast) {
+						if (id) multi = true;
+						else id = k;
+					}
+					if (multi) {
+						id = null;
+						console.warn("Forecasting: ID must be specified when querying multiple patterns.");
+					} else {
+						mo = $this.attr("class").match(/\bi(\d+)\b/)
+						if (mo) val = mo[1];
+						else {
+							id = null;
+							console.warn("Forecasting: Target index must be specified with i#.");
+						}
+					}
+				}
+
+				if (id) {
+					var weather = data.forecast[id][parseInt(val)];i
+					var intense = intensity(weather, id);
+					var classes = $this.attr("class").replace(/intensity-\d+/g, "");
+					$this.attr("class", classes).addClass("intensity-" + weather.toString()); 
+					if ($this.prop("tagName") == "IMG") {
+						$this.attr({
+							"src": getgfx(weather, settings.graphic, id), 
+							"title": intense
+						})
+					} else {
+						$this.text(intense);
+					}
+				}
+			});
+
+			// TODO: next and best
+		},
+		// TODO: Handle 502s
+	});
+}
+
