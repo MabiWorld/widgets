@@ -355,6 +355,7 @@ timer_type.compress = function (display, args, list) {
 
 	function query(idx) {
 		var i, li = 0, passed, lookFor = timer.value(0), v;
+		if (args.remaining) ++idx;
 		for (i = 1, passed = 0; passed < idx; ++i) {
 			// TODO: Infinite loop if all the same value 
 			if ((v = timer.value(i)) != lookFor) {
@@ -363,6 +364,8 @@ timer_type.compress = function (display, args, list) {
 				li = i;
 			}
 		}
+		if (args.remaining) --li;
+
 		return li;
 	}
 
@@ -523,7 +526,7 @@ display_type.countdown = function($elem, args) {
 	var $display = createHeader($elem, args, "countdown");
 
 	this.update = function (timer) {
-		var time = timer.time(1), value = timer.value(0);
+		var time = timer.time(args.remaining ? 0 : 1), value = timer.value(0);
 		var html = output
 			.replace("%v", value)
 			.replace("%t", '<span class="timer-countdown"></span>');
