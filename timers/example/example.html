@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MabiWorld Timers Examples</title>
+    <link rel="stylesheet" href="style.css"></script>
+    <script src="jquery.js"></script>
+    <script type="module" src="../timers/main.js"></script>
+  </head>
+  <body>
+
+    <div style="display: block;">
+      <h1 style="font-size: 1.8em; margin-bottom: 0.25em; line-height: 1.3; border-bottom: 1px solid #a2a9b1;">Clock Examples</h1>
+    </div>
+
+
+
+    <div style="display:block;">
+
+      <div style="display:inline-block;">
+        <table width="300px" style="border: 1px solid #CCCCCC; font-size: 12px; float: left; margin:10px;">
+          <tbody>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                1: Real Days and Times
+              </td>
+            </tr>
+            <tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Local Day &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Day of the Week" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" title="Day of the Week" width="40" height="40">
+              </td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} timeFormat=h:mmL weekday=true entryFormat={%t}</span>
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Server Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" title="Server Time" width="40" height="40"></td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} 12hour=true suffix={ am}{ pm} timeFormat=h:mmL entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Server Day &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Day of the Week" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" title="Day of the Week" width="40" height="40">
+              </td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} timeFormat=h:mmS weekday=true entryFormat={%t}</span>
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Server Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" title="Server Time" width="40" height="40"></td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} 12hour=true suffix={ am}{ pm} timeFormat=h:mmS entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Erinn Month &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;">
+                <a href="https://wiki.mabi.world/view/Time#Daily_Effects" title="Erinn Month"><img alt="Erinn Month" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" width="40" height="40"></a>
+              </td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=list timer=todayTimer entryStyle={display:inline;} entryFormat={%l1_%v%l}</span> <!-- A rotate timer is used here instead of a clock so we can use links -->
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;">
+                <a href="https://wiki.mabi.world/view/Time" title="Erinn Time"><img alt="Erinn Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" width="40" height="40"></a>
+              </td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} 12hour=true suffix={ am}{ pm} timeFormat=h:mmE entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:inline-block;">
+        <table width="300px" style="border: 1px solid #CCCCCC; font-size: 12px; float: left; margin:10px;">
+          <tbody>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                2: Rapidly Changing Days With Updating Links
+              </td>
+            </tr>
+            <tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Local Day &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Day of the Week" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" title="Day of the Week" width="40" height="40">
+              </td>
+              <td style="height: 40px; width:110px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=list timer=rapidWeekdayTimer entryStyle={display:inline;} entryFormat={%l1_%v%l}</span>
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Server Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" title="Server Time" width="40" height="40"></td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} timeStyle={font-family:verdana;} 12hour=true suffix={ am}{ pm} timeFormat=h:mm:ssL entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Server Day &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Day of the Week" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" title="Day of the Week" width="40" height="40">
+              </td>
+              <td style="height: 40px; width:110px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=list timer=rapidWeekdayTimer entryStyle={display:inline;} entryFormat={%l1_%v%l}</span>
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;"><img alt="Server Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" title="Server Time" width="40" height="40"></td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} timeStyle={font-family:verdana;} 12hour=true suffix={ am}{ pm} timeFormat=h:mm:ssS entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" style="height: 24px; line-height: 24px; text-align: center; background-color: #EEEEEE; font-weight: bold">
+                Erinn Month &amp; Time
+              </td>
+            </tr>
+            <tr>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;">
+                <a href="https://wiki.mabi.world/view/Time#Daily_Effects" title="Erinn Month"><img alt="Erinn Month" src="https://wiki.mabi.world/images/0/0c/TimerCalender.png" decoding="async" width="40" height="40"></a>
+              </td>
+              <td style="height: 40px; width:110px; line-height: 20px; padding-top: 12px; vertical-align: top; text-align:center">
+                <div class="make-timer-display">
+                  <span class="settings">type=list timer=rapidTodayTimer entryStyle={display:inline;} entryFormat={%l1_%v%l}</span>
+                </div>
+              </td>
+              <td style="white-space:nowrap;width:1%; height: 40px; vertical-align: top; line-height: 40px; text-align: center;">
+                <a href="https://wiki.mabi.world/view/Time" title="Erinn Time"><img alt="Erinn Time" src="https://wiki.mabi.world/images/3/3c/TimerClock.png" decoding="async" width="40" height="40"></a>
+              </td>
+              <td style="height: 40px; line-height: 20px; padding-top: 12px; vertical-align: top">
+                <div class="make-timer-display">
+                  <span class="settings">type=clock entryStyle={display:inline-block;} timeStyle={font-family:verdana;} 12hour=true suffix={ am}{ pm} timeFormat=h:mm:ssE entryFormat={%t}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+
+    <div style="display: block;">
+      <h1 style="font-size: 1.8em; margin-bottom: 0.25em; line-height: 1.3; border-bottom: 1px solid #a2a9b1;">Timer Examples</h1>
+    </div>
+
+
+
+    <div style="display:block;">
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            3: Countdown example - Moongates
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=countdown timer=moongateTimer entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} entryFormat={now - %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=countdown timer=moongateTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={%t - %v} depth=6 startAtEntry=2</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=countdown timer=moongateTimer entryStyle={display:block; border: 1px solid #CCCCCC; line-height: 20px; padding:3px;} timeStyle={display:inline;} query={Ceo Island} entryFormat={Ceo in %t}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            4: 24 hour example - Moongates (Local time)
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=moongateTimer entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} entryFormat={now - %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=moongateTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={%t - %v} timeFormat=h:mmL depth=6 startAtEntry=2</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=moongateTimer entryStyle={display:block; border: 1px solid #CCCCCC; line-height: 20px; padding:3px;} timeStyle={display:inline;} query={Ceo Island} timeFormat=h:mmL entryFormat={Ceo at %t}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            5: Query example
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=countdown timer=moongateTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} query={Ceo Island} entryFormat={%t - %v} depth=7</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            6: List example - Rua (local time)
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimer entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={Rua is currently %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} timeFormat=h:mmL 12hour=true suffix={ am}{ pm} entryFormat={%t - Rua will be %v} depth=7 startAtEntry=2</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            7: List example - Rua (server time)
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimer entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={Rua is currently %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} timeFormat=h:mmS 12hour=true suffix={ am}{ pm} entryFormat={%t - Rua will be %v} depth=7 startAtEntry=2</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            8: Compress example - Rua (local time)
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimerCompress entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={Rua is currently %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=ruaTimerCompress entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} timeFormat=h:mmL 12hour=true suffix={ am}{ pm} entryFormat={%t - Rua will be %v} depth=7 startAtEntry=2</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:250px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            9: Price (Local time)
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=priceTimer entryStyle={display:block; font-weight: bold; line-height: 20px; padding:3px; background-color: #e2f4ff; margin:2px;} valueStyle={display:inline;} entryFormat={now - %v}</span>
+          </div>
+          <div class="make-timer-display">
+            <span class="settings">type=list timer=priceTimer entryStyle={display:block; line-height: 20px; padding:3px;} valueStyle={display:inline;} timeStyle={display:inline;} entryFormat={%t - %v} 12hour=true suffix={ am}{ pm} timeFormat=h:mmL depth=7 startAtEntry=2</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div style="display:block;">
+
+      <div style="display: inline-block; height:70px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            10: changeAt on entries example - Fleta
+          </div>
+          <div style="line-height: 20px; padding: 3px; padding-right: 0px;">
+            <span class="make-timer-display">
+              <span class="settings">type=list timer=fletaTimer entryStyle={display: inline;} valueStyle={display: inline;} timeStyle={display: inline;} entryFormat={Fleta %v:}</span>
+            </span>
+            <span class="make-timer-display">
+              <span class="settings">type=countdown timer=fletaTimer entryStyle={display: inline;} valueStyle={display: inline;} timeStyle={display: inline;} depth=2 startAtEntry=2 timeFormat=mm:ssS entryFormat={%t}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: inline-block; height:70px; width:320px;">
+        <div style="border: 1px solid #CCCCCC; font-size: 12px; margin:10px; width:300px;">
+          <div style="text-align: center; background-color: #EEEEEE; font-weight: bold; padding:3px; margin:2px; line-height: 20px;">
+            11: changeAt on entries example - Byrun
+          </div>
+          <div style="line-height: 20px; padding: 3px; padding-right: 0px;">
+            <span class="make-timer-display">
+              <span class="settings">type=list timer=byrunTimer entryStyle={display: inline;} valueStyle={display: inline;} timeStyle={display: inline;} entryFormat={Byrun is %v}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div style="display: block;">
+      <h1 style="font-size: 1.8em; margin-bottom: 0.25em; line-height: 1.3; border-bottom: 1px solid #a2a9b1;">Inline Text Examples</h1>
+      <p style="font-size: calc(1em* 0.875); line-height: 1.6;">Timers can be placed within regular text on the page. For example, today is <span class="make-timer-display"><span class="settings">type=clock entryStyle={display:inline;} timeStyle={display:inline;} timeFormat=h:mmE weekday=true entryFormat={%t}</span></span>, the day in example 2 is <span class="make-timer-display"><span class="settings">type=list timer=rapidWeekdayTimer entryStyle={display:inline;} valueStyle={display:inline;} entryFormat={%v}</span></span>, Rua is currently <span class="make-timer-display"><span class="settings">type=list timer=ruaTimer entryStyle={display:inline;} valueStyle={display:inline;} entryFormat={%v}</span></span>, and in example 3 above <span class="make-timer-display"><span class="settings">type=list timer=moongateTimer entryStyle={display:inline;} valueStyle={display:inline;} entryFormat={%v} depth=3 startAtEntry=3 endAtEntry=3</span></span> is the third moongate in the list.</p>
+      <p style="font-size: calc(1em* 0.875); line-height: 1.6;">Verbose countdown example: <span class="make-timer-display"><span class="settings">type=list timer=fletaTimer entryStyle={display: inline;} valueStyle={display: inline;} entryFormat={Fleta %v }</span></span><span class="make-timer-display"><span class="settings">type=countdown timer=fletaTimer entryStyle={display: inline;} timeStyle={display: inline;} depth=2 startAtEntry=2 verbose=true hideAll0=true timeFormat=m:sS entryFormat={%t}</span></span>.</p>
+    </div>
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=todayTimer epoch=2016-01-31T00:00:00S changeEvery=24:00:00S</span>
+      <ul>
+        <li>Imbolic{link=https://wiki.mabi.world/view/Time#Imbolic}</li>
+        <li>Alban Eiler{link=https://wiki.mabi.world/view/Time#Alban_Eiler}</li>
+        <li>Baltane{link=https://wiki.mabi.world/view/Time#Baltane}</li>
+        <li>Alban Heruin{link=https://wiki.mabi.world/view/Time#Alban_Heruin}</li>
+        <li>Lughnasadh{link=https://wiki.mabi.world/view/Time#Lughnasadh}</li>
+        <li>Alban Elved{link=https://wiki.mabi.world/view/Time#Alban_Elved}</li>
+        <li>Samhain{link=https://wiki.mabi.world/view/Time#Samhain}</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=rapidTodayTimer epoch=2016-01-31T00:00:00S changeEvery=00:00:03S</span>
+      <ul>
+        <li>Imbolic{link=https://wiki.mabi.world/view/Time#Imbolic}</li>
+        <li>Alban Eiler{link=https://wiki.mabi.world/view/Time#Alban_Eiler}</li>
+        <li>Baltane{link=https://wiki.mabi.world/view/Time#Baltane}</li>
+        <li>Alban Heruin{link=https://wiki.mabi.world/view/Time#Alban_Heruin}</li>
+        <li>Lughnasadh{link=https://wiki.mabi.world/view/Time#Lughnasadh}</li>
+        <li>Alban Elved{link=https://wiki.mabi.world/view/Time#Alban_Elved}</li>
+        <li>Samhain{link=https://wiki.mabi.world/view/Time#Samhain}</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=rapidWeekdayTimer epoch=2016-01-31T00:00:00S changeEvery=00:00:03S</span>
+      <ul>
+        <li>Sunday{link=https://en.wikipedia.org/wiki/Sunday}</li>
+        <li>Monday{link=https://en.wikipedia.org/wiki/Monday}</li>
+        <li>Tuesday{link=https://en.wikipedia.org/wiki/Tuesday}</li>
+        <li>Wednesday{link=https://en.wikipedia.org/wiki/Wednesday}</li>
+        <li>Thursday{link=https://en.wikipedia.org/wiki/Thursday}</li>
+        <li>Friday{link=https://en.wikipedia.org/wiki/Friday}</li>
+        <li>Saturday{link=https://en.wikipedia.org/wiki/Saturday}</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=moongateTimer epoch=2008-03-23T22:39:00S changeAt=18:00E</span>
+      <ul>
+        <li>Tara</li>
+        <li>Ceo Island</li>
+        <li>Tir Chonaill</li>
+        <li>Taillteann</li>
+        <li>Emain Macha</li>
+        <li>Tara</li>
+        <li>Dunbarton</li>
+        <li>Port Ceann</li>
+        <li>Bangor</li>
+        <li>Emain</li>
+        <li>Tara</li>
+        <li>Tir</li>
+        <li>Taillteann</li>
+        <li>Ceo Island</li>
+        <li>Emain Macha</li>
+        <li>Tara</li>
+        <li>Bangor</li>
+        <li>Dunbarton</li>
+        <li>Port Ceann</li>
+        <li>Tara</li>
+        <li>Taillteann</li>
+        <li>Tir Chonail</li>
+        <li>Dunbarton</li>
+        <li>Bangor</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=priceTimer epoch=2016-01-25T00:00:00S changeAt=00:00E</span>
+      <ul>
+        <li>Outside Tir Chonaill Inn</li>
+        <li>Dugald Aisle Logging Camp Hut</li>
+        <li>Dunbarton East Potato Field</li>
+        <li>Dragon Ruins - House at 5 o'clock</li>
+        <li>Bangor Bar</li>
+        <li>Sen Mag 5th house from West</li>
+        <li>Emain Macha - Alley Behind Weapon Shop</li>
+        <li>Ceo Island</li>
+        <li>Emain Macha - Island in South Pathway</li>
+        <li>Sen Mag 5th house from West</li>
+        <li>Dragon Ruins - House at 5 o'clock</li>
+        <li>Outside Barri Dungeon</li>
+        <li>Dunbarton School Stairway</li>
+        <li>Dugald Aisle Logging Camp Hut</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=ruaTimer epoch=2024-11-01T04:03:00S changeAt=18:00E</span>
+      <ul>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>working</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=ruaTimerCompress epoch=2024-11-01T04:03:00S changeAt=18:00E compress=true</span>
+      <ul>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>working</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+        <li>resting</li>
+        <li>resting</li>
+        <li>working</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=fletaTimer</span>
+      <ul>
+        <li>for{changeAt=09:00E}</li>
+        <li>in{changeAt=11:00E}</li>
+        <li>for{changeAt=15:00E}</li>
+        <li>in{changeAt=17:00E}</li>
+        <li>for{changeAt=19:00E}</li>
+        <li>in{changeAt=21:00E}</li>
+      </ul>
+    </div>
+
+    <div style="display:none" class="make-timer">
+      <span class="settings">type=rotate id=byrunTimer</span>
+      <ul>
+        <li>travelling{changeAt=19:00E}</li>
+        <li>buying{changeAt=22:00E}</li>
+        <li>closing{changeAt=03:00E}</li>
+        <li>unreachable{changeAt=06:00E}</li>
+      </ul>
+    </div>
+
+  </body>
+</html>

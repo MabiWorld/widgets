@@ -1,0 +1,35 @@
+body{
+    font-family: sans-serif;
+}
+
+a:visited {
+    color: #0b0080;
+}
+
+a {
+    text-decoration: none;
+    color: #0645ad;
+    background: none;
+    font-weight: bold;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+
+.make-timer{
+    display: none;
+}
+
+.make-timer-display{
+    display: none;
+}
+
+.timer-display{
+    display: inline;
+}
+
+.timer{
+    display: none;
+}
