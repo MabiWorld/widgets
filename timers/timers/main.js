@@ -3,9 +3,7 @@ import { ConsoleTimerDisplay } from './display/ConsoleTimerDisplay.js';
 import { ListTimerDisplay } from './display/ListTimerDisplay.js';
 import { CountdownTimerDisplay } from './display/CountdownTimerDisplay.js';
 import { ClockTimerDisplay } from './display/ClockTimerDisplay.js';
-import { parseSettings,
-        timerDisplayError
-    } from './helper/utils.js';
+import { parseSettings, timerError, timerDisplayError } from './helper/utils.js';
 
 function initializeTimers(){
     // Setup all the timers
